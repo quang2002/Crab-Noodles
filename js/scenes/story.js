@@ -1,8 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 
 export class StoryScene extends Phaser.Scene {
-    static data = [
-        {
+    static data = [{
             image: "images.story-01",
             text: "Năm 2041, thế giới ngày càng phát triển, con người đã tạo ra những công nghệ có thể du hành đến bất kỳ đâu trong vũ trụ."
         },
@@ -41,12 +40,11 @@ export class StoryScene extends Phaser.Scene {
     }
 
     create() {
-        this.image = this.add.image(this.scale.width / 2, this.scale.height / 2 - 200, "");
+        this.image = this.add.image(this.scale.width / 2, this.scale.height / 2 - 200, "").setScale(1.5);
         this.text = this.add.text(
             this.scale.width / 2,
             this.scale.height / 2 + 100,
-            "",
-            {
+            "", {
                 fontFamily: GameConfig["font-family"],
                 fontSize: GameConfig["font-size"],
                 wordWrap: {
@@ -65,16 +63,14 @@ export class StoryScene extends Phaser.Scene {
                         this.image.setTexture(StoryScene.data[this.state].image);
 
                         this.text.setText(this.text.text + StoryScene.data[this.state].text[idx++]);
-                    }
-                    else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).isDown) {
+                    } else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).isDown) {
                         idx = 0;
 
                         this.text.setText("");
 
                         this.state++;
                     }
-                }
-                else {
+                } else {
                     console.log("Next Scene");
                 }
             }
