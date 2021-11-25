@@ -19,11 +19,11 @@ export class StoryScene extends Phaser.Scene {
         },
         {
             image: "images.story-03",
-            text: "Tuy nhiên, quá trình trở về đã xảy ra sự cố, cỗ máy đã đưa mọi người về ngày 11/8/2042 ngoại trừ main dịch chuyển về đúng ngày xảy ra sự kiện."
+            text: "Tuy nhiên, quá trình trở về đã xảy ra sự cố, cỗ máy đã đưa mọi người về ngày 11/8/2042 ngoại trừ bạn dịch chuyển về đúng ngày xảy ra sự kiện."
         },
         {
             image: "images.story-04",
-            text: "Do đó nhiệm vụ của main là dừng hoạt động của cổng không gian."
+            text: "Do đó nhiệm vụ của bạn là dừng hoạt động của cổng không gian. Chúc bạn may mắn!"
         }
     ];
 
