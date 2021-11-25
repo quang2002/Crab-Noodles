@@ -53,6 +53,7 @@ export class StoryScene extends Phaser.Scene {
             }
         ).setOrigin(0.5, 0);
 
+        //print story 
         var idx = 0;
         this.time.addEvent({
             delay: 50,
@@ -63,7 +64,9 @@ export class StoryScene extends Phaser.Scene {
                         this.image.setTexture(StoryScene.data[this.state].image);
 
                         this.text.setText(this.text.text + StoryScene.data[this.state].text[idx++]);
-                    } else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).isDown) {
+                    }
+                    // if enter space, continue to next story 
+                    else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).isDown) {
                         idx = 0;
 
                         this.text.setText("");
