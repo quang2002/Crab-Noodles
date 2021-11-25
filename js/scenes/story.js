@@ -19,12 +19,16 @@ export class StoryScene extends Phaser.Scene {
         },
         {
             image: "images.story-03",
-            text: "Tuy nhiên, quá trình trở về đã xảy ra sự cố, cỗ máy đã đưa mọi người về ngày 11/8/2042 ngoại trừ bạn dịch chuyển về đúng ngày xảy ra sự kiện."
+            text: "Mười năm sau sự kiện đó, lũ titan đã thống trị toàn cầu, lúc này con người đã phát minh ra máy thời gian và huyết thanh tăng cường."
         },
         {
             image: "images.story-04",
-            text: "Do đó nhiệm vụ của bạn là dừng hoạt động của cổng không gian. Chúc bạn may mắn!"
-        }
+            text: "Họ đã chọn ra bạn là người phù hợp với huyết thanh, do đó nhiệm vụ của bạn là quay trở về quá khứ và dừng hoạt động của cổng không gian."
+        },
+        {
+            image: "images.story-04",
+            text: "Chúc bạn may mắn!"
+        },
     ];
 
     constructor() {
