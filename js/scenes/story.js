@@ -7,7 +7,7 @@ export class StoryScene extends Phaser.Scene {
         },
         {
             image: "images.story-02",
-            text: "Ngày 11/3/2042, cuộc thử nghiệm đầu tiên diễn ra, các nhà phát minh đến hành tinh Titan nơi có tồn tại sự sống, nhưng sau đó không nhận lại được tín hiệu báo về."
+            text: "Ngày 11/3/2042, cuộc thử nghiệm đầu tiên diễn ra, các nhà phát minh đến hành tinh Edgo nơi có tồn tại các sinh vật gọi là titan, nhưng sau đó không nhận lại được tín hiệu báo về."
         },
         {
             image: "images.story-02",
