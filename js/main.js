@@ -1,6 +1,7 @@
 import { BootScene } from "./scenes/boot.js";
 import { MenuScene } from "./scenes/menu.js";
 import { StoryScene } from "./scenes/story.js";
+import { TestWeapon } from "./weapon/testWeapon.js";
 
 window.addEventListener("load", () => {
     window.game = new Phaser.Game({
@@ -24,6 +25,6 @@ window.addEventListener("load", () => {
             }
         },
 
-        scene: [BootScene, MenuScene, StoryScene]
+        scene: [TestWeapon]
     });
 });
