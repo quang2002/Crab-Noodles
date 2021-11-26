@@ -2,33 +2,33 @@ import { GameConfig } from "../components/game-config.js";
 
 export class StoryScene extends Phaser.Scene {
     static data = [{
-            image: "images.story-01",
-            text: "Năm 2041, thế giới ngày càng phát triển, con người đã tạo ra những công nghệ có thể du hành đến bất kỳ đâu trong vũ trụ."
-        },
-        {
-            image: "images.story-02",
-            text: "Ngày 11/3/2042, cuộc thử nghiệm đầu tiên diễn ra, các nhà phát minh đến hành tinh Edgo nơi có tồn tại các sinh vật gọi là titan, nhưng sau đó không nhận lại được tín hiệu báo về."
-        },
-        {
-            image: "images.story-02",
-            text: "Người đồng phát triển dự án đã yêu cầu đóng cánh cổng lại để tránh nguy hiểm cho mọi người."
-        },
-        {
-            image: "images.story-03",
-            text: "Nhưng đã quá muộn khi một sinh vật đã chui qua cánh cổng đến trái đất và phá hủy chiếc máy khiến cho không thể đóng được cổng."
-        },
-        {
-            image: "images.story-03",
-            text: "Mười năm sau sự kiện đó, lũ titan đã thống trị toàn cầu, lúc này con người đã phát minh ra máy thời gian và huyết thanh tăng cường."
-        },
-        {
-            image: "images.story-04",
-            text: "Họ đã chọn ra bạn là người phù hợp với huyết thanh, do đó nhiệm vụ của bạn là quay trở về quá khứ và dừng hoạt động của cổng không gian."
-        },
-        {
-            image: "images.story-04",
-            text: "Chúc bạn may mắn!"
-        },
+        image: "images.story-01",
+        text: "Năm 2041, thế giới ngày càng phát triển, con người đã tạo ra những công nghệ có thể du hành đến bất kỳ đâu trong vũ trụ."
+    },
+    {
+        image: "images.story-02",
+        text: "Ngày 11/3/2042, cuộc thử nghiệm đầu tiên diễn ra, các nhà phát minh đến hành tinh Edgo nơi có tồn tại các sinh vật gọi là titan, nhưng sau đó không nhận lại được tín hiệu báo về."
+    },
+    {
+        image: "images.story-02",
+        text: "Người đồng phát triển dự án đã yêu cầu đóng cánh cổng lại để tránh nguy hiểm cho mọi người."
+    },
+    {
+        image: "images.story-03",
+        text: "Nhưng đã quá muộn khi một sinh vật đã chui qua cánh cổng đến trái đất và phá hủy chiếc máy khiến cho không thể đóng được cổng."
+    },
+    {
+        image: "images.story-03",
+        text: "Mười năm sau sự kiện đó, lũ titan đã thống trị toàn cầu, lúc này con người đã phát minh ra máy thời gian và huyết thanh tăng cường."
+    },
+    {
+        image: "images.story-04",
+        text: "Họ đã chọn ra bạn là người phù hợp với huyết thanh, do đó nhiệm vụ của bạn là quay trở về quá khứ và dừng hoạt động của cổng không gian."
+    },
+    {
+        image: "images.story-04",
+        text: "Chúc bạn may mắn!"
+    },
     ];
 
     constructor() {
@@ -49,12 +49,12 @@ export class StoryScene extends Phaser.Scene {
             this.scale.width / 2,
             this.scale.height / 2 + 100,
             "", {
-                fontFamily: GameConfig["font-family"],
-                fontSize: GameConfig["font-size"],
-                wordWrap: {
-                    width: 1000
-                }
+            fontFamily: GameConfig["font-family"],
+            fontSize: GameConfig["font-size"],
+            wordWrap: {
+                width: 1000
             }
+        }
         ).setOrigin(0.5, 0);
 
         var idx = 0;
@@ -75,7 +75,7 @@ export class StoryScene extends Phaser.Scene {
                         this.state++;
                     }
                 } else {
-                    console.log("Next Scene");
+                    this.scene.start("Stage01");
                 }
             }
         });
