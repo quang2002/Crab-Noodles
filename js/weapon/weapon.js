@@ -1,74 +1,45 @@
-import { StatsWeapons } from '../stats/statsWeapons.js';
+import { StatsWeapon } from '../stats/stats-weapon.js';
+
 export class Weapon extends Phaser.GameObjects.Sprite {
 
-    //chứa tất cả những súng đã được nhặt
-    static instances = [];
+    /**
+     * Weapon.init
+     * @param {Phaser.Scene} scene 
+     * @param {number} x 
+     * @param {number} y 
+     * @param {string} texture 
+     * @param {StatsWeapon} stats 
+     */
+    constructor(scene, x, y, texture, stats) {
+        super(scene, x, y, texture);
 
-    constructor(scene, x, y, texture, {
-        normalDamage,
-        bulletSpeed,
-        critRate,
-        critDamage,
-        burstNormalTime,
-        speed,
-        bulletNumberInMagazine,
-        reloadMagazineTime,
-        armorPenetration
-    }) {
-        if (scene instanceof Phaser.Scene) {
-            super(scene, x, y, texture);
-            scene.add.existing(this);
-            var stat = { normalDamage, bulletSpeed, critRate, critDamage, burstNormalTime, speed, bulletNumberInMagazine, reloadMagazineTime, armorPenetration };
-            //create all stats of a weapon
-            this.stats = new StatsWeapons(stat);
-            Weapon.instances.push(this);
-        }
-        //skill cool down manager
-        this.cooldown = {
-            "normalBurst": {
-                "max": stat.burstNormalTime,
-                "cur": 0
-            },
-            "reloadMagazine": {
-                "max": stat.reloadMagazineTime,
-                "cur": 0
-            }
-        }
+        // add this sprite to scene
+        this.scene.add.existing(this);
 
-        //add event for cooldown
-        this.scene.time.addEvent({
-            delay: 100,
-            callbackScope: this,
-            callback: () => {
-                if (!this.isNormalAttackAble) this.cooldown.normalBurst.cur += 100;
-                if (!this.isReloadMagazineAble) this.cooldown.reloadMagazine.cur += 100;
-            },
-            loop: -1
-        });
+        // add physics to this game object
         this.scene.physics.add.existing(this);
+
+        // create stats of a weapon
+        this.stats = new StatsWeapon(stats);
+
+        // cooldown
+        this.cooldown = {
+            reload: 0,
+            fire: 0
+        };
+
+        // add event for cooldown system
+        this.scene.time.addEvent({
+            loop: true,
+            delay: 10,
+            callback: () => {
+                if (this.cooldown.fire > 0) this.cooldown.fire -= 10;
+                if (this.cooldown.reload > 0) this.cooldown.reload -= 10;
+            }
+        });
     }
 
-    //if able to attack
-    get isNormalAttackAble() {
-        return this.cooldown.normalBurst.cur >= this.cooldown.normalBurst.max;
+    get isFireable() {
+        return this.cooldown.reload <= 0 && this.cooldown.fire <= 0;
     }
-
-    //if able to reload magazine
-    get isReloadMagazineAble() {
-        return this.cooldown.reloadMagazine.cur >= this.cooldown.reloadMagazine.max;
-    }
-
-    create() {
-        //create on click (phụ thuộc vào súng bắn hay rìu cầm tay => nên sẽ viết riêng ở 2 class weapon)
-
-    }
-
-    update() {
-        //update when click -> ban dan
-
-        //update súng, mỗi thằng chỉ được cầm max 2 loại súng (cái này viết trong weapon-manager)
-
-    }
-
-
 }

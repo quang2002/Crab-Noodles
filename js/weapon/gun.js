@@ -1,57 +1,75 @@
-import { GunsWeapon } from './gunsWeapon.js';
+import { StatsWeapon } from '../stats/stats-weapon.js';
+import { Weapon } from './weapon.js';
 
-export class Gun extends GunsWeapon {
+export class Gun extends Weapon {
+    static bullets = []
 
-    constructor(scene, x, y, texture, {
-        normalDamage,
-        bulletSpeed,
-        critRate,
-        critDamage,
-        burstNormalTime,
-        speed,
-        bulletNumberInMagazine,
-        reloadMagazineTime,
-        armorPenetration
-    }) {
-        super(scene, x, y, texture, {
-            normalDamage,
-            bulletSpeed,
-            critRate,
-            critDamage,
-            burstNormalTime,
-            speed,
-            bulletNumberInMagazine,
-            reloadMagazineTime,
-            armorPenetration
-        })
+    /**
+     * 
+     * @param {Phaser.Scene} scene 
+     * @param {number} x 
+     * @param {number} y 
+     * @param {string} gunTexture 
+     * @param {string} bulletTexture 
+     * @param {StatsWeapon} stats 
+     */
+    constructor(scene, x, y, gunTexture, bulletTexture, stats) {
+        super(scene, x, y, gunTexture, stats);
 
-        //set scale of Gun
-        this.setScale(0.2);
-    }
-    static preload(scene) {
-        if (scene instanceof Phaser.Scene) {
-            scene.load.spritesheet("spritesheet-basic-gun", "../assets/images/gun2d.png", {
-                frameWidth: 840,
-                frameHeight: 307
-            });
-            scene.load.spritesheet("spritesheet-basic-bullet", "../assets/images/bullet.png", {
-                frameWidth: 128,
-                frameHeight: 128
-            });
-        }
-    }
+        this.bulletTexture = bulletTexture;
 
-    create_anims() {
-        this.animation.idle = this.scene.anims.create({
-            key: "anims-basic-gun",
-            frameRate: 10,
-            repeat: -1,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet-basic-gun", { start: 0, end: 0 })
+        // set angle for weapon
+        this.scene.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => this.setAngle(Math.atan2(pointer.y - this.y, pointer.x - this.x) / Math.PI * 180));
+
+        // fire system
+        this.scene.time.addEvent({
+            loop: true,
+            delay: 10,
+            callback: () => {
+                if (this.isFireable && this.scene.input.activePointer.isDown) {
+                    this.fire();
+                }
+
+                // remove bullet after timeout
+                Gun.bullets.forEach((value) => {
+                    if (value.timeout > 0) value.timeout -= 10;
+                    else value.destroy();
+                });
+            }
         });
 
-        this.animation.bullet = "spritesheet-basic-bullet";
+    }
+
+    /**
+     * fire method
+     * @returns {Gun} this
+     */
+    fire() {
+        const pointer = this.scene.input.activePointer;
+
+        const vec = {
+            x: pointer.x - this.x,
+            y: pointer.y - this.y,
+        }
+        const len = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
+
+        const bullet = this.scene.physics.add.sprite(this.x, this.y, this.bulletTexture);
+        bullet.setAngle(Math.atan2(pointer.y - this.y, pointer.x - this.x) / Math.PI * 180);
+        bullet.setVelocity(vec.x / len * this.stats.speed, vec.y / len * this.stats.speed);
+        bullet.setDepth(this.depth - 1);
+
+        // set timeout for bullet
+        bullet.timeout = 5000;
+
+        // add to list of bullets
+        Gun.bullets = Gun.bullets.filter((value) => value.active);
+        Gun.bullets.push(bullet);
+
+        console.log(Gun.bullets)
+
+        this.cooldown.fire = this.stats.fireRate;
+        // this.cooldown.reload = this.stats.reloadTime;
 
         return this;
     }
-
 }
