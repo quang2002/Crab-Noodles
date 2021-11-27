@@ -1,4 +1,5 @@
 import { GameConfig } from "../components/game-config.js";
+import { AK47 } from "../weapon/ak47.js";
 
 export class StoryScene extends Phaser.Scene {
     static data = [{

@@ -39,7 +39,7 @@ export class Gun extends Weapon {
         });
 
     }
-
+    
     /**
      * fire method
      * @returns {Gun} this
@@ -64,8 +64,6 @@ export class Gun extends Weapon {
         // add to list of bullets
         Gun.bullets = Gun.bullets.filter((value) => value.active);
         Gun.bullets.push(bullet);
-
-        console.log(Gun.bullets)
 
         this.cooldown.fire = this.stats.fireRate;
         // this.cooldown.reload = this.stats.reloadTime;
