@@ -1,3 +1,4 @@
+import { AK47 } from "../weapon/ak47.js";
 import { MenuScene } from "./menu.js";
 import { StoryScene } from "./story.js";
 
