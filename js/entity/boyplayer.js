@@ -12,7 +12,7 @@ export class BoyPlayer extends Player {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, "sprite-sheet-main", stats);
-        this.setScale(1);
+        this.setScale(.32);
     }
 
     /**

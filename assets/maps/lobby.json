@@ -158,15 +158,15 @@
                  "x":0,
                  "y":0
                 }],
-         "height":48,
+         "height":32,
          "id":4,
          "name":"features",
          "opacity":1,
-         "startx":-32,
+         "startx":-16,
          "starty":-16,
          "type":"tilelayer",
          "visible":true,
-         "width":64,
+         "width":32,
          "x":0,
          "y":0
         }, 
@@ -216,6 +216,59 @@
          "spacing":0,
          "tilecount":625,
          "tileheight":32,
+         "tiles":[
+                {
+                 "id":434,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":32,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":32,
+                             "x":0,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    }
+                }, 
+                {
+                 "id":459,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":32,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":32,
+                             "x":0,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    }
+                }],
          "tilewidth":32
         }],
  "tilewidth":32,

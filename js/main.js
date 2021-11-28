@@ -2,7 +2,6 @@ import { BootScene } from "./scenes/boot.js";
 import { LobbyScene } from "./scenes/lobby.js";
 import { MenuScene } from "./scenes/menu.js";
 import { StoryScene } from "./scenes/story.js";
-import { TestWeaponScene } from "./scenes/testWeaponScence.js";
 
 window.addEventListener("load", () => {
     window.game = new Phaser.Game({

@@ -1,3 +1,5 @@
+import { BoyPlayer } from "../entity/boyplayer.js";
+
 export class LobbyScene extends Phaser.Scene {
     constructor() {
         super("LobbyScene");
@@ -19,9 +21,16 @@ export class LobbyScene extends Phaser.Scene {
             "features": this.map.createLayer("features", tilesets),
             "objects": this.map.createLayer("objects", tilesets),
         }
+
+        this.player = new BoyPlayer(this, 0, 0, { entityHP: 10, entitySpeed: 100, entityRunningSpeed: 200 });
+
+        this.cameras.main.setBounds(-512, -128, 1056, 640);
+
     }
 
     update() {
+        this.player.update();
 
+        console.log(this.layers.ground.width + ", " + this.layers.ground.height);
     }
 }
