@@ -9,7 +9,8 @@ export class MenuScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(0, 0, "images.bg").setOrigin(0).setInteractive().on("pointerdown", () => this.scene.start("StoryScene"));
+        // this.add.image(0, 0, "images.bg").setOrigin(0).setInteractive().on("pointerdown", () => this.scene.start("StoryScene"));
+        this.add.image(0, 0, "images.bg").setOrigin(0).setInteractive().on("pointerdown", () => this.scene.start("LobbyScene"));
         //this.add.image(20, 20, "ui.btn-setting").setScale(3).setOrigin(0).setInteractive().on("pointerdown", () => console.log("Clicked Setting btn!"));
 
         const text = this.add.text(
