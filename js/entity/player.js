@@ -37,7 +37,7 @@ export class Player extends Entity {
     }
 
     update() {
-        super.update();
+         super.update();
 
         // smooth camera for player
         if (Math.abs(this.cameras.dummy.x - this.x) + Math.abs(this.cameras.dummy.y - this.y) > 0.1) {

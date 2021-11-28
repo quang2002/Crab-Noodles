@@ -33,7 +33,7 @@ export class BoyPlayer extends Player {
             key: "sprite-sheet-anims-main-idle",
             frameRate: 10,
             repeat: -1,
-            frame: this.scene.anims.generateFrameNames("sprite-sheet-main", {
+            frames: this.scene.anims.generateFrameNames("sprite-sheet-main", {
                 start: 0,
                 end: 3
             })
@@ -43,7 +43,7 @@ export class BoyPlayer extends Player {
             key: "sprite-sheet-anims-main-move",
             frameRate: 10,
             repeat: -1,
-            frame: this.scene.anims.generateFrameNames("sprite-sheet-main", {
+            frames: this.scene.anims.generateFrameNames("sprite-sheet-main", {
                 start: 4,
                 end: 7
             })
@@ -53,7 +53,7 @@ export class BoyPlayer extends Player {
             key: "sprite-sheet-anims-main-move",
             frameRate: 10,
             repeat: -1,
-            frame: this.scene.anims.generateFrameNames("sprite-sheet-main", {
+            frames: this.scene.anims.generateFrameNames("sprite-sheet-main", {
                 start: 8,
                 end: 8
             })
