@@ -1,4 +1,5 @@
 import { BootScene } from "./scenes/boot.js";
+import { LobbyScene } from "./scenes/lobby.js";
 import { MenuScene } from "./scenes/menu.js";
 import { StoryScene } from "./scenes/story.js";
 
@@ -24,6 +25,6 @@ window.addEventListener("load", () => {
             }
         },
 
-        scene: [BootScene, MenuScene, StoryScene]
+        scene: [BootScene, MenuScene, StoryScene, LobbyScene]
     });
 });

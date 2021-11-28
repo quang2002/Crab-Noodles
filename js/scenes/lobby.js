@@ -1,15 +1,15 @@
-export class Stage01 extends Phaser.Scene {
+export class LobbyScene extends Phaser.Scene {
     constructor() {
-        super("Stage01");
+        super("LobbyScene");
     }
 
     preload() {
         this.load.image("tilesets.tileset-01", "./assets/tilesets/tileset-01.png");
-        this.load.tilemapTiledJSON("maps.state-01", "./assets/maps/state-01.json");
+        this.load.tilemapTiledJSON("maps.lobby", "./assets/maps/lobby.json");
     }
 
     create() {
-        this.map = this.add.tilemap("maps.state-01");
+        this.map = this.add.tilemap("maps.lobby");
         const tilesets = [
             this.map.addTilesetImage("tileset-01", "tilesets.tileset-01"),
         ];
@@ -17,6 +17,7 @@ export class Stage01 extends Phaser.Scene {
             "ground": this.map.createLayer("ground", tilesets),
             "wall": this.map.createLayer("wall", tilesets),
             "features": this.map.createLayer("features", tilesets),
+            "objects": this.map.createLayer("objects", tilesets),
         }
     }
 
