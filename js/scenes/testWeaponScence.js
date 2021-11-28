@@ -1,3 +1,4 @@
+import { BoyPlayer } from "../entity/boyplayer.js";
 import { AK47 } from "../weapon/ak47.js";
 
 export class TestWeaponScene extends Phaser.Scene {
@@ -7,13 +8,20 @@ export class TestWeaponScene extends Phaser.Scene {
 
     preload() {
         AK47.preload(this);
+        BoyPlayer.preload(this);
     }
 
 
     create() {
-        new AK47(this, 100, 100, {
-            fireRate: 100,
-            speed: 1000
-        })
+        this.player = new BoyPlayer(this, 100, 100, {
+            entityHP: 10,
+            entitySpeed: 100,
+            entityRunningSpeed: 150,
+        });
+    }
+
+    update() {
+        this.cameras.main.setBackgroundColor("#ffffff");
+        this.player.update();
     }
 }
