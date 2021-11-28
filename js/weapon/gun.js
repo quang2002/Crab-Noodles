@@ -19,7 +19,7 @@ export class Gun extends Weapon {
         this.bulletTexture = bulletTexture;
 
         // set angle for weapon
-        this.scene.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => this.setAngle(Math.atan2(pointer.y - this.y, pointer.x - this.x) / Math.PI * 180));
+        this.scene.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => this.setAngle(Math.atan2(pointer.y - this.vpos.y, pointer.x - this.vpos.x) / Math.PI * 180));
 
         // fire system
         this.scene.time.addEvent({
@@ -37,7 +37,6 @@ export class Gun extends Weapon {
                 });
             }
         });
-
     }
 
     /**
@@ -46,10 +45,11 @@ export class Gun extends Weapon {
      */
     fire() {
         const pointer = this.scene.input.activePointer;
+        const vpos = this.vpos;
 
         const vec = {
-            x: pointer.x - this.x,
-            y: pointer.y - this.y,
+            x: pointer.x - vpos.x,
+            y: pointer.y - vpos.y,
         }
         const len = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
 
@@ -57,12 +57,17 @@ export class Gun extends Weapon {
         const bullet = this.scene.physics.add.sprite(this.x, this.y, this.bulletTexture);
 
         //set angle for bullet
-        bullet.setAngle(Math.atan2(pointer.y - this.y, pointer.x - this.x) / Math.PI * 180);
+        bullet.setAngle(Math.atan2(pointer.y - vpos.y, pointer.x - vpos.x) / Math.PI * 180);
         bullet.setVelocity(vec.x / len * this.stats.speed, vec.y / len * this.stats.speed);
         bullet.setDepth(this.depth - 1);
 
         // set timeout for bullet
         bullet.timeout = 5000;
+
+        // set collide with
+        this.scene.physics.add.collider(bullet, this.collision, (o1, o2) => {
+            o1.destroy();
+        });
 
         // add to list of bullets
         Gun.bullets = Gun.bullets.filter((value) => value.active);
@@ -72,5 +77,12 @@ export class Gun extends Weapon {
         // this.cooldown.reload = this.stats.reloadTime;
 
         return this;
+    }
+
+    get vpos() {
+        return {
+            x: (this.x - this.scene.cameras.main.worldView.x) * this.scene.cameras.main.zoom,
+            y: (this.y - this.scene.cameras.main.worldView.y) * this.scene.cameras.main.zoom
+        }
     }
 }

@@ -17,26 +17,21 @@ export class Entity extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture);
         this.texture = texture;
 
-        //add this sprite to scene
+        // add this sprite to scene
         this.scene.add.existing(this);
 
-        //add this = this sprite
-
-        //add physics to this game object
+        // add physics to this game object
         this.scene.physics.add.existing(this);
 
-        //create stats of entity
+        // create stats of entity
         this.stats = new StatsEntity(stats);
 
-        //add this object to instance
+        // add this object to instance
         Entity.instances.push(this);
 
-        //animation
+        // animation
         this.animations = { idle: null, move: null, die: null };
         this.create_anims();
-
-        //add collide with wall
-
     }
 
     get isRunAble() {
@@ -56,7 +51,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
      * if hp > 0 -> true, false otherwise
      */
     get isAlive() {
-        return (this.stats.entityHP > 0);
+        return (this.stats.hp > 0);
     }
 
     //create animation for entity

@@ -1,22 +1,22 @@
 export class StatsEntity {
 
     // entity speed
-    entitySpeed;
+    speed;
 
     // running speed of entity
-    entityRunningSpeed;
+    runningSpeed;
 
     // hp
-    entityHP;
+    hp;
 
     // level
-    entityLevel;
+    level;
 
-    // default armour(giáp mặc định)
-    defaultArmour;
+    // default armor(giáp mặc định)
+    armor;
 
     /**
-     * StatsWeapons.init
+     * StatsEntity.init
      * @param {StatsEntity} data 
      */
     constructor(data) {

@@ -11,7 +11,6 @@ export class AK47 extends Gun {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, "image-ak47", "image-bullet-01", stats);
-        this.setScale(5);
     }
 
     /**

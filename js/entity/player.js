@@ -1,4 +1,5 @@
 import { StatsEntity } from "../stats/stats-entity.js";
+import { Weapon } from "../weapon/weapon.js";
 import { Entity } from "./entity.js";
 
 export class Player extends Entity {
@@ -43,6 +44,9 @@ export class Player extends Entity {
             "left": this.scene.input.keyboard.addKey("A", true, true),
             "run": this.scene.input.keyboard.addKey("J", true, true)
         }
+
+        // weapon
+        this.weapon = null;
     }
 
     getVelocity() {
@@ -62,17 +66,27 @@ export class Player extends Entity {
 
         //running
         if (this.controller.run.isDown) {
-            vec.mul(this.stats.entityRunningSpeed);
+            vec.mul(this.stats.runningSpeed);
         } else {
             //normal walk
-            vec.mul(this.stats.entitySpeed);
+            vec.mul(this.stats.speed);
         }
 
         return vec
     }
 
+    setWeapon(weapon) {
+        if (weapon instanceof Weapon) {
+            this.weapon = weapon;
+        }
+        return this;
+    }
+
     update() {
         super.update();
+
+        // set weapon position
+        this.weapon?.setPosition(this.x, this.y);
 
         // smooth camera for player
         if (Math.abs(this.cameras.dummy.x - this.x) + Math.abs(this.cameras.dummy.y - this.y) > 0.1) {

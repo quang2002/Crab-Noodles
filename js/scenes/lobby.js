@@ -1,4 +1,4 @@
-import { BoyPlayer } from "../entity/boyplayer.js";
+import { BoyPlayer } from "../entity/boy-player.js";
 
 export class LobbyScene extends Phaser.Scene {
     constructor() {
