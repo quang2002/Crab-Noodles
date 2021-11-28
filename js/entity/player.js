@@ -16,7 +16,7 @@ export class Player extends Entity {
 
         // camera for player
         this.cameras = {
-            "get": this.scene.cameras.getCamera(""),
+            "main": this.scene.cameras.main,
             "zoom": 4,
             "zoomSpeed": 2,
             "currentZoom": 3,
@@ -27,17 +27,52 @@ export class Player extends Entity {
             "followSpeed": 2
         };
 
-        this.cameras.get.startFollow(this.cameras.dummy);
+        this.cameras.main.startFollow(this.cameras.dummy);
 
         this.scene.input.addListener(Phaser.Input.Events.POINTER_WHEEL, ({ deltaY }) => {
             this.cameras.zoom -= this.cameras.zoomSpeed * deltaY * 0.001;
             if (this.cameras.zoom < this.cameras.zoomRange.min) this.cameras.zoom = this.cameras.zoomRange.min;
             if (this.cameras.zoom > this.cameras.zoomRange.max) this.cameras.zoom = this.cameras.zoomRange.max;
         });
+
+        //add key control
+        this.controller = {
+            "up": this.scene.input.keyboard.addKey("W", true, true),
+            "down": this.scene.input.keyboard.addKey("S", true, true),
+            "right": this.scene.input.keyboard.addKey("D", true, true),
+            "left": this.scene.input.keyboard.addKey("A", true, true),
+            "run": this.scene.input.keyboard.addKey("J", true, true)
+        }
+    }
+
+    getVelocity() {
+        let vec = {
+            x: 0,
+            y: 0,
+            mul(value) {
+                this.x *= value;
+                this.y *= value;
+            }
+        };
+
+        if (this.controller.up.isDown) vec.y -= 1;
+        if (this.controller.down.isDown) vec.y += 1;
+        if (this.controller.left.isDown) vec.x -= 1;
+        if (this.controller.right.isDown) vec.x += 1;
+
+        //running
+        if (this.controller.run.isDown) {
+            vec.mul(this.stats.entityRunningSpeed);
+        } else {
+            //normal walk
+            vec.mul(this.stats.entitySpeed);
+        }
+
+        return vec
     }
 
     update() {
-         super.update();
+        super.update();
 
         // smooth camera for player
         if (Math.abs(this.cameras.dummy.x - this.x) + Math.abs(this.cameras.dummy.y - this.y) > 0.1) {
@@ -47,6 +82,6 @@ export class Player extends Entity {
         if (Math.abs(this.cameras.currentZoom - this.cameras.zoom) > 0.1)
             this.cameras.currentZoom += (this.cameras.zoom - this.cameras.currentZoom) * this.cameras.smoothSpeed;
 
-        this.cameras.get.setZoom(this.cameras.currentZoom);
+        this.cameras.main.setZoom(this.cameras.currentZoom);
     }
 }

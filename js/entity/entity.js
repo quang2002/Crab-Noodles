@@ -35,17 +35,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
         this.animations = { idle: null, move: null, die: null };
         this.create_anims();
 
-        //add key control
-        this.controller = {
-            "up": this.scene.input.keyboard.addKey("W", true, true),
-            "down": this.scene.input.keyboard.addKey("S", true, true),
-            "right": this.scene.input.keyboard.addKey("D", true, true),
-            "left": this.scene.input.keyboard.addKey("A", true, true),
-            "run": this.scene.input.keyboard.addKey("J", true, true)
-        }
-
-        //Phaser.Input.Keyboard.KeyCodes.SPACE;
-
         //add collide with wall
 
     }
@@ -75,32 +64,16 @@ export class Entity extends Phaser.GameObjects.Sprite {
         return this;
     }
 
+    getVelocity() {
+        return null;
+    }
+
     update(param) {
         super.update(param);
 
         if (this.isAlive) {
             //movement
-            let vec = {
-                x: 0,
-                y: 0,
-                mul(value) {
-                    this.x *= value;
-                    this.y *= value;
-                }
-            };
-
-            if (this.controller.up.isDown) vec.y -= 1;
-            if (this.controller.down.isDown) vec.y += 1;
-            if (this.controller.left.isDown) vec.x -= 1;
-            if (this.controller.right.isDown) vec.x += 1;
-
-            //running
-            if (this.controller.run.isDown) {
-                vec.mul(this.stats.entityRunningSpeed);
-            } else {
-                //normal walk
-                vec.mul(this.stats.entitySpeed);
-            }
+            let vec = this.getVelocity();
 
             //set velocity
             this.body.setVelocity(vec.x, vec.y);
