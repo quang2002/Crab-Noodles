@@ -39,7 +39,7 @@ export class Gun extends Weapon {
         });
 
     }
-    
+
     /**
      * fire method
      * @returns {Gun} this
@@ -53,7 +53,10 @@ export class Gun extends Weapon {
         }
         const len = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
 
+        //add new bullet
         const bullet = this.scene.physics.add.sprite(this.x, this.y, this.bulletTexture);
+
+        //set angle for bullet
         bullet.setAngle(Math.atan2(pointer.y - this.y, pointer.x - this.x) / Math.PI * 180);
         bullet.setVelocity(vec.x / len * this.stats.speed, vec.y / len * this.stats.speed);
         bullet.setDepth(this.depth - 1);
