@@ -37,6 +37,10 @@ export class Weapon extends Phaser.GameObjects.Sprite {
                 if (this.cooldown.reload > 0) this.cooldown.reload -= 10;
             }
         });
+
+
+        // collision group
+        this.collision = [];
     }
 
     get isFireable() {
