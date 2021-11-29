@@ -86,9 +86,7 @@ export class Player extends Entity {
         super.update();
 
         // set weapon position
-        // if (this.weapon?.isFireable) {
-        //     this.weapon?.setPosition(this.x + 8, this.y + 6);
-        // }
+        this.weapon?.setPosition(this.x, this.y);
 
         // smooth camera for player
         if (Math.abs(this.cameras.dummy.x - this.x) + Math.abs(this.cameras.dummy.y - this.y) > 0.1) {

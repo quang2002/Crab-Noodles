@@ -14,16 +14,18 @@ export class Melee extends Weapon {
         super(scene, x, y, texture, stats);
 
         // set angle for weapon
-        this.scene.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => this.setAngle(Math.atan2(pointer.y - this.vpos.y, pointer.x - this.vpos.x) / Math.PI * 180));
+        this.isAttacking == false;
 
         // fire system
         this.scene.time.addEvent({
             loop: true,
             delay: 10,
             callback: () => {
-                if (this.isFireable && this.scene.input.activePointer.isDown) {
-                    this.fire();
-                }
+                const pointer = this.scene.input.activePointer;
+
+                if (this.scene.input.activePointer.isDown)
+                    this.fire(pointer);
+                else this.notFire(pointer);
             }
         });
     }
@@ -32,8 +34,9 @@ export class Melee extends Weapon {
      * fire method
      * @returns {Melee} this
      */
-    fire() {
-        const pointer = this.scene.input.activePointer;
+    fire(pointer) {
+        if (this.isAttacking) return this;
+
         const vpos = this.vpos;
 
         const vec = {
@@ -42,34 +45,15 @@ export class Melee extends Weapon {
         }
         const len = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
 
-        // test
-        const timeline = this.scene.tweens.createTimeline();
-        timeline.add({
-            targets: this,
-            x: this.x + vec.x / len * this.stats.speed,
-            y: this.y + vec.y / len * this.stats.speed,
-            ease: "linear",
-            duration: 100,
-        });
-
-        timeline.add({
-            targets: this,
-            x: this.x ,
-            y: this.y ,
-            ease: "linear",
-            duration: 200,
-        });
-        
-        timeline.play();
-
-        // set collide with
-        this.scene.physics.add.collider(this, this.collision, (o1, o2) => {
-            o2.destroy();
-        });
+        this.setAngle(this.angle + Math.PI / 180 * this.stats.speed);
 
         this.cooldown.fire = this.stats.fireRate;
-        // this.cooldown.reload = this.stats.reloadTime;
 
+        return this;
+    }
+
+    notFire(pointer) {
+        this.setAngle(Math.atan2(pointer.y - this.vpos.y, pointer.x - this.vpos.x) / Math.PI * 180);
         return this;
     }
 

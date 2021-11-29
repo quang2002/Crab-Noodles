@@ -1,7 +1,7 @@
 import { GameScene } from "../components/game-scene.js";
 import { BoyPlayer } from "../entity/boy-player.js";
 import { AK47 } from "../weapon/ak47.js";
-import { Rapier } from "../weapon/rapier.js";
+import { LightSaber } from "../weapon/light-saber.js";
 
 export class Stage01 extends GameScene {
     constructor() {
@@ -15,9 +15,9 @@ export class Stage01 extends GameScene {
 
     create() {
         this.player = new BoyPlayer(this, 0, 0, { hp: 10, speed: 100, runningSpeed: 200 });
-        this.player.setWeapon(new Rapier(this, 0, 0, {
-            fireRate: 300,
-            speed: 50
+        this.player.setWeapon(new LightSaber(this, 0, 0, {
+            fireRate: 0,
+            speed: 1000
         }))
 
         this.map = this.add.tilemap("maps.state-01");
