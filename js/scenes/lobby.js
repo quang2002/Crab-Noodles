@@ -21,24 +21,26 @@ export class LobbyScene extends GameScene {
         ];
         this.layers = {
             "ground": this.map.createLayer("ground", tilesets).setDepth(this.player.depth - 1),
-            "wall": this.map.createLayer("wall", tilesets).setDepth(this.player.depth + 1),
+            "wall": this.map.createLayer("wall", tilesets).setDepth(this.player.depth - 1),
             "features": this.map.createLayer("features", tilesets).setDepth(this.player.depth + 1),
             "objects": this.map.createLayer("objects", tilesets).setDepth(this.player.depth + 1),
         }
 
 
-        this.cameras.main.setBounds(-512, -128, 1056, 640);
+        this.cameras.main.setBounds(-520, -130, 1050, 655);
 
         const wall = this.createCollisionOnLayer(this.layers.wall);
         const features = this.createCollisionOnLayer(this.layers.features);
+        const ground = this.createCollisionOnLayer(this.layers.ground);
 
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, features);
+        this.physics.add.collider(this.player, ground);
     }
 
     update() {
         this.player.update();
 
-        console.log(this.layers.ground.width + ", " + this.layers.ground.height);
+        //console.log(this.layers.ground.width + ", " + this.layers.ground.height);
     }
 }

@@ -22,7 +22,7 @@ export class Player extends Entity {
             "zoomSpeed": 2,
             "currentZoom": 3,
             "smoothSpeed": 0.07,
-            "zoomRange": { min: 1.5, max: 4 },
+            "zoomRange": { min: 2.25, max: 4 },
 
             "dummy": this.scene.physics.add.sprite(x, y, null).setVisible(false).setBodySize(1, 1),
             "followSpeed": 2
