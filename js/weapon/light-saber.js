@@ -10,8 +10,11 @@ export class LightSaber extends Melee {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, "image-light-saber", stats);
+
+        //set origin for rotation
         this.setOrigin(0, 0.5);
 
+        //create animation for attacking
         this.scene.anims.create({
             key: "anims-light-saber-effect",
             frameRate: 10,
@@ -22,11 +25,19 @@ export class LightSaber extends Melee {
         this.effect = this.scene.add.sprite(x, y, null).setScale(1.5);
     }
 
+    /**
+     * set animation for attack
+     * @param {Phaser.Input.Pointer} pointer 
+     */
     fire(pointer) {
         super.fire(pointer);
         this.effect.setVisible(true).setPosition(this.x, this.y).play("anims-light-saber-effect", true);
     }
 
+    /**
+     * delete animation if not fire
+     * @param {Phaser.Input.Pointer} pointer 
+     */
     notFire(pointer) {
         super.notFire(pointer);
         this.effect.setVisible(false);

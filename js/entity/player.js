@@ -72,7 +72,7 @@ export class Player extends Entity {
             vec.mul(this.stats.speed);
         }
 
-        return vec
+        return vec;
     }
 
     setWeapon(weapon) {
