@@ -16,7 +16,7 @@ export class Stage01 extends GameScene {
     create() {
         this.player = new BoyPlayer(this, 0, 0, { hp: 10, speed: 100, runningSpeed: 200 });
         this.player.setWeapon(new Rapier(this, 0, 0, {
-            fireRate: 100,
+            fireRate: 300,
             speed: 50
         }))
 

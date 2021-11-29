@@ -49,7 +49,7 @@ export class Melee extends Weapon {
             x: this.x + vec.x / len * this.stats.speed,
             y: this.y + vec.y / len * this.stats.speed,
             ease: "linear",
-            duration: 200,
+            duration: 100,
         });
 
         timeline.add({
