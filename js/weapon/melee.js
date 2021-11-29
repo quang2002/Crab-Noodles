@@ -43,22 +43,24 @@ export class Melee extends Weapon {
         const len = Math.sqrt(vec.x * vec.x + vec.y * vec.y);
 
         // test
-        this.scene.tweens.createTimeline({
-            tweens: [
-                {
-                    targets: this,
-                    x: this.x + vec.x / len * this.stats.speed,
-                    y: this.y + vec.y / len * this.stats.speed,
-                    ease: "linear"
-                },
-                {
-                    targets: this,
-                    x: this.x,
-                    y: this.y,
-                    ease: "linear"
-                },
-            ]
-        }).play();
+        const timeline = this.scene.tweens.createTimeline();
+        timeline.add({
+            targets: this,
+            x: this.x + vec.x / len * this.stats.speed,
+            y: this.y + vec.y / len * this.stats.speed,
+            ease: "linear",
+            duration: 200,
+        });
+
+        timeline.add({
+            targets: this,
+            x: this.x ,
+            y: this.y ,
+            ease: "linear",
+            duration: 200,
+        });
+        
+        timeline.play();
 
         // set collide with
         this.scene.physics.add.collider(this, this.collision, (o1, o2) => {
