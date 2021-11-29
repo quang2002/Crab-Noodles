@@ -1,6 +1,5 @@
 import { GameScene } from "../components/game-scene.js";
 import { BoyPlayer } from "../entity/boy-player.js";
-import { AK47 } from "../weapon/ak47.js";
 import { Rapier } from "../weapon/rapier.js";
 
 export class Stage01 extends GameScene {

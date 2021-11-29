@@ -31,6 +31,6 @@ export class LobbyScene extends Phaser.Scene {
     update() {
         this.player.update();
 
-        console.log(this.layers.ground.width + ", " + this.layers.ground.height);
+        //console.log(this.layers.ground.width + ", " + this.layers.ground.height);
     }
 }
