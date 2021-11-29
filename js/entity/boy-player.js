@@ -12,6 +12,7 @@ export class BoyPlayer extends Player {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, "spritesheet-boy", stats);
+        this.body.setSize(75, 90);
         this.setScale(.32);
     }
 
