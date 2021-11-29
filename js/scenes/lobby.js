@@ -23,28 +23,33 @@ export class LobbyScene extends GameScene {
     create() {
         this.player = new BoyPlayer(this, 0, 0, { hp: 10, speed: 100, runningSpeed: 200 });
 
-        // //add a new island png
-        // this.anims.create({
-        //     key: "anims-island",
-        //     frameRate: 10,
-        //     repeat: -1,
-        //     frames: this.anims.generateFrameNumbers("spritesheet-island", { frames: [0, 1, 2, 3] })
-        // });
-
-        // this.add.sprite(5, 400, "spritesheet-island").setVisible(true).setScale(2);
-
         //add a new gate1 png
         this.anims.create({
             key: "anims-gate1",
-            frameRate: 10,
+            frameRate: 7,
             repeat: -1,
             frames: this.anims.generateFrameNumbers("spritesheet-gate1", { frames: [0, 1, 2, 3] })
         });
 
-        this.gate1 = this.add.sprite(100, 100, "spritesheet-gate1").setFlipY(true).setVisible(true);
-        
-        
-        this.physics.add.collider(this.player, this.gate1);
+        //create a sprite in area of gate1
+        this.gate1 = this.physics.add.sprite(483, 444, null);
+        this.gate1.setCollideWorldBounds(true).setPushable(false).setImmovable(true).setVisible(false);
+
+        //collider => play animation
+        this.physics.add.collider(this.player, this.gate1, () => {
+            this.gate1 = this.physics.add.sprite(this.player.x, this.player.y - 30, "spritesheet-gate1").setVisible(true);
+            this.gate1.play("anims-gate1", true).setScale(0.75);
+            this.time.addEvent({
+                delay: 2000,                // ms
+                callback: () => this.scene.start("Stage01"),
+                //args: [],
+                repeat: 0
+            });
+            
+        });
+
+        //this.physics.add.collider()
+
         //this.gate1.play()
 
         //add tile map lobby
@@ -78,7 +83,7 @@ export class LobbyScene extends GameScene {
 
     update() {
         this.player.update();
-
+        console.log(this.player.x, this.player.y);
         //console.log(this.layers.ground.width + ", " + this.layers.ground.height);
     }
 }
