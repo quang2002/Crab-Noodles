@@ -1,6 +1,7 @@
 import { BoyPlayer } from "../entity/boy-player.js";
+import { GameScene } from "../components/game-scene.js";
 
-export class LobbyScene extends Phaser.Scene {
+export class LobbyScene extends GameScene {
     constructor() {
         super("LobbyScene");
     }
@@ -11,21 +12,28 @@ export class LobbyScene extends Phaser.Scene {
     }
 
     create() {
+        this.player = new BoyPlayer(this, 0, 0, { hp: 10, speed: 100, runningSpeed: 200 });
+
+
         this.map = this.add.tilemap("maps.lobby");
         const tilesets = [
             this.map.addTilesetImage("tileset-01", "tilesets.tileset-01"),
         ];
         this.layers = {
-            "ground": this.map.createLayer("ground", tilesets),
-            "wall": this.map.createLayer("wall", tilesets),
-            "features": this.map.createLayer("features", tilesets),
-            "objects": this.map.createLayer("objects", tilesets),
+            "ground": this.map.createLayer("ground", tilesets).setDepth(this.player.depth - 1),
+            "wall": this.map.createLayer("wall", tilesets).setDepth(this.player.depth + 1),
+            "features": this.map.createLayer("features", tilesets).setDepth(this.player.depth + 1),
+            "objects": this.map.createLayer("objects", tilesets).setDepth(this.player.depth + 1),
         }
 
-        this.player = new BoyPlayer(this, 0, 0, { entityHP: 10, entitySpeed: 100, entityRunningSpeed: 200 });
 
         this.cameras.main.setBounds(-512, -128, 1056, 640);
 
+        const wall = this.createCollisionOnLayer(this.layers.wall);
+        const features = this.createCollisionOnLayer(this.layers.features);
+
+        this.physics.add.collider(this.player, wall);
+        this.physics.add.collider(this.player, features);
     }
 
     update() {
