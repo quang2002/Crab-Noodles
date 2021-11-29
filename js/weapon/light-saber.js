@@ -16,10 +16,10 @@ export class LightSaber extends Melee {
             key: "anims-light-saber-effect",
             frameRate: 10,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers("spritesheet-light-saber-effect", { start: 0, end: 5 })
+            frames: this.anims.generateFrameNumbers("spritesheet-light-saber-effect", { frames: [0, 1, 3, 4, 5] })
         });
 
-        this.effect = this.scene.add.sprite(x, y, null);
+        this.effect = this.scene.add.sprite(x, y, null).setScale(1.5);
     }
 
     fire(pointer) {
