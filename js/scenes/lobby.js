@@ -55,11 +55,12 @@ export class LobbyScene extends GameScene {
         this.physics.add.collider(this.player, this.gate, () => {
             this.teleportAnimation = this.physics.add.sprite(this.player.x, this.player.y - 30, "spritesheet-teleport-animation");
             this.teleportAnimation.play("anims-teleport-animation", true).setScale(0.75);
-            
+
             // fade to black
             this.cameras.main.fadeOut(1000, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.start("Stage01");
+                console.log(1);
             })
 
             /*
@@ -106,7 +107,7 @@ export class LobbyScene extends GameScene {
 
     update() {
         this.player.update();
-        
+
         //console.log(this.player.x, this.player.y);
         //console.log(this.layers.ground.width + ", " + this.layers.ground.height);
     }
