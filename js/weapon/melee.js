@@ -13,7 +13,7 @@ export class Melee extends Weapon {
     constructor(scene, x, y, texture, stats) {
         super(scene, x, y, texture, stats);
 
-        // fire system
+        // fire system 
         this.scene.time.addEvent({
             loop: true,
             delay: 10,

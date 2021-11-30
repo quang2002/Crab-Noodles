@@ -15,43 +15,65 @@ export class LobbyScene extends GameScene {
             frameWidth: 12
         });
 
-        this.load.spritesheet("spritesheet-gate1", "./assets/images/lobby/gate1.png", {
+        this.load.spritesheet("spritesheet-teleport-animation", "./assets/images/lobby/teleport-animation.png", {
             frameHeight: 166,
             frameWidth: 115
+        });
+
+        this.load.spritesheet("spritesheet-gate", "./assets/images/lobby/gate.png", {
+            frameWidth: 85,
+            frameHeight: 81
         });
     }
 
     create() {
         this.player = new BoyPlayer(this, 0, 0, { hp: 10, speed: 100, runningSpeed: 200 });
 
-        //add a new gate1 png
+        //add gate animation
         this.anims.create({
-            key: "anims-gate1",
+            key: "anims-gate",
             frameRate: 7,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers("spritesheet-gate1", { frames: [0, 1, 2, 3] })
+            frames: this.anims.generateFrameNumbers("spritesheet-gate", { start: 1, end: 6 })
         });
 
-        //create a sprite in area of gate1
-        this.gate1 = this.physics.add.sprite(483, 444, null);
-        this.gate1.setCollideWorldBounds(true).setPushable(false).setImmovable(true).setVisible(false);
+        //add a new teleport-animation png
+        this.anims.create({
+            key: "anims-teleport-animation",
+            frameRate: 7,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers("spritesheet-teleport-animation", { frames: [0, 1, 2, 3] })
+        });
+
+        //create a sprite in area of gate for play animation
+        this.gate = this.physics.add.sprite(483, 444, "spritesheet-gate").play("anims-gate", true);
+
+        //set collide
+        this.gate.setOrigin(0.5, 0.5).setCollideWorldBounds(true).setPushable(false).setImmovable(true);
 
         //collider => play animation
-        this.physics.add.collider(this.player, this.gate1, () => {
-            this.gate1 = this.physics.add.sprite(this.player.x, this.player.y - 30, "spritesheet-gate1").setVisible(true);
-            this.gate1.play("anims-gate1", true).setScale(0.75);
+        this.physics.add.collider(this.player, this.gate, () => {
+            this.teleportAnimation = this.physics.add.sprite(this.player.x, this.player.y - 30, "spritesheet-teleport-animation");
+            this.teleportAnimation.play("anims-teleport-animation", true).setScale(0.75);
+            
+            // fade to black
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.start("Stage01");
+            })
+
+            /*
             this.time.addEvent({
                 delay: 2000,                // ms
                 callback: () => this.scene.start("Stage01"),
                 //args: [],
                 repeat: 0
             });
-            
+            */
         });
 
-        //this.physics.add.collider()
 
-        //this.gate1.play()
+
 
         //add tile map lobby
         this.map = this.add.tilemap("maps.lobby");
@@ -84,7 +106,8 @@ export class LobbyScene extends GameScene {
 
     update() {
         this.player.update();
-        console.log(this.player.x, this.player.y);
+        
+        //console.log(this.player.x, this.player.y);
         //console.log(this.layers.ground.width + ", " + this.layers.ground.height);
     }
 }
