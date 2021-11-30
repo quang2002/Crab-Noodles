@@ -79,7 +79,7 @@ export class StoryScene extends Phaser.Scene {
                         this.state++;
                     }
                 } else {
-                    this.scene.start("Stage01");
+                    this.scene.start("LobbyScene");
                 }
             }
         });
