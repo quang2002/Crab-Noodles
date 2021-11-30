@@ -11,9 +11,12 @@ export class LightSaber extends Melee {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, "image-light-saber", stats);
+
+        //set origin for rotation
         this.setOrigin(0, 0.5);
         this.setBodySize(1, 1);
 
+        //create animation for attacking
         this.scene.anims.create({
             key: "anims-light-saber-effect",
             frameRate: 10,
