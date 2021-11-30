@@ -16,7 +16,7 @@ export class Player extends Entity {
     constructor(scene, x, y, stats) {
         super(scene, x, y, stats);
 
-        //this.setPushable(false);
+        window.player = this;
 
         // camera config
         this.cameras = {

@@ -52,6 +52,4 @@ export class BoyPlayer extends Player {
 
         return this;
     }
-
-
 }

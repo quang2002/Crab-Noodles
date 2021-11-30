@@ -46,6 +46,7 @@ export class Gun extends Weapon {
         const vecy = Math.sin(angle / 180 * Math.PI);
         const vecx = Math.cos(angle / 180 * Math.PI);
 
+        bullet.setCircle(6, 2, 2);
         bullet.setAngle(angle);
         bullet.setVelocity(vecx * this.stats.speed, vecy * this.stats.speed);
         bullet.setDepth(this.depth - 1);

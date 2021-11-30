@@ -1,5 +1,7 @@
 import { GameScene } from "../components/game-scene.js";
 import { BoyPlayer } from "../entity/boy-player.js";
+import { Enemy } from "../entity/enemy.js";
+import { Entity } from "../entity/entity.js";
 import { Pirate } from "../entity/pirate.js";
 import { AK47 } from "../weapon/ak47.js";
 
@@ -14,7 +16,7 @@ export class Stage01 extends GameScene {
     }
 
     create() {
-        this.player = new BoyPlayer(this, 0, 0, { hp: 10, speed: 100, runningSpeed: 200 });
+        this.player = new BoyPlayer(this, 0, 0, { hp: 1000, speed: 100, runningSpeed: 200 });
         this.player.setWeapon(new AK47(this, 0, 0, {
             fireTime: 100,
             speed: 1000,
@@ -43,7 +45,9 @@ export class Stage01 extends GameScene {
         this.physics.add.collider(this.player, features);
         this.physics.add.collider(this.player, wall);
 
-        this.player.weapons.active?.collision.push(wall, features, enemy);
+        this.player.weapons.active?.collision.push(wall, features);
+        Entity.instances.filter((value) => value instanceof Enemy).forEach((value) => this.player.weapons.active?.collision.push(value));
+
         enemy.weapon.collision.push(wall, features);
     }
 

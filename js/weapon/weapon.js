@@ -77,6 +77,7 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
         return this.owner == null;
     }
 
+
     /**
      * check if a weapon is able to fire
      */
@@ -84,6 +85,7 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
         return this.cooldown.reload <= 0 && this.cooldown.fire <= 0;
     }
 
+    
     /**
      * get weapon's position on viewport
      */

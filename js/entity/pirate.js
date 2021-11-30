@@ -54,7 +54,7 @@ export class Pirate extends Enemy {
         const vecy = this.player.y - this.y;
         const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-        if (len < 100)
+        if (200 < len && len < 400)
             return { x: vecx / len * this.stats.cur.speed, y: vecy / len * this.stats.cur.speed };
         return { x: 0, y: 0 };
     }
@@ -70,9 +70,12 @@ export class Pirate extends Enemy {
             const vecy = this.player.y - this.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-            if (this.weapon.isFireable && len < 400) {
+            if (this.weapon.isFireable && len < 300) {
                 this.weapon.fire();
             }
+        } else {
+            this.weapon.destroy(this.scene);
+            this.body.destroy();
         }
     }
 
