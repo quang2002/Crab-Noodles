@@ -52,13 +52,4 @@ export class Melee extends Weapon {
         this.setAngle(Math.atan2(pointer.y - this.vpos.y, pointer.x - this.vpos.x) / Math.PI * 180);
         return this;
     }
-
-    //get the position of camera (this.x là tọa độ của nhân vật theo toàn map, trong khi pointer.x là tọa độ của pointer trong camera)
-    // => convert cái this.x về tọa độ của camera cho đồng bộ
-    get vpos() {
-        return {
-            x: (this.x - this.scene.cameras.main.worldView.x) * this.scene.cameras.main.zoom,
-            y: (this.y - this.scene.cameras.main.worldView.y) * this.scene.cameras.main.zoom
-        }
-    }
 }

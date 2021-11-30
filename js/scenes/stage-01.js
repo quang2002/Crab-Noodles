@@ -35,7 +35,7 @@ export class Stage01 extends GameScene {
         this.physics.add.collider(this.player, features);
         this.physics.add.collider(this.player, wall);
 
-        this.player.weapon.collision.push(wall, features);
+        this.player.weapons.collision.push(wall, features);
     }
 
     update() {

@@ -41,9 +41,56 @@ export class Weapon extends Phaser.GameObjects.Sprite {
 
         // collision group
         this.collision = [];
+
+        // owner
+        this.owner = null;
     }
 
+    /**
+     * point this weapon to point (on viewport)
+     * @param {Phaser.Input.Pointer} pointer 
+     * @returns {Weapon} this
+     */
+    pointTo(pointer) {
+        if (pointer.x > this.scene.cameras.main.width / 2) this.setFlipX(false);
+        else if (pointer.x < this.scene.cameras.main.width / 2) this.setFlipX(true);
+
+        this.setAngle(Math.atan2(pointer.y - this.vpos.y, pointer.x - this.vpos.x) / Math.PI * 180 + (this.flipX ? 180 : 0));
+        return this;
+    }
+
+
+    /**
+     * fire method
+     * @returns {Weapon} this
+     */
+    fire() {
+        this.cooldown.fire = this.stats.fireTime;
+        return this;
+    }
+
+
+    /**
+     * check if a weapon is able to loot
+     */
+    get isLootable() {
+        return this.owner == null;
+    }
+
+    /**
+     * check if a weapon is able to fire
+     */
     get isFireable() {
         return this.cooldown.reload <= 0 && this.cooldown.fire <= 0;
+    }
+
+    /**
+     * get weapon's position on viewport
+     */
+    get vpos() {
+        return {
+            x: (this.x - this.scene.cameras.main.worldView.x) * this.scene.cameras.main.zoom,
+            y: (this.y - this.scene.cameras.main.worldView.y) * this.scene.cameras.main.zoom
+        }
     }
 }

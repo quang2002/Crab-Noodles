@@ -1,5 +1,6 @@
 import { BoyPlayer } from "../entity/boy-player.js";
 import { GameScene } from "../components/game-scene.js";
+import { AK47 } from "../weapon/ak47.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -14,6 +15,11 @@ export class LobbyScene extends GameScene {
     create() {
         this.player = new BoyPlayer(this, 0, 0, { hp: 10, speed: 100, runningSpeed: 200 });
 
+        this.player.setWeapon(new AK47(this, 0, 0, {
+            fireTime: 100,
+            speed: 1000,
+            reloadTime: 0
+        }));
 
         this.map = this.add.tilemap("maps.lobby");
         const tilesets = [
@@ -39,8 +45,6 @@ export class LobbyScene extends GameScene {
     }
 
     update() {
-        this.player.update();
-
-        //console.log(this.layers.ground.width + ", " + this.layers.ground.height);
+        super.update();
     }
 }

@@ -7,11 +7,10 @@ export class BoyPlayer extends Player {
      * @param {Phaser.Scene} scene 
      * @param {number} x 
      * @param {number} y 
-     * @param {String} texture 
      * @param {StatsEntity} stats 
      */
     constructor(scene, x, y, stats) {
-        super(scene, x, y, "spritesheet-boy", stats);
+        super(scene, x, y, stats);
         this.body.setSize(75, 90);
         this.setScale(.32);
     }
