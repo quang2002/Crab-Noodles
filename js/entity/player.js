@@ -16,6 +16,8 @@ export class Player extends Entity {
     constructor(scene, x, y, stats) {
         super(scene, x, y, stats);
 
+        //this.setPushable(false);
+
         // camera config
         this.cameras = {
             "zoom": 4,
@@ -43,7 +45,7 @@ export class Player extends Entity {
             "down": this.scene.input.keyboard.addKey("S"),
             "right": this.scene.input.keyboard.addKey("D"),
             "left": this.scene.input.keyboard.addKey("A"),
-            "run": this.scene.input.keyboard.addKey("J")
+            "run": this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT)
         }
 
         // weapons
@@ -135,17 +137,32 @@ export class Player extends Entity {
     update() {
         super.update();
 
-        // set weapons's visibility
-        this.weapons.pri?.setVisible(this.weapons.idx == 0);
-        this.weapons.sec?.setVisible(this.weapons.idx == 1);
+        if (this.isAlive) {
+            // set weapons's visibility
+            this.weapons.pri?.setVisible(this.weapons.idx == 0);
+            this.weapons.sec?.setVisible(this.weapons.idx == 1);
 
-        // set weapon's position, direction
-        this.weapons.active?.setPosition(this.x, this.y + 5);
-        this.weapons.active?.pointTo(this.scene.input.activePointer);
+            if (this.weapons.active instanceof Gun) {
+                // set weapon's position, direction
+                this.weapons.active?.setPosition(this.x, this.y + 5);
+                this.weapons.active?.pointTo(this.scene.input.activePointer);
 
-        // fire
-        if (this.weapons.active?.isFireable && this.scene.input.activePointer.isDown) {
-            this.weapons.active?.fire();
+                // fire
+                if (this.weapons.active?.isFireable && this.scene.input.activePointer.isDown) {
+                    this.weapons.active?.fire();
+                }
+            } else if (this.weapons.active instanceof Melee) {
+                // set weapon's position, direction
+                this.weapons.active?.setPosition(this.x, this.y + 5);
+
+                // fire
+                if (this.scene.input.activePointer.isDown) {
+                    if (this.weapons.active?.isFireable) this.weapons.active?.fire();
+                } else {
+                    this.weapons.active?.pointTo(this.scene.input.activePointer);
+                }
+            }
+
         }
 
         // smooth camera for player

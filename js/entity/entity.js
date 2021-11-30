@@ -1,6 +1,6 @@
 import { StatsEntity } from "../stats/stats-entity.js";
 
-export class Entity extends Phaser.GameObjects.Sprite {
+export class Entity extends Phaser.Physics.Arcade.Sprite {
 
     //instance of all entity in scene
     static instances = [];
@@ -70,7 +70,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
         if (this.isAlive) {
             let vec = this.movement();
 
-            this.body.setVelocity(vec.x, vec.y);
+            this.setVelocity(vec.x, vec.y);
 
             // flip sprite
             if (vec.x > 0) {
@@ -87,6 +87,17 @@ export class Entity extends Phaser.GameObjects.Sprite {
             }
         } else {
             this.play(this.animations.die, true);
+            this.setVelocity(0);
+        }
+    }
+
+    /**
+     * get entity's position on viewport
+     */
+    get vpos() {
+        return {
+            x: (this.x - this.scene.cameras.main.worldView.x) * this.scene.cameras.main.zoom,
+            y: (this.y - this.scene.cameras.main.worldView.y) * this.scene.cameras.main.zoom
         }
     }
 }

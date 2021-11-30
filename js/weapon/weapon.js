@@ -1,6 +1,6 @@
 import { StatsWeapon } from '../stats/stats-weapon.js';
 
-export class Weapon extends Phaser.GameObjects.Sprite {
+export class Weapon extends Phaser.Physics.Arcade.Sprite {
 
     /**
      * Weapon.init

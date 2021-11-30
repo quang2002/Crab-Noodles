@@ -1,8 +1,19 @@
+import { Entity } from '../entity/entity.js';
 import { StatsWeapon } from '../stats/stats-weapon.js';
 import { Weapon } from './weapon.js';
 
 export class Gun extends Weapon {
     static bullets = []
+
+    // bullets killer
+    static {
+        setInterval(() => {
+            Gun.bullets.forEach((value) => {
+                if (value.timeout > 0) value.timeout -= 10;
+                else value.destroy();
+            });
+        }, 10);
+    }
 
     /**
      * 
@@ -17,19 +28,6 @@ export class Gun extends Weapon {
         super(scene, x, y, gunTexture, stats);
 
         this.bulletTexture = bulletTexture;
-
-        // timeout system
-        this.scene.time.addEvent({
-            loop: true,
-            delay: 10,
-            callback: () => {
-                // remove bullet after timeout
-                Gun.bullets.forEach((value) => {
-                    if (value.timeout > 0) value.timeout -= 10;
-                    else value.destroy();
-                });
-            }
-        });
     }
 
     /**
@@ -56,8 +54,11 @@ export class Gun extends Weapon {
         bullet.timeout = 5000;
 
         // set collide with
-        this.scene.physics.add.collider(bullet, this.collision, (o1, o2) => {
+        this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
             o1.destroy();
+            if (o2 instanceof Entity) {
+                o2.stats.cur.hp -= this.stats.baseDMG;
+            }
         });
 
         // add to list of bullets
