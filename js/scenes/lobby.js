@@ -1,5 +1,6 @@
 import { BoyPlayer } from "../entity/boy-player.js";
 import { GameScene } from "../components/game-scene.js";
+import { AK47 } from "../weapon/ak47.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
