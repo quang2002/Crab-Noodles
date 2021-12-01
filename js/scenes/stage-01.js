@@ -20,7 +20,7 @@ export class Stage01 extends GameScene {
     create() {
         this.player = new BoyPlayer(this, 0, 0, { hp: 1000, speed: 100, runningSpeed: 200 });
         this.player.setWeapon(new AK47(this, 0, 0));
-        this.player.setWeapon(new LightSaber(this, 0, 0));
+        //this.player.setWeapon(new LightSaber(this, 0, 0));
 
         const enemy = new RedGate(this, 400, 500);
 
