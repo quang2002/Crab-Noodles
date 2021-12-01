@@ -18,6 +18,7 @@ export class Pirate extends Enemy {
         super(scene, x, y, stats);
 
         this.weapon = new AK47(scene, x, y, {
+            baseDMG: 0,
             fireTime: 1000,
         });
 

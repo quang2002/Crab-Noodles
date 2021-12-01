@@ -32,9 +32,17 @@ export const GameConfig = {
             critRate: 0.32,
             critDamage: 0.5,
             fireTime: 100,
-            speed: 1000,
+            speed: 500,
             reloadTime: 2000,
             ammo: 30,
+        }),
+        
+        "rocket": new StatsWeapon({
+            baseDMG: 300,
+            critRate: 0.5,
+            critDamage: 0.5,
+            speed: 200,
+            fireTime: 300
         }),
 
         "light-saber": new StatsWeapon({
@@ -43,6 +51,16 @@ export const GameConfig = {
             critDamage: 0.5,
             fireTime: 250,
             speed: 30,
+        }),
+
+        "drone": new StatsWeapon({
+            baseDMG: 100,
+            critRate: 0.32,
+            critDamage: 0.5,
+            fireTime: 100,
+            speed: 300,
+            reloadTime: 2000,
+            ammo: 30,
         }),
 
         "monster-spawner": new StatsWeapon({
