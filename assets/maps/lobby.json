@@ -137,7 +137,7 @@
          "startx":-16,
          "starty":-16,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":32,
          "x":0,
          "y":0

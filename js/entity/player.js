@@ -2,6 +2,7 @@ import { StatsEntity } from "../stats/stats-entity.js";
 import { Gun } from "../weapon/gun.js";
 import { Melee } from "../weapon/melee.js";
 import { Weapon } from "../weapon/weapon.js";
+import { Enemy } from "./enemy.js";
 import { Entity } from "./entity.js";
 
 export class Player extends Entity {
@@ -45,7 +46,8 @@ export class Player extends Entity {
             "down": this.scene.input.keyboard.addKey("S"),
             "right": this.scene.input.keyboard.addKey("D"),
             "left": this.scene.input.keyboard.addKey("A"),
-            "run": this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT)
+            "run": this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT),
+            "swap-weapon": this.scene.input.keyboard.addKey("J")
         }
 
         // weapons
@@ -96,6 +98,7 @@ export class Player extends Entity {
      * @returns {Player} this
      */
     setWeapon(weapon) {
+
         if (weapon instanceof Gun) {
             this.weapons.pri = weapon;
             this.weapons.idx = 0;
@@ -111,7 +114,7 @@ export class Player extends Entity {
      * @returns {Player} this
      */
     swapWeapon() {
-        this.weapons.idx = this.weapons.idx == 0 ? 1 : 0;
+        this.weapons.idx = (this.weapons.idx == 0 ? 1 : 0);
         return this;
     }
 
@@ -142,6 +145,10 @@ export class Player extends Entity {
 
         if (this.isAlive) {
 
+            if (this.controller["swap-weapon"].isDown) {
+                this.swapWeapon();
+            }
+
             // set weapons's visibility
             this.weapons.pri?.setVisible(this.weapons.idx == 0);
             this.weapons.sec?.setVisible(this.weapons.idx == 1);
@@ -167,7 +174,7 @@ export class Player extends Entity {
                     this.weapons.active?.pointTo(this.scene.input.activePointer);
                 }
             }
-
+        
         }
 
 
