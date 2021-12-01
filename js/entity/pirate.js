@@ -23,6 +23,9 @@ export class Pirate extends Enemy {
             speed: 400
         });
 
+        //owner
+        this.weapon.owner = this;
+
         this.weapon.collision.push(this.player);
     }
 
@@ -47,36 +50,6 @@ export class Pirate extends Enemy {
             repeat: -1,
             frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-pirate", { frames: [8] })
         });
-    }
-
-    movement() {
-        const vecx = this.player.x - this.x;
-        const vecy = this.player.y - this.y;
-        const len = Math.sqrt(vecx * vecx + vecy * vecy);
-
-        if (200 < len && len < 400)
-            return { x: vecx / len * this.stats.cur.speed, y: vecy / len * this.stats.cur.speed };
-        return { x: 0, y: 0 };
-    }
-
-    update() {
-        super.update();
-
-        if (this.isAlive) {
-            this.weapon.setPosition(this.x, this.y);
-            this.weapon.pointTo(this.player.vpos);
-
-            const vecx = this.player.x - this.x;
-            const vecy = this.player.y - this.y;
-            const len = Math.sqrt(vecx * vecx + vecy * vecy);
-
-            if (this.weapon.isFireable && len < 300) {
-                this.weapon.fire();
-            }
-        } else {
-            this.weapon.destroy(this.scene);
-            this.body.destroy();
-        }
     }
 
     static preload(scene) {

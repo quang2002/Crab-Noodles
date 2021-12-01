@@ -1,3 +1,4 @@
+import { Enemy } from '../entity/enemy.js';
 import { StatsWeapon } from '../stats/stats-weapon.js';
 
 export class Weapon extends Phaser.Physics.Arcade.Sprite {
@@ -55,6 +56,12 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
         if (pointer.x > this.scene.cameras.main.width / 2) this.setFlipX(false);
         else if (pointer.x < this.scene.cameras.main.width / 2) this.setFlipX(true);
 
+        if (this.owner instanceof Enemy) {
+            if (pointer.x < this.owner.x) this.setFlipX(true);
+            else if (pointer.x > this.owner.x) this.setFlipX(false);   
+            pointer = pointer.vpos; 
+        }
+        
         this.setAngle(Math.atan2(pointer.y - this.vpos.y, pointer.x - this.vpos.x) / Math.PI * 180 + (this.flipX ? 180 : 0));
         return this;
     }
@@ -85,7 +92,7 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
         return this.cooldown.reload <= 0 && this.cooldown.fire <= 0;
     }
 
-    
+
     /**
      * get weapon's position on viewport
      */

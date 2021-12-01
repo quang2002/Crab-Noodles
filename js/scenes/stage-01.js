@@ -30,6 +30,7 @@ export class Stage01 extends GameScene {
         }, this.player);
 
 
+        //add title map
         this.map = this.add.tilemap("maps.state-01");
         const tilesets = [
             this.map.addTilesetImage("tileset-01", "tilesets.tileset-01"),
@@ -40,12 +41,15 @@ export class Stage01 extends GameScene {
             "features": this.map.createLayer("features", tilesets).setDepth(this.player.depth + 2),
         }
 
+        //create collision for each feature in map
         const wall = this.createCollisionOnLayer(this.layers.wall);
         const features = this.createCollisionOnLayer(this.layers.features);
         this.physics.add.collider(this.player, features);
         this.physics.add.collider(this.player, wall);
 
         this.player.weapons.active?.collision.push(wall, features);
+
+        //push collision for enemy and weapon of player
         Entity.instances.filter((value) => value instanceof Enemy).forEach((value) => this.player.weapons.active?.collision.push(value));
 
         enemy.weapon.collision.push(wall, features);
