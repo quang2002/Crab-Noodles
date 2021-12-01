@@ -1,3 +1,4 @@
+import { GameConfig } from '../components/game-config.js';
 import { StatsWeapon } from '../stats/stats-weapon.js';
 import { Gun } from './gun.js';
 
@@ -10,7 +11,8 @@ export class AK47 extends Gun {
      * @param {StatsWeapon} stats 
      */
     constructor(scene, x, y, stats) {
-        super(scene, x, y, "image-ak47", "image-bullet-01", stats);
+        stats = Object.assign({}, GameConfig.weapons["ak-47"], stats);
+        super(scene, x, y, "images.ak47", "images.bullet-01", stats);
     }
 
     /**
@@ -19,8 +21,8 @@ export class AK47 extends Gun {
      */
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.image("image-ak47", "./assets/images/ak-47.png");
-            scene.load.image("image-bullet-01", "./assets/images/bullet-01.png");
+            scene.load.image("images.ak47", "./assets/images/ak-47.png");
+            scene.load.image("images.bullet-01", "./assets/images/bullet-01.png");
         }
     }
 }

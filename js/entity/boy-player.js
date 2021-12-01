@@ -1,3 +1,4 @@
+import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { Player } from "./player.js";
 
@@ -10,6 +11,7 @@ export class BoyPlayer extends Player {
      * @param {StatsEntity} stats 
      */
     constructor(scene, x, y, stats) {
+        stats = Object.assign({}, GameConfig.entities["boy-player"], stats);
         super(scene, x, y, stats);
         this.setBodySize(75, 90).setOffset(16, 8);
         this.setScale(.32);
@@ -21,7 +23,7 @@ export class BoyPlayer extends Player {
      */
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.spritesheet("spritesheet-boy", "./assets/images/boy.png", {
+            scene.load.spritesheet("spritesheet.boy-player", "./assets/images/boy.png", {
                 frameWidth: 100,
                 frameHeight: 100
             });
@@ -33,21 +35,21 @@ export class BoyPlayer extends Player {
             key: "anims-boy-idle",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNames("spritesheet-boy", { start: 0, end: 3 })
+            frames: this.scene.anims.generateFrameNames("spritesheet.boy-player", { start: 0, end: 3 })
         });
 
         this.animations.move = this.scene.anims.create({
             key: "anims-boy-move",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNames("spritesheet-boy", { start: 4, end: 7 })
+            frames: this.scene.anims.generateFrameNames("spritesheet.boy-player", { start: 4, end: 7 })
         });
 
         this.animations.die = this.scene.anims.create({
             key: "anims-boy-die",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNames("spritesheet-boy", { start: 8, end: 8 })
+            frames: this.scene.anims.generateFrameNames("spritesheet.boy-player", { start: 8, end: 8 })
         });
 
         return this;

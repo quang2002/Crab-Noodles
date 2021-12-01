@@ -1,3 +1,4 @@
+import { GameConfig } from '../components/game-config.js';
 import { Entity } from '../entity/entity.js';
 import { StatsWeapon } from '../stats/stats-weapon.js';
 import { Weapon } from './weapon.js';
@@ -56,10 +57,10 @@ export class Gun extends Weapon {
 
         // set collide with
         this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
-            o1.destroy();
-            if (o2 instanceof Entity) {
-                o2.stats.cur.hp -= this.stats.baseDMG;
+            if (o2 instanceof Entity && o2.isAlive) {
+                o2.take_damage(this.stats.damage);
             }
+            o1.destroy();
         });
 
         // add to list of bullets

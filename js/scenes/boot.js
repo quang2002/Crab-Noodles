@@ -11,6 +11,11 @@ export class BootScene extends Phaser.Scene {
     }
 
     preload() {
+        this.load.spritesheet("spritesheet.gate", "./assets/images/gate.png", {
+            frameWidth: 96,
+            frameHeight: 96
+        });
+
         MenuScene.preload(this);
         StoryScene.preload(this);
 
@@ -18,7 +23,6 @@ export class BootScene extends Phaser.Scene {
         AK47.preload(this);
 
         BoyPlayer.preload(this);
-
         Pirate.preload(this);
     }
 

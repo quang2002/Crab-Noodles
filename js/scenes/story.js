@@ -42,9 +42,14 @@ export class StoryScene extends Phaser.Scene {
         scene.load.image("images.story-02", "./assets/images/story-02.png");
         scene.load.image("images.story-03", "./assets/images/story-03.png");
         scene.load.image("images.story-04", "./assets/images/story-04.png");
+        scene.load.audio("story-theme-sound", "/assets/sounds/theme/story-scene.mp3");
     }
 
     create() {
+        //add theme sound
+        this.themeSound = this.sound.add("story-theme-sound", {volume: 0.5});
+        this.themeSound.play();
+
         this.image = this.add.image(this.scale.width / 2, this.scale.height / 2 - 200, "").setScale(1.5);
         this.text = this.add.text(
             this.scale.width / 2,
@@ -79,6 +84,7 @@ export class StoryScene extends Phaser.Scene {
                         this.state++;
                     }
                 } else {
+                    this.themeSound.stop();
                     this.scene.start("LobbyScene");
                 }
             }

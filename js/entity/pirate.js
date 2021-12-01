@@ -1,3 +1,4 @@
+import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { AK47 } from "../weapon/ak47.js";
 import { Enemy } from "./enemy.js";
@@ -11,19 +12,22 @@ export class Pirate extends Enemy {
      * @param {number} x 
      * @param {number} y 
      * @param {StatsEntity} stats 
-     * @param {Player} player 
      */
-    constructor(scene, x, y, stats, player) {
-        super(scene, x, y, stats, player);
+    constructor(scene, x, y, stats) {
+        stats = Object.assign({}, GameConfig.entities["pirate"], stats);
+        super(scene, x, y, stats);
 
         this.weapon = new AK47(scene, x, y, {
-            baseDMG: 10,
             fireTime: 1000,
-            reloadTime: 0,
-            speed: 400
         });
 
+        //owner
+        this.weapon.owner = this;
+
         this.weapon.collision.push(this.player);
+
+        this.randomVelocity = { x: 0, y: 0 };
+        this.lastTime = 0;
     }
 
     create_anims() {
@@ -49,6 +53,12 @@ export class Pirate extends Enemy {
         });
     }
 
+    static preload(scene) {
+        if (scene instanceof Phaser.Scene) {
+            scene.load.spritesheet("spritesheet-enemy-pirate", "./assets/images/enemy-pirate.png", { frameWidth: 40, frameHeight: 40 });
+        }
+    }
+
     movement() {
         const vecx = this.player.x - this.x;
         const vecy = this.player.y - this.y;
@@ -56,15 +66,20 @@ export class Pirate extends Enemy {
 
         if (200 < len && len < 400)
             return { x: vecx / len * this.stats.cur.speed, y: vecy / len * this.stats.cur.speed };
+
+        if (len > 400)
+            return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
+
         return { x: 0, y: 0 };
     }
 
     update() {
         super.update();
 
+        // weapon fire
         if (this.isAlive) {
             this.weapon.setPosition(this.x, this.y);
-            this.weapon.pointTo(this.player.vpos);
+            this.weapon.pointTo(this.player);
 
             const vecx = this.player.x - this.x;
             const vecy = this.player.y - this.y;
@@ -77,11 +92,11 @@ export class Pirate extends Enemy {
             this.weapon.destroy(this.scene);
             this.body.destroy();
         }
-    }
 
-    static preload(scene) {
-        if (scene instanceof Phaser.Scene) {
-            scene.load.spritesheet("spritesheet-enemy-pirate", "./assets/images/enemy-pirate.png", { frameWidth: 40, frameHeight: 40 });
+        if (this.scene.time.now - this.lastTime > 1000) {
+            this.lastTime = this.scene.time.now;
+            this.randomVelocity.x = Math.random() * 2 - 1;
+            this.randomVelocity.y = Math.random() * 2 - 1;
         }
     }
 }

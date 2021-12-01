@@ -28,4 +28,23 @@ export class StatsWeapon {
     constructor(data) {
         Object.assign(this, data);
     }
+
+
+    /**
+     * calculate weapon DMG
+     */
+    get damage() {
+        let result = this.baseDMG;
+        const iscrit = Math.random() < this.critRate;
+        if (iscrit) result *= (1 + this.critDamage);
+        return {
+            get value() {
+                return result;  
+            },
+
+            get crit() {
+                return iscrit;
+            }
+        };
+    }
 }

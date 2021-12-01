@@ -1,9 +1,21 @@
+import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 
 export class Entity extends Phaser.Physics.Arcade.Sprite {
 
     //instance of all entity in scene
     static instances = [];
+
+    static {
+        setInterval(() => {
+            Entity.instances.forEach((value) => {
+                if (!value.isAlive && !value.isPlayer) {
+                    if (value.timeout > 0) value.timeout -= 100;
+                    else value.destroy();
+                }
+            });
+        }, 100);
+    }
 
     /**
      * 
@@ -34,6 +46,40 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
 
         // add this object to instances
         Entity.instances.push(this);
+
+        // timeout after die
+        this.timeout = 5000;
+
+        // is player
+        this.isPlayer = false;
+    }
+
+    /**
+     * take damage
+     * @param {{value: number, crit: boolean}} dmg 
+     */
+    take_damage(dmg) {
+        // descrease current hp
+        this.stats.cur.hp -= dmg.value;
+
+        // damage text
+        let txtDMG = null;
+        if (dmg.crit) {
+            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 15, color: "crimson", stroke: "snow", strokeThickness: 1 })
+        } else {
+            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 12, color: "silver", stroke: "snow", strokeThickness: 1 })
+        }
+
+        this.scene.physics.add.existing(txtDMG);
+        txtDMG.body.setVelocity(-30);
+
+        const event = this.scene.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                txtDMG.destroy(true);
+                this.scene?.time.removeEvent(event);
+            }
+        })
     }
 
     /**
