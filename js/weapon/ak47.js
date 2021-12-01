@@ -21,8 +21,8 @@ export class AK47 extends Gun {
      */
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.image("images.ak47", "./assets/images/ak-47.png");
-            scene.load.image("images.bullet-01", "./assets/images/bullet-01.png");
+            scene.load.image("images.ak47", "./assets/images/weapon/guns/ak47/ak-47.png");
+            scene.load.image("images.bullet-01", "./assets/images/weapon/guns/ak47/bullet-01.png");
         }
     }
 }
