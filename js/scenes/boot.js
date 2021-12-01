@@ -1,4 +1,5 @@
 import { BoyPlayer } from "../entity/boy-player.js";
+import { Pirate } from "../entity/pirate.js";
 import { AK47 } from "../weapon/ak47.js";
 import { LightSaber } from "../weapon/light-saber.js";
 import { MenuScene } from "./menu.js";
@@ -17,6 +18,8 @@ export class BootScene extends Phaser.Scene {
         AK47.preload(this);
 
         BoyPlayer.preload(this);
+
+        Pirate.preload(this);
     }
 
     create() {

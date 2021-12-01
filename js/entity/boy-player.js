@@ -7,12 +7,11 @@ export class BoyPlayer extends Player {
      * @param {Phaser.Scene} scene 
      * @param {number} x 
      * @param {number} y 
-     * @param {String} texture 
      * @param {StatsEntity} stats 
      */
     constructor(scene, x, y, stats) {
-        super(scene, x, y, "spritesheet-boy", stats);
-        this.body.setSize(75, 90);
+        super(scene, x, y, stats);
+        this.setBodySize(75, 90).setOffset(16, 8);
         this.setScale(.32);
     }
 
@@ -45,7 +44,7 @@ export class BoyPlayer extends Player {
         });
 
         this.animations.die = this.scene.anims.create({
-            key: "anims-boy-move",
+            key: "anims-boy-die",
             frameRate: 10,
             repeat: -1,
             frames: this.scene.anims.generateFrameNames("spritesheet-boy", { start: 8, end: 8 })
@@ -53,6 +52,4 @@ export class BoyPlayer extends Player {
 
         return this;
     }
-
-
 }

@@ -12,13 +12,10 @@ export class StatsWeapon {
     // critical damage
     critDamage;
 
-    // time for burst one bullet
-    burstNormalTime;
+    // cooldown time between two shots
+    fireTime;
 
-    // number of bullets per second
-    fireRate;
-
-    // number of bullet in a magazine (số lượng đạn có trong 1 băng đạn)
+    // number of bullets
     ammo;
 
     // time for reload a new magazine (băng đạn)
