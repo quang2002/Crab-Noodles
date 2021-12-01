@@ -11,8 +11,8 @@ export class AK47 extends Gun {
      * @param {StatsWeapon} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.weapons["ak-47"].stats, stats);
-        super(scene, x, y, GameConfig.weapons["ak-47"].texture.key, GameConfig.weapons["ak-47"].bullet.key, stats);
+        stats = Object.assign({}, GameConfig.weapons["ak-47"], stats);
+        super(scene, x, y, "images.ak47", "images.bullet-01", stats);
     }
 
     /**
@@ -21,8 +21,8 @@ export class AK47 extends Gun {
      */
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.image(GameConfig.weapons["ak-47"].texture.key, GameConfig.weapons["ak-47"].texture.path);
-            scene.load.image(GameConfig.weapons["ak-47"].bullet.key, GameConfig.weapons["ak-47"].bullet.path);
+            scene.load.image("images.ak47", "./assets/images/ak-47.png");
+            scene.load.image("images.bullet-01", "./assets/images/bullet-01.png");
         }
     }
 }

@@ -35,8 +35,16 @@ export class StatsWeapon {
      */
     get damage() {
         let result = this.baseDMG;
-        const rate = Math.random() % 100;
-        if (rate < this.critRate) result *= (1 + this.critDamage);
-        return result;
+        const iscrit = Math.random() < this.critRate;
+        if (iscrit) result *= (1 + this.critDamage);
+        return {
+            get value() {
+                return result;  
+            },
+
+            get crit() {
+                return iscrit;
+            }
+        };
     }
 }

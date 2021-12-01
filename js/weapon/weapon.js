@@ -30,7 +30,7 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
         };
 
         // add event for cooldown system
-        this.scene.time.addEvent({
+        this.cooldownEvent = this.scene.time.addEvent({
             loop: true,
             delay: 10,
             callback: () => {
@@ -47,6 +47,17 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
         this.owner = null;
     }
 
+
+    /**
+     * override destroy
+     * @param {boolean} fromScene 
+     */
+    destroy(fromScene) {
+        this.cooldownEvent.destroy();
+        super.destroy(fromScene);
+    }
+
+
     /**
      * point this weapon to point (on viewport)
      * @param {Phaser.Input.Pointer} pointer 
@@ -58,10 +69,10 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
 
         if (this.owner instanceof Enemy) {
             if (pointer.x < this.owner.x) this.setFlipX(true);
-            else if (pointer.x > this.owner.x) this.setFlipX(false);   
-            pointer = pointer.vpos; 
+            else if (pointer.x > this.owner.x) this.setFlipX(false);
+            pointer = pointer.vpos;
         }
-        
+
         this.setAngle(Math.atan2(pointer.y - this.vpos.y, pointer.x - this.vpos.x) / Math.PI * 180 + (this.flipX ? 180 : 0));
         return this;
     }

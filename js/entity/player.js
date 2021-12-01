@@ -58,6 +58,9 @@ export class Player extends Entity {
                 return this.idx == 0 ? this.pri : this.sec;
             }
         };
+
+        // isplayer = true
+        this.isPlayer = true;
     }
 
 
