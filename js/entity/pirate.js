@@ -19,6 +19,7 @@ export class Pirate extends Enemy {
 
         this.weapon = new AK47(scene, x, y, {
             fireTime: 1000,
+            speed: 100
         });
 
         //owner
