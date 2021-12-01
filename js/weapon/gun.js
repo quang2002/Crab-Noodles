@@ -1,5 +1,7 @@
 import { GameConfig } from '../components/game-config.js';
+import { Enemy } from '../entity/enemy.js';
 import { Entity } from '../entity/entity.js';
+import { Player } from '../entity/player.js';
 import { StatsWeapon } from '../stats/stats-weapon.js';
 import { Weapon } from './weapon.js';
 
@@ -56,11 +58,16 @@ export class Gun extends Weapon {
         bullet.timeout = 5000;
 
         // set collide with
-        this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
-            if (o2 instanceof Entity && o2.isAlive) {
-                o2.take_damage(this.stats.damage);
+        this.scene.physics.add.overlap(bullet, this.collision.concat(Entity.instances), (o1, o2) => {
+            if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
+                if (o2 instanceof Entity && o2.isAlive) {
+                    o2.take_damage(this.stats.damage);
+                }
+                o1.destroy();
             }
-            o1.destroy();
+
+            if (!(o2 instanceof Entity))
+                o1.destroy();
         });
 
         // add to list of bullets

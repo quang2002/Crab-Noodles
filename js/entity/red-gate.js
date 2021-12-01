@@ -10,6 +10,8 @@ export class RedGate extends Enemy {
 
         this.timeout = 0;
 
+        this.setOffset(32);
+
         this.weapon = new MonsterSpawner(scene, x, y, [Pirate]);
     }
 
@@ -22,6 +24,11 @@ export class RedGate extends Enemy {
         })
 
         this.animations.die = this.animations.idle;
+    }
+
+    destroy(fromScene) {
+        super.destroy(fromScene);
+        this.weapon.destroy();
     }
 
     update() {
