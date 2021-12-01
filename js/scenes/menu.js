@@ -8,9 +8,18 @@ export class MenuScene extends Phaser.Scene {
         scene.load.image("button-newgame", "./assets/images/background/newgame.png");
         scene.load.image("button-lastgame", "./assets/images/background/lastgame.png");
         scene.load.image("button-setting", "./assets/images/background/setting.png");
+        scene.load.audio("menu-theme-sound", "./assets/sounds/theme/first-scene.mp3");
+        scene.load.audio("button-sound", "./assets/sounds/UI/click-2.wav");
     }
 
     create() {
+        //add theme sounds
+        this.themeSound = this.sound.add("menu-theme-sound", { volume: 0.5, loop: true });
+        this.themeSound.play();
+
+        //add button sounds
+        this.buttonSound = this.sound.add("button-sound");
+
         // add images
         this.add.image(0, 0, "images.bg").setOrigin(0).setInteractive().on("pointermove",
             () => {
@@ -20,7 +29,11 @@ export class MenuScene extends Phaser.Scene {
 
         // new game button
         this.newgameButton = this.add.image(375, 610, "button-newgame").setOrigin(0.5, 0.5).setScale(0.8).setInteractive().on("pointerdown",
-            () => this.scene.start("StoryScene"));
+            () => {
+                this.themeSound.stop();
+                this.buttonSound.play(); 
+                this.scene.start("StoryScene")
+            });
 
         // if pointer move => zoom out
         this.newgameButton.setInteractive().on("pointermove", () => {
@@ -29,7 +42,11 @@ export class MenuScene extends Phaser.Scene {
 
         // last game from lobby button
         this.lastgameButton = this.add.image(375, 800, "button-lastgame").setOrigin(0.5, 0.5).setScale(0.8).setInteractive().on("pointerdown",
-            () => this.scene.start("Stage01"));
+            () => {
+                this.themeSound.stop();
+                this.buttonSound.play();
+                this.scene.start("Stage01")
+            });
 
         // if pointer move => zoom out
         this.lastgameButton.setInteractive().on("pointermove", () => {
