@@ -2,11 +2,11 @@ import { Entity } from "./entity.js";
 import { Player } from "./player.js";
 
 export class Enemy extends Entity {
-    constructor(scene, x, y, stats, player) {
+    constructor(scene, x, y, stats) {
         super(scene, x, y, stats);
 
-        if (player instanceof Player) {
-            this.player = player;
+        if (scene?.player instanceof Player) {
+            this.player = scene.player;
         }
 
         //heath bar for enemy
@@ -15,7 +15,7 @@ export class Enemy extends Entity {
             this.scene.add.rectangle(0, 0, 1, 1, 0x00ff00).setOrigin(0, 0.5)
         ]);
     }
-    
+
     movement() {
         const vecx = this.player.x - this.x;
         const vecy = this.player.y - this.y;

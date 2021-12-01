@@ -1,3 +1,4 @@
+import { GameConfig } from '../components/game-config.js';
 import { Entity } from '../entity/entity.js';
 import { StatsWeapon } from '../stats/stats-weapon.js';
 import { Weapon } from './weapon.js';
@@ -56,10 +57,30 @@ export class Gun extends Weapon {
 
         // set collide with
         this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
-            o1.destroy();
-            if (o2 instanceof Entity) {
-                o2.stats.cur.hp -= this.stats.baseDMG;
+            if (o2 instanceof Entity && this.scene) {
+                const dmg = this.stats.damage;
+                o2.stats.cur.hp -= dmg;
+
+                // damage text
+                let txtDMG = null;
+                if (dmg != this.stats.baseDMG) {
+                    txtDMG = this.scene.add.text(o2.x, o2.y, dmg, { fontFamily: GameConfig['font-family'], fontSize: 15, color: "crimson", stroke: "snow", strokeThickness: 1 })
+                } else {
+                    txtDMG = this.scene.add.text(o2.x, o2.y, dmg, { fontFamily: GameConfig['font-family'], fontSize: 12, color: "silver", stroke: "snow", strokeThickness: 1 })
+                }
+
+                this.scene.physics.add.existing(txtDMG);
+                txtDMG.body.setVelocity(-30);
+
+                const event = this.scene.time.addEvent({
+                    delay: 1000,
+                    callback: () => {
+                        txtDMG.destroy(true);
+                        this.scene?.time.removeEvent(event);
+                    }
+                })
             }
+            o1.destroy();
         });
 
         // add to list of bullets

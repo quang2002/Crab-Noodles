@@ -1,3 +1,4 @@
+import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { AK47 } from "../weapon/ak47.js";
 import { Enemy } from "./enemy.js";
@@ -11,16 +12,14 @@ export class Pirate extends Enemy {
      * @param {number} x 
      * @param {number} y 
      * @param {StatsEntity} stats 
-     * @param {Player} player 
      */
-    constructor(scene, x, y, stats, player) {
-        super(scene, x, y, stats, player);
+    constructor(scene, x, y, stats) {
+        stats = Object.assign({}, GameConfig.entities["pirate"].stats, stats);
+        super(scene, x, y, stats);
 
         this.weapon = new AK47(scene, x, y, {
             baseDMG: 10,
             fireTime: 1000,
-            reloadTime: 0,
-            speed: 400
         });
 
         //owner

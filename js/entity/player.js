@@ -138,6 +138,7 @@ export class Player extends Entity {
         super.update();
 
         if (this.isAlive) {
+
             // set weapons's visibility
             this.weapons.pri?.setVisible(this.weapons.idx == 0);
             this.weapons.sec?.setVisible(this.weapons.idx == 1);
@@ -152,17 +153,24 @@ export class Player extends Entity {
                     this.weapons.active?.fire();
                 }
             } else if (this.weapons.active instanceof Melee) {
+
                 // set weapon's position, direction
                 this.weapons.active?.setPosition(this.x, this.y + 5);
 
                 // fire
                 if (this.scene.input.activePointer.isDown) {
-                    if (this.weapons.active?.isFireable) this.weapons.active?.fire();
+                    this.weapons.active?.fire();
                 } else {
                     this.weapons.active?.pointTo(this.scene.input.activePointer);
                 }
             }
 
+        }
+
+
+        // set weapon's owner
+        if (this.weapons.active != null) {
+            this.weapons.active.owner = this.isAlive ? this : null;
         }
 
         // smooth camera for player

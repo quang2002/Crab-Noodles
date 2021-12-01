@@ -1,3 +1,4 @@
+import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { Player } from "./player.js";
 
@@ -10,6 +11,7 @@ export class BoyPlayer extends Player {
      * @param {StatsEntity} stats 
      */
     constructor(scene, x, y, stats) {
+        stats = Object.assign({}, GameConfig.entities["boy-player"].stats, stats);
         super(scene, x, y, stats);
         this.setBodySize(75, 90).setOffset(16, 8);
         this.setScale(.32);
