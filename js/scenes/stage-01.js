@@ -45,8 +45,7 @@ export class Stage01 extends GameScene {
 
         this.player.weapons.active?.collision.push(wall, features);
 
-        // push collision for enemy and weapon of player
-        Entity.instances.filter((value) => value instanceof Enemy).forEach((value) => this.player.weapons.active?.collision.push(value));
+        
 
         enemy.weapon?.collision.push(wall, features);
     }

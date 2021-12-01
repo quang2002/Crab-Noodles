@@ -9,7 +9,7 @@ export class StatsWeapon {
     // critical rate
     critRate;
 
-    // critical damage
+    // critical damage (% more)
     critDamage;
 
     // cooldown time between two shots
