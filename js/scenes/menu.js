@@ -5,9 +5,9 @@ export class MenuScene extends Phaser.Scene {
 
     static preload(scene) {
         scene.load.image("images.bg", "./assets/images/bg.png");
-        scene.load.image("ui.btn-newgame", "./assets/UI/btn-newgame.png");
-        scene.load.image("ui.btn-lastgame", "./assets/UI/btn-lastgame.png");
-        scene.load.image("ui.btn-setting", "./assets/UI/btn-setting.png");
+        scene.load.image("ui.btn-newgame", "./assets/ui/btn-newgame.png");
+        scene.load.image("ui.btn-lastgame", "./assets/ui/btn-lastgame.png");
+        scene.load.image("ui.btn-setting", "./assets/ui/btn-setting.png");
 
         scene.load.audio("sounds.menu-theme", "./assets/sounds/theme/first-scene.mp3");
         scene.load.audio("sounds.button", "./assets/sounds/UI/click-2.wav");
