@@ -1,7 +1,7 @@
 import { BoyPlayer } from "../entity/boy-player.js";
 import { Pirate } from "../entity/pirate.js";
 import { RedGate } from "../entity/red-gate.js";
-import { PlayerUI } from "../UI/player-ui.js";
+import { PlayerUI } from "../ui/player-ui.js";
 import { AK47 } from "../weapon/ak47.js";
 import { LightSaber } from "../weapon/light-saber.js";
 import { LobbyScene } from "./lobby.js";
