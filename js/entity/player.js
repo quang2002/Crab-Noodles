@@ -50,7 +50,7 @@ export class Player extends Entity {
             "right": this.scene.input.keyboard.addKey("D"),
             "left": this.scene.input.keyboard.addKey("A"),
             "run": this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT),
-            "swap-weapon": this.scene.input.keyboard.addKey("J")
+            "swap-weapon": this.scene.input.keyboard.addKey("Q")
         }
 
         // weapons
@@ -66,8 +66,11 @@ export class Player extends Entity {
 
         // isplayer = true
         this.isPlayer = true;
+
+        this.COOLDOWN_SWAP_TIME = 600;
+        this.nextSwapTime = this.scene.time.now;
     }
-    
+
     /**
      * get player velocity vector
      * @returns {x: number, y: number}
@@ -147,8 +150,9 @@ export class Player extends Entity {
 
         if (this.isAlive) {
 
-            if (this.controller["swap-weapon"].isDown) {
+            if (this.controller["swap-weapon"].isDown && this.nextSwapTime < this.scene.time.now) {
                 this.swapWeapon();
+                this.nextSwapTime = this.scene.time.now + this.COOLDOWN_SWAP_TIME;
             }
 
             // set weapons's visibility

@@ -44,8 +44,7 @@ export class Stage02 extends GameScene {
         this.player.setWeapon(new AK47(this, 0, 0));
         this.player.setWeapon(new LightSaber(this, 0, 0));
 
-        this.player.swapWeapon();
-
+        this.cameras.main.setBounds(-1024, -512, 2048, 1024);
 
         new RedGate(this, -400, 264);
         new RedGate(this, 435, 330);
