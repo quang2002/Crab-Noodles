@@ -7,6 +7,7 @@ import { LightSaber } from "../weapon/light-saber.js";
 import { LobbyScene } from "./lobby.js";
 import { MenuScene } from "./menu.js";
 import { Stage01 } from "./stage-01.js";
+import { Stage02 } from "./stage-02.js";
 import { StoryScene } from "./story.js";
 
 export class BootScene extends Phaser.Scene {
@@ -19,6 +20,7 @@ export class BootScene extends Phaser.Scene {
         MenuScene.preload(this);
         StoryScene.preload(this);
         Stage01.preload(this);
+        Stage02.preload(this);
         LobbyScene.preload(this);
 
         // UI

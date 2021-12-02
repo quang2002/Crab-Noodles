@@ -2,6 +2,7 @@ import { BootScene } from "./scenes/boot.js";
 import { LobbyScene } from "./scenes/lobby.js";
 import { MenuScene } from "./scenes/menu.js";
 import { Stage01 } from "./scenes/stage-01.js";
+import { Stage02 } from "./scenes/stage-02.js";
 import { StoryScene } from "./scenes/story.js";
 import { PlayerUI } from "./UI/player-ui.js";
 
@@ -27,6 +28,6 @@ window.addEventListener("load", () => {
             }
         },
 
-        scene: [BootScene, MenuScene, StoryScene, LobbyScene, Stage01, PlayerUI]
+        scene: [BootScene, MenuScene, StoryScene, LobbyScene, Stage01, Stage02, PlayerUI]
     });
 });

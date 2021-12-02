@@ -1,3 +1,4 @@
+import { GameConfig } from "../components/game-config.js";
 import { Player } from "../entity/player.js";
 
 export class PlayerUI extends Phaser.Scene {
@@ -28,6 +29,8 @@ export class PlayerUI extends Phaser.Scene {
             this.MAXBARSIZE.width,
             this.MAXBARSIZE.height,
             0xFF0000, 0.6).setOrigin(0);
+
+        this.txt_info = this.add.text(this.scale.width - 20, 20, "information", { fontFamily: GameConfig['font-family'], fontSize: 17, color: "crimson" }).setOrigin(1, 0);
     }
 
     /**
@@ -43,6 +46,8 @@ export class PlayerUI extends Phaser.Scene {
     update() {
         if (this.player) {
             this.hp.setDisplaySize(this.MAXBARSIZE.width * (this.player.stats.cur.hp / this.player.stats.max.hp), this.MAXBARSIZE.height);
+
+            this.txt_info.setText("Position: " + this.player.x + ", " + this.player.y);
         }
     }
 }

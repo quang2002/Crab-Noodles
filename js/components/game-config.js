@@ -27,7 +27,7 @@ export const GameConfig = {
 
     "weapons": {
         "ak-47": new StatsWeapon({
-            baseDMG: 100,
+            baseDMG: 200,
             critRate: 0.32,
             critDamage: 0.5,
             fireTime: 100,
@@ -37,7 +37,7 @@ export const GameConfig = {
         }),
 
         "light-saber": new StatsWeapon({
-            baseDMG: 150,
+            baseDMG: 200,
             critRate: 0.5,
             critDamage: 0.5,
             fireTime: 250,

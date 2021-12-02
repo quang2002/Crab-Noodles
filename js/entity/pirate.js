@@ -25,7 +25,6 @@ export class Pirate extends Enemy {
         //owner
         this.weapon.owner = this;
 
-        this.weapon.collision.push(this.player);
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;

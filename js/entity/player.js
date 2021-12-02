@@ -2,7 +2,6 @@ import { StatsEntity } from "../stats/stats-entity.js";
 import { Gun } from "../weapon/gun.js";
 import { Melee } from "../weapon/melee.js";
 import { Weapon } from "../weapon/weapon.js";
-import { Enemy } from "./enemy.js";
 import { Entity } from "./entity.js";
 
 export class Player extends Entity {
@@ -16,6 +15,8 @@ export class Player extends Entity {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, stats);
+
+        window.player = this;
 
         scene.scene.launch("PlayerUI").get("PlayerUI")?.setData({
             player: this,
@@ -66,8 +67,7 @@ export class Player extends Entity {
         // isplayer = true
         this.isPlayer = true;
     }
-
-
+    
     /**
      * get player velocity vector
      * @returns {x: number, y: number}

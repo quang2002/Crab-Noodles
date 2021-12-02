@@ -1,6 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { MonsterSpawner } from "../weapon/monster-spawner.js";
 import { Enemy } from "./enemy.js";
+import { Entity } from "./entity.js";
 import { Pirate } from "./pirate.js";
 
 export class RedGate extends Enemy {
