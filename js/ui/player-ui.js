@@ -12,6 +12,7 @@ export class PlayerUI extends Phaser.Scene {
      */
     static preload(scene) {
         scene.load.image("ui.status-bar", "./assets/ui/status-bar.png");
+        
     }
 
     create() {
