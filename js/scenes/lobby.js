@@ -69,7 +69,7 @@ export class LobbyScene extends GameScene {
 
             // fade to black
             this.cameras.main.fadeOut(1000, 0, 0, 0).once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start("Stage01");
+                this.scene.start("ChooseStage");
             });
 
             this.physics.world.removeCollider(gate_collider);

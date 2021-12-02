@@ -28,6 +28,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, null);
+        
 
         // add this sprite to scene
         this.scene.add.existing(this);
@@ -45,9 +46,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         };
 
         // animation
-        this.animations = { idle: null, move: null, die: null };
+        this.animations = { idle: null, move: null, die: null};
         this.create_anims();
-
+        
         // add this object to instances
         Entity.instances.push(this);
 

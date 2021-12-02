@@ -4,6 +4,7 @@ import { RedGate } from "../entity/red-gate.js";
 import { PlayerUI } from "../UI/player-ui.js";
 import { AK47 } from "../weapon/ak47.js";
 import { LightSaber } from "../weapon/light-saber.js";
+import { ChooseStage } from "./choosestage.js";
 import { LobbyScene } from "./lobby.js";
 import { MenuScene } from "./menu.js";
 import { Stage01 } from "./stage-01.js";
@@ -19,6 +20,7 @@ export class BootScene extends Phaser.Scene {
         // Game Scene
         MenuScene.preload(this);
         StoryScene.preload(this);
+        ChooseStage.preload(this);
         Stage01.preload(this);
         Stage02.preload(this);
         LobbyScene.preload(this);

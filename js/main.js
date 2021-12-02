@@ -1,4 +1,5 @@
 import { BootScene } from "./scenes/boot.js";
+import { ChooseStage } from "./scenes/choosestage.js";
 import { LobbyScene } from "./scenes/lobby.js";
 import { MenuScene } from "./scenes/menu.js";
 import { Stage01 } from "./scenes/stage-01.js";
@@ -28,6 +29,6 @@ window.addEventListener("load", () => {
             }
         },
 
-        scene: [BootScene, MenuScene, StoryScene, LobbyScene, Stage01, Stage02, PlayerUI]
+        scene: [BootScene, MenuScene, StoryScene, LobbyScene, Stage01, Stage02, PlayerUI, ChooseStage]
     });
 });
