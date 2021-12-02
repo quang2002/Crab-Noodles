@@ -15,6 +15,17 @@ export class RedGate extends Enemy {
         this.weapon = new MonsterSpawner(scene, x, y, [Pirate]);
     }
 
+    /**
+     * preload
+     * @param {Phaser.Scene} scene 
+     */
+    static preload(scene) {
+        scene.load.spritesheet("spritesheet.gate", "./assets/images/gate.png", {
+            frameWidth: 96,
+            frameHeight: 96
+        });
+    }
+
     create_anims() {
         this.animations.idle = this.anims.create({
             key: "anims.red-gate",

@@ -1,33 +1,37 @@
-import { BoyPlayer } from "../entity/boy-player.js";
 import { GameScene } from "../components/game-scene.js";
 import { AK47 } from "../weapon/ak47.js";
+import { BoyPlayer } from "../entity/boy-player.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
         super("LobbyScene");
     }
 
-    preload() {
-        this.load.image("tilesets.tileset-01", "./assets/tilesets/tileset-01.png");
-        this.load.tilemapTiledJSON("maps.lobby", "./assets/maps/lobby.json");
-        this.load.spritesheet("spritesheet-island", "./assets/images/lobby/island.png", {
+    /**
+     * preload  
+     * @param {Phaser.Scene} scene 
+     */
+    static preload(scene) {
+        scene.load.image("tilesets.tileset-01", "./assets/tilesets/tileset-01.png");
+        scene.load.tilemapTiledJSON("maps.lobby", "./assets/maps/lobby.json");
+        scene.load.spritesheet("spritesheet-island", "./assets/images/lobby/island.png", {
             frameHeight: 32,
             frameWidth: 12
         });
 
-        this.load.spritesheet("spritesheet-teleport-animation", "./assets/images/lobby/teleport-animation.png", {
+        scene.load.spritesheet("spritesheet-teleport-animation", "./assets/images/lobby/teleport-animation.png", {
             frameHeight: 166,
             frameWidth: 115
         });
 
-        this.load.spritesheet("spritesheet-gate", "./assets/images/lobby/gate.png", {
+        scene.load.spritesheet("spritesheet-gate", "./assets/images/lobby/gate.png", {
             frameWidth: 85,
             frameHeight: 81
         });
     }
 
     create() {
-        this.player = new BoyPlayer(this, 0, 0, { hp: 10, speed: 100, runningSpeed: 200 });
+        this.player = new BoyPlayer(this, 0, 0);
 
         this.player.setWeapon(new AK47(this, 0, 0, {
             fireTime: 100,
@@ -84,7 +88,6 @@ export class LobbyScene extends GameScene {
             "features": this.map.createLayer("features", tilesets).setDepth(this.player.depth + 1),
             "objects": this.map.createLayer("objects", tilesets).setDepth(this.player.depth + 1),
         }
-
 
         // set bound for camera
         this.cameras.main.setBounds(-520, -130, 1050, 655);

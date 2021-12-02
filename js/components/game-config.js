@@ -7,13 +7,12 @@ export const GameConfig = {
     "font-family": "pixelvn",
 
     "entities": {
-        "boy-player": {
-            "stats": new StatsEntity({
-                hp: 2000,
-                speed: 100,
-                runningSpeed: 200,
-            }),
-        },
+        "boy-player": new StatsEntity({
+            hp: 2000,
+            speed: 100,
+            runningSpeed: 200,
+        }),
+
 
         "pirate": new StatsEntity({
             hp: 1000,

@@ -3,6 +3,7 @@ import { LobbyScene } from "./scenes/lobby.js";
 import { MenuScene } from "./scenes/menu.js";
 import { Stage01 } from "./scenes/stage-01.js";
 import { StoryScene } from "./scenes/story.js";
+import { PlayerUI } from "./UI/player-ui.js";
 
 window.addEventListener("load", () => {
     window.game = new Phaser.Game({
@@ -26,6 +27,6 @@ window.addEventListener("load", () => {
             }
         },
 
-        scene: [BootScene, MenuScene, StoryScene, LobbyScene, Stage01]
+        scene: [BootScene, MenuScene, StoryScene, LobbyScene, Stage01, PlayerUI]
     });
 });

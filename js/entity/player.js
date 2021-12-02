@@ -17,7 +17,9 @@ export class Player extends Entity {
     constructor(scene, x, y, stats) {
         super(scene, x, y, stats);
 
-        window.player = this;
+        scene.scene.launch("PlayerUI").get("PlayerUI")?.setData({
+            player: this,
+        });
 
         // camera config
         this.cameras = {
@@ -174,7 +176,7 @@ export class Player extends Entity {
                     this.weapons.active?.pointTo(this.scene.input.activePointer);
                 }
             }
-        
+
         }
 
 

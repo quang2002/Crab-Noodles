@@ -1,7 +1,7 @@
-import { BoyPlayer } from "../entity/boy-player.js";
 import { Entity } from "../entity/entity.js";
 
 export class GameScene extends Phaser.Scene {
+
     update() {
         Entity.instances.forEach(e => e.update());
     }

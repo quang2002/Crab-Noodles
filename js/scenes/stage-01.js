@@ -1,8 +1,5 @@
 import { GameScene } from "../components/game-scene.js";
 import { BoyPlayer } from "../entity/boy-player.js";
-import { Enemy } from "../entity/enemy.js";
-import { Entity } from "../entity/entity.js";
-import { Pirate } from "../entity/pirate.js";
 import { RedGate } from "../entity/red-gate.js";
 import { AK47 } from "../weapon/ak47.js";
 import { LightSaber } from "../weapon/light-saber.js";
@@ -12,13 +9,17 @@ export class Stage01 extends GameScene {
         super("Stage01");
     }
 
-    preload() {
-        this.load.image("tilesets.tileset-01", "./assets/tilesets/tileset-01.png");
-        this.load.tilemapTiledJSON("maps.state-01", "./assets/maps/stage-01.json");
+    /**
+     * preload
+     * @param {Phaser.Scene} scene 
+     */
+    static preload(scene) {
+        scene.load.image("tilesets.tileset-01", "./assets/tilesets/tileset-01.png");
+        scene.load.tilemapTiledJSON("maps.state-01", "./assets/maps/stage-01.json");
     }
 
     create() {
-        this.player = new BoyPlayer(this, 0, 0, { hp: 1000, speed: 100, runningSpeed: 200 });
+        this.player = new BoyPlayer(this, 0, 0);
         this.player.setWeapon(new AK47(this, 0, 0));
         //this.player.setWeapon(new LightSaber(this, 0, 0));
 
@@ -40,12 +41,12 @@ export class Stage01 extends GameScene {
         const wall = this.createCollisionOnLayer(this.layers.wall);
         const features = this.createCollisionOnLayer(this.layers.features);
         this.physics.add.collider(this.player, [features, wall]);
-        
+
         this.physics.add.collider(enemy, [features, wall]);
 
         this.player.weapons.active?.collision.push(wall, features);
 
-        
+
 
         enemy.weapon?.collision.push(wall, features);
     }
