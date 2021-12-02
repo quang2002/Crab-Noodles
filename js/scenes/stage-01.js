@@ -43,7 +43,6 @@ export class Stage01 extends GameScene {
 
         this.cameras.main.setBounds(-1024, -512, 1536, 2048);
 
-
         new RedGate(this, 410, -400);
         new RedGate(this, -940, -430);
         new RedGate(this, -928, 1300);
