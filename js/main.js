@@ -5,7 +5,7 @@ import { MenuScene } from "./scenes/menu.js";
 import { Stage01 } from "./scenes/stage-01.js";
 import { Stage02 } from "./scenes/stage-02.js";
 import { StoryScene } from "./scenes/story.js";
-import { PlayerUI } from "./UI/player-ui.js";
+import { PlayerUI } from "./ui/player-ui.js";
 
 window.addEventListener("load", () => {
     window.game = new Phaser.Game({
