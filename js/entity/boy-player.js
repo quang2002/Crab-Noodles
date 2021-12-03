@@ -15,6 +15,9 @@ export class BoyPlayer extends Player {
         super(scene, x, y, stats);
         this.setBodySize(75, 90).setOffset(16, 8);
         this.setScale(.32);
+
+        //animation for show up
+        this.create_anims_showup(scene);
     }
 
     /**
@@ -27,9 +30,15 @@ export class BoyPlayer extends Player {
                 frameWidth: 100,
                 frameHeight: 100
             });
+
+            scene.load.spritesheet("spritesheet.boy-player-showup", "./assets/images/boy-showup-anims.png", {
+                frameHeight: 85,
+                frameWidth: 71
+            });
         }
     }
 
+    //animation for moving
     create_anims() {
         this.animations.idle = this.scene.anims.create({
             key: "anims-boy-idle",
@@ -54,4 +63,27 @@ export class BoyPlayer extends Player {
 
         return this;
     }
+
+    //create anims for show up
+    /**
+     * 
+     * @param {Phaser.Scene} scene 
+     */
+    create_anims_showup(scene) {
+        this.showup = this.scene.anims.create({
+            key: "anims-boy-showup",
+            frameRate: 8,
+            repeat: 0,
+            frames: this.scene.anims.generateFrameNames("spritesheet.boy-player-showup", { start: 0, end: 7 })
+        });
+
+        /**
+         * @type {Phaser.Physics.Arcade.Sprite}
+         */
+        this.showup_anims = scene.physics.add.sprite(this.x, this.y, "spritesheet.boy-player-showup").play("anims-boy-showup", true)
+        .on("animationcomplete", () => {
+            this.showup_anims.setVisible(false);
+        });
+    }
+
 }

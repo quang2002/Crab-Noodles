@@ -5,6 +5,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
 
     //instance of all entity in scene
     static instances = [];
+    static collision = [];
 
     static {
         setInterval(() => {
@@ -27,12 +28,16 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, null);
+        
 
         // add this sprite to scene
         this.scene.add.existing(this);
 
         // add physics to this game object
         this.scene.physics.add.existing(this);
+
+        // collide with
+        this.scene.physics.add.collider(this, Entity.collision);
 
         // create stats of entity
         this.stats = {
@@ -41,9 +46,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         };
 
         // animation
-        this.animations = { idle: null, move: null, die: null };
+        this.animations = { idle: null, move: null, die: null};
         this.create_anims();
-
+        
         // add this object to instances
         Entity.instances.push(this);
 

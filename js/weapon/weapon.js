@@ -1,4 +1,5 @@
 import { Enemy } from '../entity/enemy.js';
+import { Entity } from '../entity/entity.js';
 import { StatsWeapon } from '../stats/stats-weapon.js';
 
 export class Weapon extends Phaser.Physics.Arcade.Sprite {
@@ -40,13 +41,15 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
         });
 
 
-        // collision group
-        this.collision = [];
 
         // owner
         this.owner = null;
     }
 
+    // collision group
+    get collision() {
+        return Entity.instances.concat(Entity.collision);
+    }
 
     /**
      * override destroy

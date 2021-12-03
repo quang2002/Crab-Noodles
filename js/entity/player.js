@@ -17,6 +17,10 @@ export class Player extends Entity {
         super(scene, x, y, stats);
 
         window.player = this;
+        
+        scene.scene.launch("PlayerUI").get("PlayerUI")?.setData({
+            player: this,
+        });
 
         // camera config
         this.cameras = {
@@ -45,7 +49,8 @@ export class Player extends Entity {
             "down": this.scene.input.keyboard.addKey("S"),
             "right": this.scene.input.keyboard.addKey("D"),
             "left": this.scene.input.keyboard.addKey("A"),
-            "run": this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT)
+            "run": this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT),
+            "swap-weapon": this.scene.input.keyboard.addKey("Q")
         }
 
         // weapons
@@ -61,8 +66,10 @@ export class Player extends Entity {
 
         // isplayer = true
         this.isPlayer = true;
-    }
 
+        this.COOLDOWN_SWAP_TIME = 600;
+        this.nextSwapTime = this.scene.time.now;
+    }
 
     /**
      * get player velocity vector
@@ -96,6 +103,7 @@ export class Player extends Entity {
      * @returns {Player} this
      */
     setWeapon(weapon) {
+
         if (weapon instanceof Gun) {
             this.weapons.pri = weapon;
             this.weapons.idx = 0;
@@ -111,7 +119,7 @@ export class Player extends Entity {
      * @returns {Player} this
      */
     swapWeapon() {
-        this.weapons.idx = this.weapons.idx == 0 ? 1 : 0;
+        this.weapons.idx = (this.weapons.idx == 0 ? 1 : 0);
         return this;
     }
 
@@ -141,6 +149,11 @@ export class Player extends Entity {
         super.update();
 
         if (this.isAlive) {
+
+            if (this.controller["swap-weapon"].isDown && this.nextSwapTime < this.scene.time.now) {
+                this.swapWeapon();
+                this.nextSwapTime = this.scene.time.now + this.COOLDOWN_SWAP_TIME;
+            }
 
             // set weapons's visibility
             this.weapons.pri?.setVisible(this.weapons.idx == 0);

@@ -9,17 +9,17 @@ export class MenuScene extends Phaser.Scene {
         scene.load.image("ui.btn-lastgame", "./assets/ui/btn-lastgame.png");
         scene.load.image("ui.btn-setting", "./assets/ui/btn-setting.png");
 
-        scene.load.audio("menu-theme-sound", "./assets/sounds/theme/first-scene.mp3");
-        scene.load.audio("button-sound", "./assets/sounds/UI/click-2.wav");
+        scene.load.audio("sounds.menu-theme", "./assets/sounds/theme/first-scene.mp3");
+        scene.load.audio("sounds.button", "./assets/sounds/UI/click-2.wav");
     }
 
     create() {
         // add theme sounds
-        this.themeSound = this.sound.add("menu-theme-sound", { volume: 0.5, loop: true });
+        this.themeSound = this.sound.add("sounds.menu-theme", { volume: 0.5, loop: true });
         this.themeSound.play();
 
         // add button sounds
-        this.buttonSound = this.sound.add("button-sound");
+        this.buttonSound = this.sound.add("sounds.button");
 
         // add images
         this.add.image(0, 0, "images.bg").setOrigin(0);
@@ -39,7 +39,7 @@ export class MenuScene extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.themeSound.stop();
                 this.buttonSound.play();
-                this.scene.start("Stage01")
+                this.scene.start("LobbyScene");
             })
             .on("pointerout", () => this.lastgameButton.setScale(0.8))
             .on("pointermove", () => this.lastgameButton.setScale(1));
@@ -47,27 +47,5 @@ export class MenuScene extends Phaser.Scene {
 
         // setting button
         this.add.image(1780, 940, "ui.btn-setting").setOrigin(0).setScale(0.8);
-
-
-        // text
-        // const text = this.add.text(
-        //     this.scale.width / 2,
-        //     this.scale.height - 50,
-        //     "Tap to continue",
-        //     {
-        //         align: "center",
-        //         color: "lightblue",
-        //         stroke: "blue",
-        //         strokeThickness: 2,
-        //         fontSize: 64,
-        //         fontStyle: "bold"
-        //     }
-        // ).setOrigin(0.5);
-
-        // this.time.addEvent({
-        //     loop: true,
-        //     delay: 10,
-        //     callback: () => text.setAlpha((Math.sin(this.time.now / 200) + 1) * 0.35 + 0.3)
-        // });
     }
 }

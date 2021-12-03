@@ -1,6 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { MonsterSpawner } from "../weapon/monster-spawner.js";
 import { Enemy } from "./enemy.js";
+import { Entity } from "./entity.js";
 import { Pirate } from "./pirate.js";
 
 export class RedGate extends Enemy {
@@ -10,7 +11,20 @@ export class RedGate extends Enemy {
 
         this.timeout = 0;
 
+        this.setOffset(32);
+
         this.weapon = new MonsterSpawner(scene, x, y, [Pirate]);
+    }
+
+    /**
+     * preload
+     * @param {Phaser.Scene} scene 
+     */
+    static preload(scene) {
+        scene.load.spritesheet("spritesheet.gate", "./assets/images/gate.png", {
+            frameWidth: 96,
+            frameHeight: 96
+        });
     }
 
     create_anims() {
@@ -22,6 +36,11 @@ export class RedGate extends Enemy {
         })
 
         this.animations.die = this.animations.idle;
+    }
+
+    destroy(fromScene) {
+        super.destroy(fromScene);
+        this.weapon.destroy();
     }
 
     update() {
