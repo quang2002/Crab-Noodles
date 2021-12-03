@@ -20,7 +20,7 @@ export class LobbyScene extends GameScene {
         });
 
         scene.load.spritesheet("spritesheet-teleport-animation", "./assets/images/lobby/teleport-animation.png", {
-            frameHeight: 166,
+            frameHeight: 81,
             frameWidth: 115
         });
 
@@ -53,7 +53,7 @@ export class LobbyScene extends GameScene {
             key: "anims-teleport-animation",
             frameRate: 7,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers("spritesheet-teleport-animation", { frames: [0, 1, 2, 3] })
+            frames: this.anims.generateFrameNumbers("spritesheet-teleport-animation", { frames: [4, 5, 6, 7] })
         });
 
         // create a sprite in area of gate for play animation
@@ -64,8 +64,8 @@ export class LobbyScene extends GameScene {
 
         // collider => play animation
         const gate_collider = this.physics.add.collider(this.player, this.gate, () => {
-            this.teleportAnimation = this.physics.add.sprite(this.player.x, this.player.y - 30, "spritesheet-teleport-animation");
-            this.teleportAnimation.play("anims-teleport-animation", true).setScale(0.75);
+            this.teleportAnimation = this.physics.add.sprite(this.player.x, this.player.y, "spritesheet-teleport-animation");
+            this.teleportAnimation.play("anims-teleport-animation", true).setScale(0.75).setOrigin(0.5, 0.5);
 
             // fade to black
             this.cameras.main.fadeOut(1000, 0, 0, 0).once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {

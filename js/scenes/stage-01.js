@@ -20,8 +20,15 @@ export class Stage01 extends GameScene {
     }
 
     create() {
-        // add tilemap
-        this.map = this.add.tilemap("maps.stage-01");
+        this.player = new BoyPlayer(this, 0, 0, { hp: 1000, speed: 100, runningSpeed: 200 });
+        this.player.setWeapon(new Drone(this, 0, 0));
+        //this.player.setWeapon(new LightSaber(this, 0, 0));
+
+        const enemy = new RedGate(this, 400, 500);
+
+
+        // add title map
+        this.map = this.add.tilemap("maps.state-01");
         const tilesets = [
             this.map.addTilesetImage("tileset-01", "tilesets.tileset-01"),
         ];
