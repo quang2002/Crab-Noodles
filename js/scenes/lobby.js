@@ -69,6 +69,7 @@ export class LobbyScene extends GameScene {
 
             // fade to black
             this.cameras.main.fadeOut(1000, 0, 0, 0).once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.stop("PlayerUI");
                 this.scene.start("ChooseStage");
             });
 
