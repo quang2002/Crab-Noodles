@@ -10,7 +10,7 @@ export class MenuScene extends Phaser.Scene {
         scene.load.image("ui.btn-setting", "./assets/ui/btn-setting.png");
 
         scene.load.audio("sounds.menu-theme", "./assets/sounds/theme/first-scene.mp3");
-        scene.load.audio("sounds.button", "./assets/sounds/ui/click-2.wav");
+        scene.load.audio("sounds.button", "./assets/sounds/UI/click-2.wav");
     }
 
     create() {
