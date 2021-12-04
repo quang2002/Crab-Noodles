@@ -3,6 +3,7 @@ import { Enemy } from "../entity/enemy.js";
 import { Entity } from "../entity/entity.js";
 import { Player } from "../entity/player.js";
 import { StatsWeapon } from "../stats/stats-weapon.js";
+import { Gun } from "./gun.js";
 import { Melee } from "./melee.js";
 
 export class Drone extends Melee {
@@ -20,16 +21,6 @@ export class Drone extends Melee {
         //set origin for rotation
         this.setOrigin(0, 0.5);
         this.setBodySize(1, 1);
-
-        //create animation for attacking
-        this.scene.anims.create({
-            key: "anims.drone-effect",
-            frameRate: 10,
-            repeat: 0,
-            frames: this.anims.generateFrameNumbers("spritesheet.light-saber-effect", { frames: [0, 1, 3, 4, 5] })
-        });
-
-
     }
 
 
@@ -49,27 +40,12 @@ export class Drone extends Melee {
      */
     fire() {
 
-        //effect for drone
-        this.anims_drone = this.scene.physics.add.sprite(this.x, this.y, "images.drone-effect").setVisible(false);
-
-        /*if (this.isFireable) {
-            Entity.instances
-                .filter(value => value.isAlive && (this.owner instanceof Player && value instanceof Enemy) || (this.owner instanceof Enemy && value instanceof Player))
-                .forEach((value) => {
-                    const vecx = this.x - value.x;
-                    const vecy = this.y - value.y;
-                    const range = 48;
-                    if (vecx * vecx + vecy * vecy < range * range) {
-                        super.fire();
-                        value.take_damage(this.stats.damage);
-                    }
-                });
-        }
-        */
-
         this.pointer = this.scene.input.activePointer;
         if (this.pointer.isDown && this.isFireable) {
-            this.anims_drone.setVisible(true).setAngle(this.angle).setPosition(this.x, this.y);
+            super.fire();
+
+            // effect for drone
+            const power_wave = this.scene.physics.add.image(this.x, this.y, "images.drone-effect");
 
             // set angle, velocity for bullet
             const angle = this.angle;
@@ -77,57 +53,29 @@ export class Drone extends Melee {
             const vecy = Math.sin(angle / 180 * Math.PI);
             const vecx = Math.cos(angle / 180 * Math.PI);
 
-            // this.anims_drone.setCircle(6, 2, 2);
-            this.anims_drone.setAngle(angle).setVisible(true);
-            this.anims_drone.setVelocity(vecx * this.stats.speed, vecy * this.stats.speed);
+            power_wave.setPosition(this.x, this.y);
+            power_wave.setAngle(angle);
+            power_wave.setVelocity(vecx * this.stats.speed, vecy * this.stats.speed);
 
-            //add event for destroy anims_drone
-            this.scene.time.addEvent({
-                delay: 100,
-                loop: 10,
-                callback: () => {
+            // set timeout
+            power_wave.timeout = 5000;
+            Gun.bullets.push(power_wave);
 
-                }
-            })
-
-            var enemyGetdamage =[];
+            let lstEnemyTookDMG = [];
             // set collide with
-            this.scene.physics.add.overlap(this.anims_drone, this.collision, (o1, o2) => {
+            this.scene.physics.add.overlap(power_wave, this.collision, (o1, o2) => {
                 if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
-                    if (o2 instanceof Entity && o2.isAlive && enemyGetdamage.indexOf(o2) < 0) {
+                    if (o2.isAlive && lstEnemyTookDMG.indexOf(o2) < 0) {
                         o2.take_damage(this.stats.damage);
-                        enemyGetdamage.push(o2);
+                        lstEnemyTookDMG.push(o2);
                     }
                 }
 
                 if (!(o2 instanceof Entity))
                     o1.destroy();
             });
-
-            
-            if (this.isFireable) {
-                super.fire();
-            }
         }
-
-
-
-        //this.setAngle(this.angle + this.stats.speed);
-
         return this;
-    }
-
-    /**
-     * set position for this game object
-     * @param {number} x 
-     * @param {number} y 
-     * @param {number} z 
-     * @param {number} w 
-     * @returns {LightSaber} this
-     */
-    setPosition(x, y, z, w) {
-        this.effect?.setPosition(x, y);
-        return super.setPosition(x, y, z, w);
     }
 
     /**
