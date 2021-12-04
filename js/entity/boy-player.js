@@ -70,8 +70,8 @@ export class BoyPlayer extends Player {
      * @param {Phaser.Scene} scene 
      */
     create_anims_showup(scene) {
-        this.showup = this.scene.anims.create({
-            key: "anims-boy-showup",
+        this.scene.anims.create({
+            key: "anims.boy-showup",
             frameRate: 8,
             repeat: 0,
             frames: this.scene.anims.generateFrameNames("spritesheet.boy-player-showup", { start: 0, end: 7 })
@@ -80,9 +80,9 @@ export class BoyPlayer extends Player {
         /**
          * @type {Phaser.Physics.Arcade.Sprite}
          */
-        this.showup_anims = scene.physics.add.sprite(this.x, this.y, "spritesheet.boy-player-showup").play("anims-boy-showup", true)
+        this.effect = scene.physics.add.sprite(this.x, this.y, "spritesheet.boy-player-showup").play("anims.boy-showup", true)
         .on("animationcomplete", () => {
-            this.showup_anims.setVisible(false);
+            this.effect.destroy();
         });
     }
 

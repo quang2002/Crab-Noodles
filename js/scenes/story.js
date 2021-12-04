@@ -1,5 +1,4 @@
 import { GameConfig } from "../components/game-config.js";
-import { AK47 } from "../weapon/ak47.js";
 
 export class StoryScene extends Phaser.Scene {
     static data = [{
@@ -72,7 +71,6 @@ export class StoryScene extends Phaser.Scene {
                 if (this.state < StoryScene.data.length) {
                     if (idx < StoryScene.data[this.state].text.length) {
                         this.image.setTexture(StoryScene.data[this.state].image);
-
                         this.text.setText(this.text.text + StoryScene.data[this.state].text[idx++]);
                     }
                     // if enter space, continue to next story 

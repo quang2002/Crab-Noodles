@@ -3,6 +3,7 @@ import { BoyPlayer } from "../entity/boy-player.js";
 import { Entity } from "../entity/entity.js";
 import { RedGate } from "../entity/red-gate.js";
 import { AK47 } from "../weapon/ak47.js";
+import { Drone } from "../weapon/drone.js";
 import { LightSaber } from "../weapon/light-saber.js";
 
 export class Stage01 extends GameScene {
@@ -39,8 +40,10 @@ export class Stage01 extends GameScene {
 
         this.player = new BoyPlayer(this, 0, 0);
         this.player.setWeapon(new AK47(this, 0, 0));
+        
         this.player.setWeapon(new LightSaber(this, 0, 0));
-
+        this.player.setWeapon(new Drone(this, 0, 0));
+        
         this.cameras.main.setBounds(-1024, -512, 1536, 2048);
 
         new RedGate(this, 410, -400);
