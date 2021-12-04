@@ -12,6 +12,7 @@ export class LobbyScene extends GameScene {
      * @param {Phaser.Scene} scene 
      */
     static preload(scene) {
+        scene.load.audio("sounds.lobby-theme", "./assets/sounds/theme/lobby.mp3");
         scene.load.image("tilesets.tileset-01", "./assets/tilesets/tileset-01.png");
         scene.load.tilemapTiledJSON("maps.lobby", "./assets/maps/lobby.json");
         scene.load.spritesheet("spritesheet-island", "./assets/images/lobby/island.png", {
@@ -31,6 +32,10 @@ export class LobbyScene extends GameScene {
     }
 
     create() {
+        //add theme sound
+        this.themeSound = this.sound.add("sounds.lobby-theme",{loop: true});
+        this.themeSound.play();
+
         this.player = new BoyPlayer(this, 0, 0);
 
         this.player.setWeapon(new AK47(this, 0, 0, {
@@ -69,6 +74,7 @@ export class LobbyScene extends GameScene {
 
             // fade to black
             this.cameras.main.fadeOut(1000, 0, 0, 0).once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.themeSound.stop();
                 this.scene.stop("PlayerUI");
                 this.scene.start("ChooseStage");
             });
