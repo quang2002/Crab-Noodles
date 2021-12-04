@@ -26,8 +26,8 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
 
         // cooldown
         this.cooldown = {
-            reload: 10,
-            fire: this.stats.fireTime
+            reload: 0,
+            fire: 0
         };
 
         // add event for cooldown system
