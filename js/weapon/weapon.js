@@ -40,7 +40,8 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
             }
         });
 
-
+        // set weapon collision
+        this.setBodySize(1, 1);
 
         // owner
         this.owner = null;
@@ -73,7 +74,7 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
         if (this.owner instanceof Enemy) {
             if (pointer.x < this.owner.x) this.setFlipX(true);
             else if (pointer.x > this.owner.x) this.setFlipX(false);
-            pointer = pointer.vpos; 
+            pointer = pointer.vpos;
         }
 
         this.setAngle(Math.atan2(pointer.y - this.vpos.y, pointer.x - this.vpos.x) / Math.PI * 180 + (this.flipX ? 180 : 0));
