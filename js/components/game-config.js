@@ -48,5 +48,13 @@ export const GameConfig = {
             fireTime: 1000,
             ammo: 10,
         }),
+
+        "drone": new StatsWeapon({
+            baseDMG: 200,
+            critRate: 0.5,
+            critDamage: 0.5,
+            fireTime: 350,
+            speed: 200
+        })
     },
 };
