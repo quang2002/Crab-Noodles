@@ -1,6 +1,7 @@
 import { GameScene } from "../components/game-scene.js";
 import { AK47 } from "../weapon/ak47.js";
 import { BoyPlayer } from "../entity/boy-player.js";
+import { Drone } from "../weapon/drone.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -32,13 +33,14 @@ export class LobbyScene extends GameScene {
 
     create() {
         this.player = new BoyPlayer(this, 0, 0);
-
+/*
         this.player.setWeapon(new AK47(this, 0, 0, {
             fireTime: 100,
             speed: 1000,
             reloadTime: 0
         }));
-
+*/
+        this.player.setWeapon(new Drone(this, 0, 0));
         // add a new gate1 png
         // add gate animation
         this.anims.create({

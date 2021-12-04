@@ -5,7 +5,7 @@ import { Player } from "../entity/player.js";
 import { StatsWeapon } from "../stats/stats-weapon.js";
 import { Melee } from "./melee.js";
 
-export class LightSaber extends Melee {
+export class Drone extends Melee {
     /**
      * light-saber.init
      * @param {Phaser.Scene} scene 
@@ -14,8 +14,8 @@ export class LightSaber extends Melee {
      * @param {StatsWeapon} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.weapons["light-saber"], stats);
-        super(scene, x, y, "images.light-saber", stats);
+        stats = Object.assign({}, GameConfig.weapons["drone"], stats);
+        super(scene, x, y, "images.drone", stats);
 
         //set origin for rotation
         this.setOrigin(0, 0.5);
@@ -23,13 +23,13 @@ export class LightSaber extends Melee {
 
         //create animation for attacking
         this.scene.anims.create({
-            key: "anims.light-saber-effect",
+            key: "anims.drone-effect",
             frameRate: 10,
             repeat: 0,
             frames: this.anims.generateFrameNumbers("spritesheet.light-saber-effect", { frames: [0, 1, 3, 4, 5] })
         });
 
-        this.effect = this.scene.add.sprite(x, y, null).setScale(1.5).setVisible(false);
+
     }
 
 
@@ -48,7 +48,11 @@ export class LightSaber extends Melee {
      * fire method
      */
     fire() {
-        if (this.isFireable) {
+
+        //effect for drone
+        this.anims_drone = this.scene.physics.add.sprite(this.x, this.y, "images.drone-effect").setVisible(false);
+
+        /*if (this.isFireable) {
             Entity.instances
                 .filter(value => value.isAlive && (this.owner instanceof Player && value instanceof Enemy) || (this.owner instanceof Enemy && value instanceof Player))
                 .forEach((value) => {
@@ -61,16 +65,55 @@ export class LightSaber extends Melee {
                     }
                 });
         }
+        */
 
-        this.setAngle(this.angle + this.stats.speed);
+        this.pointer = this.scene.input.activePointer;
+        if (this.pointer.isDown && this.isFireable) {
+            this.anims_drone.setVisible(true).setAngle(this.angle).setPosition(this.x, this.y);
 
-        this.effect
-            .setVisible(true)
-            .setPosition(this.x, this.y)
-            .play("anims.light-saber-effect", true)
-            .on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-                this.effect.setVisible(false);
+            // set angle, velocity for bullet
+            const angle = this.angle;
+
+            const vecy = Math.sin(angle / 180 * Math.PI);
+            const vecx = Math.cos(angle / 180 * Math.PI);
+
+            // this.anims_drone.setCircle(6, 2, 2);
+            this.anims_drone.setAngle(angle).setVisible(true);
+            this.anims_drone.setVelocity(vecx * this.stats.speed, vecy * this.stats.speed);
+
+            //add event for destroy anims_drone
+            this.scene.time.addEvent({
+                delay: 100,
+                loop: 10,
+                callback: () => {
+
+                }
+            })
+
+            var enemyGetdamage =[];
+            // set collide with
+            this.scene.physics.add.overlap(this.anims_drone, this.collision, (o1, o2) => {
+                if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
+                    if (o2 instanceof Entity && o2.isAlive && enemyGetdamage.indexOf(o2) < 0) {
+                        o2.take_damage(this.stats.damage);
+                        enemyGetdamage.push(o2);
+                    }
+                }
+
+                if (!(o2 instanceof Entity))
+                    o1.destroy();
             });
+
+            
+            if (this.isFireable) {
+                super.fire();
+            }
+        }
+
+
+
+        //this.setAngle(this.angle + this.stats.speed);
+
         return this;
     }
 
@@ -93,8 +136,8 @@ export class LightSaber extends Melee {
      */
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.image("images.light-saber", "./assets/images/weapon/melee/light-saber/light-saber.png");
-            scene.load.spritesheet("spritesheet.light-saber-effect", "./assets/images/weapon/melee/light-saber/light-saber-effect.png", { frameWidth: 38, frameHeight: 38 });
+            scene.load.image("images.drone", "./assets/images/weapon/melee/drone/drone.png");
+            scene.load.image("images.drone-effect", "./assets/images/weapon/melee/drone/drone-effect.png");
         }
     }
 }
