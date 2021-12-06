@@ -40,7 +40,8 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
             }
         });
 
-
+        // set weapon collision
+        this.setBodySize(1, 1);
 
         // owner
         this.owner = null;

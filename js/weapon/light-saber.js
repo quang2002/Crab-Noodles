@@ -93,8 +93,8 @@ export class LightSaber extends Melee {
      */
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.image("images.light-saber", "./assets/images/light-saber.png");
-            scene.load.spritesheet("spritesheet.light-saber-effect", "./assets/images/light-saber-effect.png", { frameWidth: 38, frameHeight: 38 });
+            scene.load.image("images.light-saber", "./assets/images/weapon/melee/light-saber/light-saber.png");
+            scene.load.spritesheet("spritesheet.light-saber-effect", "./assets/images/weapon/melee/light-saber/light-saber-effect.png", { frameWidth: 38, frameHeight: 38 });
         }
     }
 }

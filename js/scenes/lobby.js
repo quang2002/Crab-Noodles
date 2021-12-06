@@ -1,6 +1,7 @@
 import { GameScene } from "../components/game-scene.js";
 import { AK47 } from "../weapon/ak47.js";
 import { BoyPlayer } from "../entity/boy-player.js";
+import { Drone } from "../weapon/drone.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -12,6 +13,7 @@ export class LobbyScene extends GameScene {
      * @param {Phaser.Scene} scene 
      */
     static preload(scene) {
+        scene.load.audio("sounds.lobby-theme", "./assets/sounds/theme/lobby.mp3");
         scene.load.image("tilesets.tileset-01", "./assets/tilesets/tileset-01.png");
         scene.load.tilemapTiledJSON("maps.lobby", "./assets/maps/lobby.json");
         scene.load.spritesheet("spritesheet-island", "./assets/images/lobby/island.png", {
@@ -20,7 +22,7 @@ export class LobbyScene extends GameScene {
         });
 
         scene.load.spritesheet("spritesheet-teleport-animation", "./assets/images/lobby/teleport-animation.png", {
-            frameHeight: 166,
+            frameHeight: 81,
             frameWidth: 115
         });
 
@@ -31,6 +33,10 @@ export class LobbyScene extends GameScene {
     }
 
     create() {
+        //add theme sound
+        this.themeSound = this.sound.add("sounds.lobby-theme",{loop: true});
+        this.themeSound.play();
+
         this.player = new BoyPlayer(this, 0, 0);
 
         this.player.setWeapon(new AK47(this, 0, 0, {
@@ -39,6 +45,7 @@ export class LobbyScene extends GameScene {
             reloadTime: 0
         }));
 
+        //this.player.setWeapon(new Drone(this, 0, 0));
         // add a new gate1 png
         // add gate animation
         this.anims.create({
@@ -53,7 +60,7 @@ export class LobbyScene extends GameScene {
             key: "anims-teleport-animation",
             frameRate: 7,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers("spritesheet-teleport-animation", { frames: [0, 1, 2, 3] })
+            frames: this.anims.generateFrameNumbers("spritesheet-teleport-animation", { frames: [4, 5, 6, 7] })
         });
 
         // create a sprite in area of gate for play animation
@@ -64,11 +71,13 @@ export class LobbyScene extends GameScene {
 
         // collider => play animation
         const gate_collider = this.physics.add.collider(this.player, this.gate, () => {
-            this.teleportAnimation = this.physics.add.sprite(this.player.x, this.player.y - 30, "spritesheet-teleport-animation");
-            this.teleportAnimation.play("anims-teleport-animation", true).setScale(0.75);
+            this.teleportAnimation = this.physics.add.sprite(this.player.x, this.player.y, "spritesheet-teleport-animation");
+            this.teleportAnimation.play("anims-teleport-animation", true).setScale(0.75).setOrigin(0.5, 0.5);
 
             // fade to black
             this.cameras.main.fadeOut(1000, 0, 0, 0).once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.themeSound.stop();
+                this.scene.stop("PlayerUI");
                 this.scene.start("ChooseStage");
             });
 

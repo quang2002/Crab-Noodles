@@ -3,6 +3,7 @@ import { Pirate } from "../entity/pirate.js";
 import { RedGate } from "../entity/red-gate.js";
 import { PlayerUI } from "../ui/player-ui.js";
 import { AK47 } from "../weapon/ak47.js";
+import { Drone } from "../weapon/drone.js";
 import { LightSaber } from "../weapon/light-saber.js";
 import { ChooseStage } from "./choosestage.js";
 import { LobbyScene } from "./lobby.js";
@@ -31,6 +32,7 @@ export class BootScene extends Phaser.Scene {
         // weapons
         LightSaber.preload(this);
         AK47.preload(this);
+        Drone.preload(this);
 
         // entities
         BoyPlayer.preload(this);
