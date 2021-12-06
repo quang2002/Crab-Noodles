@@ -1,6 +1,8 @@
+import { GameConfig } from "../components/game-config.js";
 import { GameScene } from "../components/game-scene.js";
 import { BoyPlayer } from "../entity/boy-player.js";
 import { Entity } from "../entity/entity.js";
+import { Player } from "../entity/player.js";
 import { RedGate } from "../entity/red-gate.js";
 import { AK47 } from "../weapon/ak47.js";
 import { Drone } from "../weapon/drone.js";
@@ -38,12 +40,15 @@ export class Stage01 extends GameScene {
 
         Entity.collision = [features, wall];
 
-        this.player = new BoyPlayer(this, 0, 0);
+        /**
+         * @type {Player}
+         */
+        this.player = new GameConfig["player-type"](this, 0, 0);
         this.player.setWeapon(new AK47(this, 0, 0));
-        
+
         this.player.setWeapon(new LightSaber(this, 0, 0));
         //this.player.setWeapon(new Drone(this, 0, 0));
-        
+
         this.cameras.main.setBounds(-1024, -512, 1536, 2048);
 
         new RedGate(this, 410, -400);

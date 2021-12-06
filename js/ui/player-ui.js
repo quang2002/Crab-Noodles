@@ -1,4 +1,3 @@
-import { GameConfig } from "../components/game-config.js";
 import { Player } from "../entity/player.js";
 
 export class PlayerUI extends Phaser.Scene {
@@ -11,27 +10,17 @@ export class PlayerUI extends Phaser.Scene {
      * @param {Phaser.Scene} scene 
      */
     static preload(scene) {
-        scene.load.image("ui.status-bar", "./assets/ui/status-bar.png");
-        
+        scene.load.spritesheet("ui.health-bar", "./assets/ui/health-bar.png", { frameWidth: 243, frameHeight: 35 });
     }
 
     create() {
-        this.statusbar = this.physics.add.image(30, 30, "ui.status-bar");
-        this.statusbar.setScale(4).setOrigin(0);
+        this.healthbar = this.add.container(300, 75, [
+            this.add.image(0, 0, "ui.health-bar", 0),
+            this.add.image(0, 0, "ui.health-bar", 1),
+        ]).setScale(2);
 
-        this.MAXBARSIZE = {
-            width: 52 * this.statusbar.scale,
-            height: 6 * this.statusbar.scale,
-        }
-
-        this.hp = this.add.rectangle(
-            this.statusbar.x + 36 * this.statusbar.scale,
-            this.statusbar.y + 3 * this.statusbar.scale,
-            this.MAXBARSIZE.width,
-            this.MAXBARSIZE.height,
-            0xFF0000, 0.6).setOrigin(0);
-
-        this.txt_info = this.add.text(this.scale.width - 20, 20, "information", { fontFamily: GameConfig['font-family'], fontSize: 17, color: "crimson" }).setOrigin(1, 0);
+        this.abc = this.add.rectangle(56, 75, 488, 70, 0x8EC4C8).setOrigin(0, 0.5);
+        this.abc.setMask(new Phaser.Display.Masks.BitmapMask(this, this.make.image({ x: 300, y: 75, key: "ui.health-bar", frame: 2, scale: 2 }, false)));
     }
 
     /**
@@ -46,9 +35,7 @@ export class PlayerUI extends Phaser.Scene {
 
     update() {
         if (this.player) {
-            this.hp.setDisplaySize(this.MAXBARSIZE.width * (this.player.stats.cur.hp / this.player.stats.max.hp), this.MAXBARSIZE.height);
-
-            this.txt_info.setText("Position: " + this.player.x + ", " + this.player.y);
+            this.abc.setDisplaySize((this.player.stats.cur.hp / this.player.stats.max.hp) * 488, 70);
         }
     }
 }

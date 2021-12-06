@@ -1,7 +1,7 @@
 import { GameScene } from "../components/game-scene.js";
 import { AK47 } from "../weapon/ak47.js";
-import { BoyPlayer } from "../entity/boy-player.js";
-import { Drone } from "../weapon/drone.js";
+import { GameConfig } from "../components/game-config.js";
+import { Player } from "../entity/player.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -34,10 +34,13 @@ export class LobbyScene extends GameScene {
 
     create() {
         //add theme sound
-        this.themeSound = this.sound.add("sounds.lobby-theme",{loop: true});
+        this.themeSound = this.sound.add("sounds.lobby-theme", { loop: true });
         this.themeSound.play();
 
-        this.player = new BoyPlayer(this, 0, 0);
+        /**
+         * @type {Player}
+         */
+        this.player = new GameConfig["player-type"](this, 0, 0);
 
         this.player.setWeapon(new AK47(this, 0, 0, {
             fireTime: 100,

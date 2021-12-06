@@ -39,7 +39,7 @@ export class MenuScene extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.themeSound.stop();
                 this.buttonSound.play();
-                this.scene.start("LobbyScene");
+                this.scene.start("ChoosePlayer");
             })
             .on("pointerout", () => this.lastgameButton.setScale(0.8))
             .on("pointermove", () => this.lastgameButton.setScale(1));
