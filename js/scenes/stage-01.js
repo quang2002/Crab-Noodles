@@ -5,7 +5,6 @@ import { Entity } from "../entity/entity.js";
 import { Player } from "../entity/player.js";
 import { RedGate } from "../entity/red-gate.js";
 import { AK47 } from "../weapon/ak47.js";
-import { Drone } from "../weapon/drone.js";
 import { LightSaber } from "../weapon/light-saber.js";
 
 export class Stage01 extends GameScene {
