@@ -6,6 +6,7 @@ import { PlayerUI } from "../ui/player-ui.js";
 import { AK47 } from "../weapon/ak47.js";
 import { Drone } from "../weapon/drone.js";
 import { LightSaber } from "../weapon/light-saber.js";
+import { Pistol } from "../weapon/pistol.js";
 import { ChoosePlayer } from "./choose-player.js";
 import { ChooseStage } from "./choose-stage.js";
 import { LobbyScene } from "./lobby.js";
@@ -36,6 +37,7 @@ export class BootScene extends Phaser.Scene {
         LightSaber.preload(this);
         AK47.preload(this);
         Drone.preload(this);
+        Pistol.preload(this);
 
         // entities
         BoyPlayer.preload(this);

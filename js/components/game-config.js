@@ -42,6 +42,16 @@ export const GameConfig = {
             ammo: 30,
         }),
 
+        "pistol": new StatsWeapon({
+            baseDMG: 80,
+            critDamage: 0.32,
+            critDamage: 0.5,
+            fireTime: 200,
+            speed: 500,
+            reloadTime: 2000,
+            ammo: 20,
+        }),
+
         "light-saber": new StatsWeapon({
             baseDMG: 200,
             critRate: 0.5,

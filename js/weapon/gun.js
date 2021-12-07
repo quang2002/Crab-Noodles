@@ -37,12 +37,14 @@ export class Gun extends Weapon {
      * fire method
      * @returns {Gun} this
      */
-    fire() {
+    fire(bullet) {
         super.fire();
 
         // add a new bullet
-        const bullet = this.scene.physics.add.sprite(this.x, this.y, this.bulletTexture);
-
+        if (bullet == null) {
+            bullet = this.scene.physics.add.sprite(this.x, this.y, this.bulletTexture);
+        }
+        
         // set angle, velocity for bullet
         const angle = this.angle + (this.flipX ? 180 : 0);
 
