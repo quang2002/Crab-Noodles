@@ -14,6 +14,8 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                     if (value.timeout > 0) value.timeout -= 100;
                     else value.destroy();
                 }
+
+
             });
         }, 100);
     }
@@ -70,9 +72,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         // damage text
         let txtDMG = null;
         if (dmg.crit) {
-            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 15, color: "crimson", stroke: "snow", strokeThickness: 1 })
+            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 15, color: "gold", stroke: "snow", strokeThickness: 1 })
         } else {
-            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 12, color: "silver", stroke: "snow", strokeThickness: 1 })
+            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 12, color: "crimson", stroke: "snow", strokeThickness: 1 })
         }
 
         this.scene.physics.add.existing(txtDMG);
@@ -84,7 +86,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                 txtDMG.destroy(true);
                 this.scene?.time.removeEvent(event);
             }
-        })
+        });
+
+
     }
 
     /**

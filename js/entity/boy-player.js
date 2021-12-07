@@ -26,9 +26,9 @@ export class BoyPlayer extends Player {
      */
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.spritesheet("spritesheet.boy-player", "./assets/images/boy.png", {
-                frameWidth: 100,
-                frameHeight: 100
+            scene.load.spritesheet("spritesheet.boy-player", "./assets/images/boy-player.png", {
+                frameWidth: 120,
+                frameHeight: 120
             });
 
             scene.load.spritesheet("spritesheet.boy-player-showup", "./assets/images/boy-showup-anims.png", {
@@ -44,14 +44,14 @@ export class BoyPlayer extends Player {
             key: "anims-boy-idle",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNames("spritesheet.boy-player", { start: 0, end: 3 })
+            frames: this.scene.anims.generateFrameNames("spritesheet.boy-player", { start: 4, end: 7 })
         });
 
         this.animations.move = this.scene.anims.create({
             key: "anims-boy-move",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNames("spritesheet.boy-player", { start: 4, end: 7 })
+            frames: this.scene.anims.generateFrameNames("spritesheet.boy-player", { start: 0, end: 3 })
         });
 
         this.animations.die = this.scene.anims.create({

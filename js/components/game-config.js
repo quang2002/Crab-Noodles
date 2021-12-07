@@ -5,6 +5,7 @@ export const GameConfig = {
     "volume": 1,
     "font-size": 32,
     "font-family": "pixelvn",
+    "player-type": null,
 
     "entities": {
         "boy-player": new StatsEntity({
@@ -13,6 +14,11 @@ export const GameConfig = {
             runningSpeed: 200,
         }),
 
+        "girl-player": new StatsEntity({
+            hp: 2000 * 1.25,
+            speed: 100,
+            runningSpeed: 200,
+        }),
 
         "pirate": new StatsEntity({
             hp: 1000,
