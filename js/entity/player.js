@@ -107,10 +107,14 @@ export class Player extends Entity {
         if (weapon instanceof Gun) {
             this.weapons.pri = weapon;
             this.weapons.idx = 0;
+            weapon.owner = this;
         } else if (weapon instanceof Melee) {
             this.weapons.sec = weapon;
             this.weapons.idx = 1;
+            weapon.owner = this;
         }
+        
+
         return this;
     }
 
