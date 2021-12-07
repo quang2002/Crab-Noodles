@@ -59,7 +59,6 @@ export class Stage01 extends GameScene {
 
     update() {
         super.update();
-
         if (Entity.instances.length == 1 && this.player.isAlive) {
             this.scene.start("Stage02");
             Entity.instances = [];

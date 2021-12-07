@@ -1,5 +1,7 @@
+import { GameConfig } from "../components/game-config.js";
 import { Enemy } from "../entity/enemy.js";
 import { Player } from "../entity/player.js";
+import { RedGate } from "../entity/red-gate.js";
 
 export class PlayerUI extends Phaser.Scene {
     constructor() {
@@ -13,6 +15,7 @@ export class PlayerUI extends Phaser.Scene {
     static preload(scene) {
         scene.load.spritesheet("ui.health-bar", "./assets/ui/health-bar.png", { frameWidth: 243, frameHeight: 35 });
         scene.load.spritesheet("ui.minimap", "./assets/ui/minimap.png", { frameWidth: 200, frameHeight: 200 });
+        scene.load.image("ui.chat", "./assets/ui/chat.png");
     }
 
     create() {
@@ -51,7 +54,7 @@ export class PlayerUI extends Phaser.Scene {
         this.minicam = this.player.scene.cameras.add(50, 100, 380, 380)
             .startFollow(this.player)
             .setBackgroundColor(0)
-            .setZoom(0.7)
+            .setZoom(0.6)
             .setMask(new Phaser.Display.Masks.BitmapMask(this,
                 this.make.image({
                     x: 250,
@@ -61,6 +64,52 @@ export class PlayerUI extends Phaser.Scene {
                     scale: 2
                 }, false))
             );
+
+
+        // chat 
+        const chatbox = this.add.container(this.scale.width / 2, this.scale.height - 240, [
+            this.add.image(0, 0, "ui.chat"),
+            this.add.text(-420, -80, "", {
+                fontFamily: GameConfig["font-family"],
+                fontSize: 20,
+                wordWrap: {
+                    width: 880
+                },
+                color: "snow"
+            }).setOrigin(0)
+        ]).setScale(2).setVisible(false);
+
+        chatbox.skipable = false;
+
+        chatbox.getAt(0).setInteractive().on("pointerdown", () => {
+            if (chatbox.skipable) {
+                chatbox.skipable = false;
+                chatbox.setVisible(false);
+            }
+        });
+
+
+        this.events.on("chat",
+            /**
+             * @param {string} msg
+             */
+            (msg) => {
+                chatbox.getAt(1).text = "";
+                chatbox.setVisible(true);
+                let idx = 0;
+                const event = this.time.addEvent({
+                    delay: 50,
+                    loop: true,
+                    callback: () => {
+                        chatbox.getAt(1).text += msg[idx];
+                        idx++;
+                        if (idx >= msg.length) {
+                            chatbox.skipable = true;
+                            this.time.removeEvent(event);
+                        }
+                    }
+                });
+            });
     }
 
     /**
@@ -73,25 +122,30 @@ export class PlayerUI extends Phaser.Scene {
         }
     }
 
+    minimapIgnore() {
+        // RADAR TYPE
+        this.minimap?.removeAll(true);
+        this.minimap?.add(this.add.circle(0, 0, 4, 0x00ff00));
+        this.player?.scene?.sys.displayList.each(v => {
+            if (v instanceof Enemy && v.isAlive && !(v instanceof RedGate)) {
+                const vec = {
+                    x: v.x - this.player.x,
+                    y: v.y - this.player.y,
+                };
+
+                this.minimap.add(this.add.circle(vec.x * 0.6, vec.y * 0.6, 4, 0xff0000));
+            }
+
+            if (!(
+                v instanceof Phaser.Tilemaps.TilemapLayer ||
+                v instanceof RedGate))
+                this.minicam.ignore(v);
+        });
+    }
+
     update() {
         if (this.player) {
             this.healthbar.setDisplaySize((this.player.stats.cur.hp / this.player.stats.max.hp) * 488, 70);
-
-            // RADAR TYPE
-            this.minimap.removeAll(true);
-            this.minimap.add(this.add.circle(0, 0, 4, 0x00ff00));
-            this.player.scene.sys.displayList.each(v => {
-                if (v instanceof Enemy && v.isAlive) {
-                    const vec = {
-                        x: v.x - this.player.x,
-                        y: v.y - this.player.y,
-                    };
-
-                    this.minimap.add(this.add.circle(vec.x * 0.7, vec.y * 0.7, 4, 0xff0000));
-                }
-
-                if (!(v instanceof Phaser.Tilemaps.TilemapLayer)) this.minicam.ignore(v);
-            });
         }
     }
 }

@@ -8,8 +8,13 @@ export class GameScene extends Phaser.Scene {
         Entity.collision = [];
     }
 
+    chat(msg) {
+        this.scene.get("PlayerUI")?.events.emit("chat", msg);
+    }
+
     update() {
         Entity.instances.forEach(e => e.update());
+        this.scene.get("PlayerUI")?.minimapIgnore();
     }
 
     createCollisionOnLayer(layer) {
