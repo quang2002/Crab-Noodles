@@ -138,7 +138,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
             } else if (vec.x < 0) {
                 this.setFlipX(true);
             }
-
+            
             // play animation
             if (vec.x * vec.x + vec.y * vec.y > 0) {
                 this.play(this.animations.move, true);

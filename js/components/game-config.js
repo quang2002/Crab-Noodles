@@ -27,8 +27,8 @@ export const GameConfig = {
         }),
         "ghost": new StatsEntity({
             hp: 1500,
-            speed: 60,
-            runningSpeed: 0
+            speed: 50,
+            runningSpeed: 80
         }),
 
         "robot": new StatsEntity({
