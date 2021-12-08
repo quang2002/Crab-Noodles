@@ -1,4 +1,3 @@
-import { GameConfig } from '../components/game-config.js';
 import { Enemy } from '../entity/enemy.js';
 import { Entity } from '../entity/entity.js';
 import { Player } from '../entity/player.js';
