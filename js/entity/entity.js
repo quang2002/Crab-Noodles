@@ -39,7 +39,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this);
 
         // collide with
-        this.scene.physics.add.collider(this, Entity.collision);
+        this.scene.physics.add.collider(this, Entity.collision.concat(Entity.instances));
+
+        this.setPushable(false);
 
         // create stats of entity
         this.stats = {

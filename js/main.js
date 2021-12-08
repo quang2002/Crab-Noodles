@@ -27,10 +27,6 @@ window.addEventListener("load", () => {
                 fps: 60,
                 gravity: {},
                 debug: false
-            },
-            matter: {
-                gravity: {},
-                debug: false
             }
         },
 

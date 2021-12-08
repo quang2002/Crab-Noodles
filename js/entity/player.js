@@ -69,6 +69,15 @@ export class Player extends Entity {
 
         this.COOLDOWN_SWAP_TIME = 600;
         this.nextSwapTime = this.scene.time.now;
+
+        // sounds
+        this.hurtsound = null;
+        this.changegunsound = this.scene.sound.add("sounds.changegun");
+    }
+
+    take_damage(dmg) {
+        this.hurtsound?.play();
+        super.take_damage(dmg);
     }
 
     /**
@@ -114,7 +123,7 @@ export class Player extends Entity {
             weapon.owner = this;
         }
         
-
+        this.changegunsound.play();
         return this;
     }
 
@@ -124,6 +133,7 @@ export class Player extends Entity {
      */
     swapWeapon() {
         this.weapons.idx = (this.weapons.idx == 0 ? 1 : 0);
+        this.changegunsound.play();
         return this;
     }
 
@@ -145,6 +155,7 @@ export class Player extends Entity {
             this.weapons.sec = weapon;
             this.weapons.idx = 1;
         }
+        this.changegunsound.play();
         return this;
     }
 

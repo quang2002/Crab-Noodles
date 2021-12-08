@@ -18,6 +18,8 @@ export class GirlPlayer extends Player {
 
         //animation for show up
         this.create_anims_showup(scene);
+
+        this.hurtsound = this.scene.sound.add("sounds.girlhurt");
     }
 
     /**

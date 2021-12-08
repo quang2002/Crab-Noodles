@@ -4,7 +4,7 @@ import { Pirate } from "../entity/pirate.js";
 import { RedGate } from "../entity/red-gate.js";
 import { PlayerUI } from "../ui/player-ui.js";
 import { AK47 } from "../weapon/ak47.js";
-import { Drone } from "../weapon/drone.js";
+import { XuanYuanSword } from "../weapon/xuan-yuan-sword.js";
 import { LightSaber } from "../weapon/light-saber.js";
 import { ChoosePlayer } from "./choose-player.js";
 import { ChooseStage } from "./choose-stage.js";
@@ -35,13 +35,20 @@ export class BootScene extends Phaser.Scene {
         // weapons
         LightSaber.preload(this);
         AK47.preload(this);
-        Drone.preload(this);
+        XuanYuanSword.preload(this);
 
         // entities
         BoyPlayer.preload(this);
         GirlPlayer.preload(this);
         Pirate.preload(this);
         RedGate.preload(this);
+
+        // sounds
+        this.load.audio("sounds.blastershot", "./assets/sounds/BlasterShot.wav");
+        this.load.audio("sounds.flameshot", "./assets/sounds/FlameShot.wav");
+        this.load.audio("sounds.girlhurt", "./assets/sounds/GirlHurt.wav");
+        this.load.audio("sounds.boyhurt", "./assets/sounds/BoyHurt.wav");
+        this.load.audio("sounds.changegun", "./assets/sounds/ChangeGun.wav");
     }
 
     create() {

@@ -55,7 +55,7 @@ export const GameConfig = {
             ammo: 10,
         }),
 
-        "drone": new StatsWeapon({
+        "xuan-yuan-sword": new StatsWeapon({
             baseDMG: 200,
             critRate: 0.5,
             critDamage: 0.5,
