@@ -58,7 +58,7 @@ export class Stage01 extends GameScene {
 
         // light
         this.lights.enable();
-        this.newlight = this.lights.addLight().setRadius(300);
+        this.newlight = this.lights.addLight().setRadius(500);
     }
 
     update() {
