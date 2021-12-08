@@ -25,6 +25,11 @@ export const GameConfig = {
             speed: 40,
             runningSpeed: 0,
         }),
+        "ghost": new StatsEntity({
+            hp: 1500,
+            speed: 60,
+            runningSpeed: 0
+        }),
 
         "red-gate": new StatsEntity({
             hp: 10000
