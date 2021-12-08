@@ -6,6 +6,7 @@ import { Player } from "../entity/player.js";
 import { RedGate } from "../entity/red-gate.js";
 import { AK47 } from "../weapon/ak47.js";
 import { LightSaber } from "../weapon/light-saber.js";
+import { Rocket } from "../weapon/rocket.js";
 
 export class Stage01 extends GameScene {
     constructor() {
@@ -43,7 +44,7 @@ export class Stage01 extends GameScene {
          * @type {Player}
          */
         this.player = new GameConfig["player-type"](this, 0, 0);
-        this.player.setWeapon(new AK47(this, 0, 0));
+        this.player.setWeapon(new Rocket(this));
 
         this.player.setWeapon(new LightSaber(this, 0, 0));
         //this.player.setWeapon(new Drone(this, 0, 0));

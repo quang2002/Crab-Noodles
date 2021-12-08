@@ -17,11 +17,11 @@ export class Rocket extends Gun {
         stats = Object.assign({}, GameConfig.weapons["rocket"], stats);
         super(scene, x, y, "images.rocket", "images.bullet-rocket", stats);
 
-        this.anims.create({
-            key: "bullet-anims",
+        this.scene.anims.create({
+            key: "anims.bullet",
             frameRate: 10,
-            repeat: 1,
-            frames: this.anims.generateFrameNames("sprite.bullet-animation", {
+            repeat: 0,
+            frames: this.scene.anims.generateFrameNames("sprite.bullet-animation", {
                 start: 0,
                 end: 7
             })
@@ -30,34 +30,71 @@ export class Rocket extends Gun {
     }
 
     fire() {
-        var bullet = this.scene.physics.add.sprite(this.x, this.y, "images.bullet-rocket").setScale(1.5).setVisible(true);
-        super.fire(bullet);
-        console.log(bullet);
-        
-        // set collide with
-        
-        this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
-            const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "sprite.bullet-animation");
-            if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
-                if (o2 instanceof Entity && o2.isAlive) {
-                    // o2.take_damage(this.stats.damage);
-                    bulletAnims.play("bullet-anims", true).on(
-                        "animationcomplete", () => {
-                            bulletAnims.destroy();
-                        }
-                    );
-                }
-                o1.destroy();
-            }
+        this.cooldown.fire = this.stats.fireTime;
 
-            if (!(o2 instanceof Entity))
-                bulletAnims.play("bullet-anims", true).on(
+        // add a new bullet
+        const bullet = this.scene.physics.add.sprite(this.x, this.y, "images.bullet-rocket").setScale(1.5);
+
+        // set angle, velocity for bullet
+        const angle = this.angle + (this.flipX ? 180 : 0);
+
+        const vecy = Math.sin(angle / 180 * Math.PI);
+        const vecx = Math.cos(angle / 180 * Math.PI);
+
+        bullet.setCircle(6, 2, 2);
+        bullet.setAngle(angle);
+        bullet.setVelocity(vecx * this.stats.speed, vecy * this.stats.speed);
+        bullet.setDepth(this.depth - 1);
+
+        // set timeout for bullet
+        bullet.timeout = 5000;
+
+        // set collide with
+        this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
+            if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
+                const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "sprite.bullet-animation").setScale(2).play("anims.bullet", true).on(
                     "animationcomplete", () => {
                         bulletAnims.destroy();
                     }
                 );
-            o1.destroy();
+                Entity.instances
+                    .filter(value => value.isAlive && (value instanceof Enemy))
+                    .forEach((value) => {
+                        const range = 48;
+                        const vecx = o1.x - value.x;
+                        const vecy = o1.y - value.y;
+                        if (vecx * vecx + vecy * vecy < range * range) {
+                            value.take_damage(this.stats.damage);
+                        }
+
+                        //for enemy bounce
+                        /*
+                        this.scene.physics.add.collider(bulletAnims, value,
+                            (bulletAnims, value) => {
+                                value.body.pushable = true;
+                                value.setBounce( 1 / vecx * range * 100,  1 / vecy * range * 100);
+                            }
+                        )
+                        */
+                    });
+                o1.destroy();
+            }
+
+            if (!(o2 instanceof Entity)) {
+                const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "sprite.bullet-animation").setScale(2).play("anims.bullet", true).on(
+                    "animationcomplete", () => {
+                        bulletAnims.destroy();
+                    }
+                );
+                o1.destroy();
+            }
+
         });
+
+        // add to list of bullets
+        Gun.bullets = Gun.bullets.filter((value) => value.active);
+        Gun.bullets.push(bullet);
+        return this;
     }
 
     /**
@@ -70,7 +107,7 @@ export class Rocket extends Gun {
             scene.load.image("images.bullet-rocket", "./assets/images/weapon/guns/rocket/rocket-bullet.png");
             scene.load.spritesheet("sprite.bullet-animation", "./assets/images/weapon/guns/rocket/rocket-bullet-anims.png", {
                 frameHeight: 32,
-                frameWidth: 34
+                frameWidth: 32
             });
         }
     }
