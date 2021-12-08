@@ -1,4 +1,5 @@
 import { BoyPlayer } from "../entity/boy-player.js";
+import { Ghost } from "../entity/ghost.js";
 import { GirlPlayer } from "../entity/girl-player.js";
 import { Pirate } from "../entity/pirate.js";
 import { RedGate } from "../entity/red-gate.js";
@@ -46,6 +47,7 @@ export class BootScene extends Phaser.Scene {
         GirlPlayer.preload(this);
         Pirate.preload(this);
         RedGate.preload(this);
+        Ghost.preload(this);
     }
 
     create() {

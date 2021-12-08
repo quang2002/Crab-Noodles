@@ -2,6 +2,7 @@ import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { Enemy } from "./enemy.js";
 import { Pirate } from "./pirate.js";
+import { Player } from "./player.js";
 
 export class Ghost extends Enemy {
 
@@ -17,10 +18,8 @@ export class Ghost extends Enemy {
         super(scene, x, y, stats);
 
         this.weapon = null;
-
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
-        this.animations = { idle: null, move: null, die: null, attack: null };
     }
 
     create_anims() {
@@ -44,7 +43,9 @@ export class Ghost extends Enemy {
             repeat: -1,
             frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-die", { frames: [0] })
         });
-    }
+
+        // console.log(this.animations.idle);
+    } 
 
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
@@ -59,32 +60,40 @@ export class Ghost extends Enemy {
         const vecy = this.player.y - this.y;
         const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-        if (200 < len && len < 400)
-            return { x: vecx / len * this.stats.cur.speed, y: vecy / len * this.stats.cur.speed };
+        if (len < 200)
+            return { x: vecx / len * this.stats.cur.runningSpeed, y: vecy / len * this.stats.cur.runningSpeed };
 
-        if (len > 400)
+        if (400 > len > 200)
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
+        
 
         return { x: 0, y: 0 };
     }
 
     update() {
-        super.update();
+        console.log(this.animations);
 
+        super.update();
+        
         // weapon fire
         if (this.isAlive) {
-            this.weapon.setPosition(this.x, this.y);
-            this.weapon.pointTo(this.player);
+            // this.weapon.setPosition(this.x, this.y);
+            // this.weapon.pointTo(this.player);
+            
 
             const vecx = this.player.x - this.x;
             const vecy = this.player.y - this.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-            if (this.weapon.isFireable && len < 300) {
-                this.weapon.fire();
-            }
+            // if (len < 40) {
+            //     this.player.take_damage(this.stats.take_damage);
+            // }
+
+            // if (this.weapon.isFireable && len < 300) {
+            //     this.weapon.fire();
+            // }
         } else {
-            this.weapon.destroy(this.scene);
+            // this.weapon.destroy(this.scene);
             this.body.destroy();
         }
 
