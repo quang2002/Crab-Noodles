@@ -27,15 +27,7 @@ window.addEventListener("load", () => {
             arcade: {
                 fps: 60,
                 gravity: {},
-<<<<<<< HEAD
                 debug: false
-=======
-                debug: true
-            },
-            matter: {
-                gravity: {},
-                debug: true
->>>>>>> enemy
             }
         },
 

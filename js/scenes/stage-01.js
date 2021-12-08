@@ -57,13 +57,10 @@ export class Stage01 extends GameScene {
         new RedGate(this, 394, 1311);
         new RedGate(this, 195, 1060);
 
-<<<<<<< HEAD
         // light
         this.lights.enable();
         this.newlight = this.lights.addLight().setRadius(500);
-=======
         this.robot = new Robot(this, 410, -400);
->>>>>>> enemy
     }
 
     update() {
