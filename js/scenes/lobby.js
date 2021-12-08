@@ -2,6 +2,7 @@ import { GameScene } from "../components/game-scene.js";
 import { AK47 } from "../weapon/ak47.js";
 import { GameConfig } from "../components/game-config.js";
 import { Player } from "../entity/player.js";
+import { QuizUI } from "../ui/quiz-ui.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -33,6 +34,18 @@ export class LobbyScene extends GameScene {
     }
 
     create() {
+        this.scene.launch("QuizUI", {
+            question: "Ai là người yêu cũ của Vũ Hải Lâm?",
+            answer1: "A",
+            answer2: "B",
+            answer3: "C",
+            answer4: "D",
+            answer: 1
+        });
+
+        this.game.events.on("correct", () => console.log("correct"));
+        this.game.events.on("incorrect", () => console.log("incorrect"));
+
         //add theme sound
         this.themeSound = this.sound.add("sounds.lobby-theme", { loop: true });
         this.themeSound.play();

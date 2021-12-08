@@ -7,6 +7,7 @@ import { Stage01 } from "./scenes/stage-01.js";
 import { Stage02 } from "./scenes/stage-02.js";
 import { StoryScene } from "./scenes/story.js";
 import { PlayerUI } from "./ui/player-ui.js";
+import { QuizUI } from "./ui/quiz-ui.js";
 
 window.addEventListener("load", () => {
     window.game = new Phaser.Game({
@@ -30,6 +31,13 @@ window.addEventListener("load", () => {
             }
         },
 
-        scene: [BootScene, MenuScene, StoryScene, LobbyScene, Stage01, Stage02, PlayerUI, ChooseStage, ChoosePlayer]
+        scene: [
+            BootScene,
+            MenuScene,
+            StoryScene,
+            LobbyScene,
+            Stage01, Stage02,
+            PlayerUI, ChooseStage, ChoosePlayer, QuizUI
+        ]
     });
 });

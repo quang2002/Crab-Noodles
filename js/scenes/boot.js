@@ -13,6 +13,7 @@ import { MenuScene } from "./menu.js";
 import { Stage01 } from "./stage-01.js";
 import { Stage02 } from "./stage-02.js";
 import { StoryScene } from "./story.js";
+import { QuizUI } from "../ui/quiz-ui.js";
 
 export class BootScene extends Phaser.Scene {
     constructor() {
@@ -31,6 +32,7 @@ export class BootScene extends Phaser.Scene {
         ChooseStage.preload(this);
         ChoosePlayer.preload(this);
         PlayerUI.preload(this);
+        QuizUI.preload(this);
 
         // weapons
         LightSaber.preload(this);
