@@ -72,6 +72,8 @@ export class Player extends Entity {
 
         // sounds
         this.hurtsound = null;
+        this.deathsound = null;
+        this.isdeathsoundplayed = false;
         this.changegunsound = this.scene.sound.add("sounds.changegun");
     }
 
@@ -194,6 +196,12 @@ export class Player extends Entity {
                 } else {
                     this.weapons.active?.pointTo(this.scene.input.activePointer);
                 }
+            }
+
+        } else {
+            if (!this.isdeathsoundplayed){
+                this.isdeathsoundplayed = true;
+                this.deathsound?.play();
             }
 
         }

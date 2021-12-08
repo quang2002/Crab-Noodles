@@ -48,6 +48,8 @@ export class BootScene extends Phaser.Scene {
         this.load.audio("sounds.flameshot", "./assets/sounds/FlameShot.wav");
         this.load.audio("sounds.girlhurt", "./assets/sounds/GirlHurt.wav");
         this.load.audio("sounds.boyhurt", "./assets/sounds/BoyHurt.wav");
+        this.load.audio("sounds.boydeath", "./assets/sounds/BoyDeath.wav");
+        this.load.audio("sounds.girldeath", "./assets/sounds/GirlDeath.wav");
         this.load.audio("sounds.changegun", "./assets/sounds/ChangeGun.wav");
     }
 

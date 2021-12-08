@@ -20,6 +20,7 @@ export class BoyPlayer extends Player {
         this.create_anims_showup(scene);
 
         this.hurtsound = this.scene.sound.add("sounds.boyhurt");
+        this.deathsound = this.scene.sound.add("sounds.boydeath");
     }
 
     /**
