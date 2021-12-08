@@ -4,6 +4,7 @@ import { BoyPlayer } from "../entity/boy-player.js";
 import { Entity } from "../entity/entity.js";
 import { Player } from "../entity/player.js";
 import { RedGate } from "../entity/red-gate.js";
+import { Robot } from "../entity/robot.js";
 import { AK47 } from "../weapon/ak47.js";
 import { LightSaber } from "../weapon/light-saber.js";
 
@@ -55,6 +56,8 @@ export class Stage01 extends GameScene {
         new RedGate(this, -928, 1300);
         new RedGate(this, 394, 1311);
         new RedGate(this, 195, 1060);
+
+        this.robot = new Robot(this, 410, -400);
     }
 
     update() {

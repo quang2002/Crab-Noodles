@@ -2,6 +2,7 @@ import { BoyPlayer } from "../entity/boy-player.js";
 import { GirlPlayer } from "../entity/girl-player.js";
 import { Pirate } from "../entity/pirate.js";
 import { RedGate } from "../entity/red-gate.js";
+import { Robot } from "../entity/robot.js";
 import { PlayerUI } from "../ui/player-ui.js";
 import { AK47 } from "../weapon/ak47.js";
 import { Drone } from "../weapon/drone.js";
@@ -41,6 +42,7 @@ export class BootScene extends Phaser.Scene {
         BoyPlayer.preload(this);
         GirlPlayer.preload(this);
         Pirate.preload(this);
+        Robot.preload(this);
         RedGate.preload(this);
     }
 
