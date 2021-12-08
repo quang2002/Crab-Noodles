@@ -55,10 +55,20 @@ export class Stage01 extends GameScene {
         new RedGate(this, -928, 1300);
         new RedGate(this, 394, 1311);
         new RedGate(this, 195, 1060);
+
+        // light
+        this.lights.enable();
+        this.newlight = this.lights.addLight().setRadius(300);
     }
 
     update() {
         super.update();
+
+        // light
+        this.newlight.setPosition(this.player.x, this.player.y);
+
+        this.sys.displayList.each(e => e.setPipeline("Light2D"));
+
         if (Entity.instances.length == 1 && this.player.isAlive) {
             this.scene.start("Stage02");
             Entity.instances = [];

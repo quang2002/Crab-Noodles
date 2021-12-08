@@ -17,7 +17,7 @@ export class Player extends Entity {
         super(scene, x, y, stats);
 
         window.player = this;
-        
+
         scene.scene.launch("PlayerUI").get("PlayerUI")?.setData({
             player: this,
         });
@@ -124,7 +124,7 @@ export class Player extends Entity {
             this.weapons.idx = 1;
             weapon.owner = this;
         }
-        
+
         this.changegunsound.play();
         return this;
     }
@@ -199,7 +199,7 @@ export class Player extends Entity {
             }
 
         } else {
-            if (!this.isdeathsoundplayed){
+            if (!this.isdeathsoundplayed) {
                 this.isdeathsoundplayed = true;
                 this.deathsound?.play();
             }
