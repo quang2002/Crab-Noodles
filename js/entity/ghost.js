@@ -20,7 +20,6 @@ export class Ghost extends Enemy {
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
-        this.animations = { idle: null, move: null, die: null, attack: null };
     }
 
     create_anims() {
@@ -80,9 +79,9 @@ export class Ghost extends Enemy {
             const vecy = this.player.y - this.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-            if (this.weapon.isFireable && len < 300) {
-                this.weapon.fire();
-            }
+            // if (this.weapon.isFireable && len < 300) {
+            //     this.weapon.fire();
+            // }
         } else {
             this.weapon.destroy(this.scene);
             this.body.destroy();
