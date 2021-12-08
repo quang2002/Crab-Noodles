@@ -1,7 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { MonsterSpawner } from "../weapon/monster-spawner.js";
 import { Enemy } from "./enemy.js";
-import { Entity } from "./entity.js";
+import { Ghost } from "./ghost.js";
 import { Pirate } from "./pirate.js";
 
 export class RedGate extends Enemy {
@@ -13,7 +13,7 @@ export class RedGate extends Enemy {
 
         this.setOffset(32);
 
-        this.weapon = new MonsterSpawner(scene, x, y, [Pirate]);
+        this.weapon = new MonsterSpawner(scene, x, y, [Pirate, Ghost]);
     }
 
     /**

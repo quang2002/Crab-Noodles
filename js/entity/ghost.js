@@ -1,9 +1,9 @@
 import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
-import { AK47 } from "../weapon/ak47.js";
 import { Enemy } from "./enemy.js";
+import { Pirate } from "./pirate.js";
 
-export class Pirate extends Enemy {
+export class Ghost extends Enemy {
 
     /**
      * Pirate.init
@@ -13,48 +13,44 @@ export class Pirate extends Enemy {
      * @param {StatsEntity} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.entities["pirate"], stats);
+        stats = Object.assign({}, GameConfig.entities["ghost"], stats);
         super(scene, x, y, stats);
 
-        this.weapon = new AK47(scene, x, y, {
-            fireTime: 1000,
-            speed: 100
-        });
-
-        //owner
-        this.weapon.owner = this;
-
+        this.weapon = null;
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
+        this.animations = { idle: null, move: null, die: null, attack: null };
     }
 
     create_anims() {
         this.animations.idle = this.scene.anims.create({
-            key: "anims-enemy-pirate-idle",
+            key: "anims-enemy-ghost-idle",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-pirate", { start: 0, end: 3 })
+            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-ghost", { start: 0, end: 7 })
         });
 
         this.animations.move = this.scene.anims.create({
-            key: "anims-enemy-pirate-move",
+            key: "anims-enemy-ghost-move",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-pirate", { start: 4, end: 7 })
+            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-ghost-attack", { start: 0, end: 7 })
         });
 
         this.animations.die = this.scene.anims.create({
-            key: "anims-enemy-pirate-die",
+            key: "anims-enemy-ghost-die",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-pirate", { frames: [8] })
+            frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-die", { frames: [0] })
         });
     }
 
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.spritesheet("spritesheet-enemy-pirate", "./assets/images/enemy/pirate/enemy-pirate.png", { frameWidth: 40, frameHeight: 40 });
+            scene.load.spritesheet("spritesheet-enemy-ghost", "./assets/images/enemy/ghost/ghost-idle.png", { frameWidth: 29, frameHeight: 26 });
+            scene.load.spritesheet("spritesheet-enemy-ghost-attack", "./assets/images/enemy/ghost/ghost-attack.png", { frameWidth: 36, frameHeight: 43 });
+            scene.load.spritesheet("spritesheet.enemy-ghost-die", "./assets/images/enemy/ghost/ghost-die.png", { frameWidth: 32, frameHeight: 32 });
         }
     }
 

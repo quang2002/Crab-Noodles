@@ -3,6 +3,8 @@ import { AK47 } from "../weapon/ak47.js";
 import { GameConfig } from "../components/game-config.js";
 import { Player } from "../entity/player.js";
 import { QuizUI } from "../ui/quiz-ui.js";
+import { Pistol } from "../weapon/pistol.js";
+import { Rocket } from "../weapon/rocket.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -48,6 +50,8 @@ export class LobbyScene extends GameScene {
             speed: 1000,
             reloadTime: 0
         }));
+
+        this.player.setWeapon(new Rocket(this, 0, 0));
 
         //this.player.setWeapon(new Drone(this, 0, 0));
         // add a new gate1 png

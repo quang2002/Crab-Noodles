@@ -25,6 +25,11 @@ export const GameConfig = {
             speed: 40,
             runningSpeed: 0,
         }),
+        "ghost": new StatsEntity({
+            hp: 1500,
+            speed: 60,
+            runningSpeed: 0
+        }),
 
         "robot": new StatsEntity({
             hp: 5000,
@@ -46,6 +51,26 @@ export const GameConfig = {
             speed: 1000,
             reloadTime: 2000,
             ammo: 30,
+        }),
+
+        "pistol": new StatsWeapon({
+            baseDMG: 80,
+            critRate: 0.32,
+            critDamage: 0.5,
+            fireTime: 200,
+            speed: 500,
+            reloadTime: 2000,
+            ammo: 20,
+        }),
+
+        "rocket": new StatsWeapon({
+            baseDMG: 300,
+            critRate: 0.5,
+            critDamage: 0.5,
+            fireTime: 250,
+            speed: 300,
+            reloadTime: 2000,
+            ammo: 20,
         }),
 
         "light-saber": new StatsWeapon({
