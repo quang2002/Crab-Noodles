@@ -61,6 +61,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
 
         // is player
         this.isPlayer = false;
+
+        // is die animation played
+        this.isDieAnimationPlayed = false;
     }
 
     /**
@@ -143,7 +146,10 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                 this.play(this.animations.idle, true);
             }
         } else {
-            this.play(this.animations.die, true);
+            if (!this.isDieAnimationPlayed){
+                this.play(this.animations.die, true);
+                this.isDieAnimationPlayed = true;
+            }
             this.setVelocity(0);
         }
     }
