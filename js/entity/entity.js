@@ -15,7 +15,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                     else value.destroy();
                 }
 
-
+                if (value.stunTime > 0) value.stunTime -= 100;
             });
         }, 100);
     }
@@ -30,7 +30,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, null);
-        
+
 
         // add this sprite to scene
         this.scene.add.existing(this);
@@ -50,9 +50,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         };
 
         // animation
-        this.animations = { idle: null, move: null, die: null};
+        this.animations = { idle: null, move: null, die: null };
         this.create_anims();
-        
+
         // add this object to instances
         Entity.instances.push(this);
 
@@ -64,6 +64,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
 
         // is die animation played
         this.isDieAnimationPlayed = false;
+
+        // stun time
+        this.stunTime = 0;
     }
 
     /**
@@ -128,30 +131,36 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         super.update();
 
         if (this.isAlive) {
-            let vec = this.movement();
+            if (!this.isStunning) {
+                let vec = this.movement();
 
-            this.setVelocity(vec.x, vec.y);
+                this.setVelocity(vec.x, vec.y);
 
-            // flip sprite
-            if (vec.x > 0) {
-                this.setFlipX(false);
-            } else if (vec.x < 0) {
-                this.setFlipX(true);
-            }
-            
-            // play animation
-            if (vec.x * vec.x + vec.y * vec.y > 0) {
-                this.play(this.animations.move, true);
-            } else {
-                this.play(this.animations.idle, true);
+                // flip sprite
+                if (vec.x > 0) {
+                    this.setFlipX(false);
+                } else if (vec.x < 0) {
+                    this.setFlipX(true);
+                }
+
+                // play animation
+                if (vec.x * vec.x + vec.y * vec.y > 0) {
+                    this.play(this.animations.move, true);
+                } else {
+                    this.play(this.animations.idle, true);
+                }
             }
         } else {
-            if (!this.isDieAnimationPlayed){
+            if (!this.isDieAnimationPlayed) {
                 this.play(this.animations.die, true);
                 this.isDieAnimationPlayed = true;
             }
             this.setVelocity(0);
         }
+    }
+
+    get isStunning() {
+        return this.stunTime > 0;
     }
 
     /**

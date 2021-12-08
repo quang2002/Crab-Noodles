@@ -4,6 +4,7 @@ import { Gun } from './gun.js';
 import { Enemy } from '../entity/enemy.js';
 import { Player } from '../entity/player.js';
 import { Entity } from "../entity/entity.js";
+import { RedGate } from '../entity/red-gate.js';
 
 export class Rocket extends Gun {
     /**
@@ -18,10 +19,10 @@ export class Rocket extends Gun {
         super(scene, x, y, "images.rocket", "images.bullet-rocket", stats);
 
         this.scene.anims.create({
-            key: "anims.bullet",
+            key: "anims.bullet-rocket",
             frameRate: 10,
             repeat: 0,
-            frames: this.scene.anims.generateFrameNames("sprite.bullet-animation", {
+            frames: this.scene.anims.generateFrameNames("spritesheet.bullet-animation", {
                 start: 0,
                 end: 7
             })
@@ -52,7 +53,7 @@ export class Rocket extends Gun {
         // set collide with
         this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
             if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
-                const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "sprite.bullet-animation").setScale(2).play("anims.bullet", true).on(
+                const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
                     "animationcomplete", () => {
                         bulletAnims.destroy();
                     }
@@ -65,23 +66,17 @@ export class Rocket extends Gun {
                         const vecy = o1.y - value.y;
                         if (vecx * vecx + vecy * vecy < range * range) {
                             value.take_damage(this.stats.damage);
-                        }
 
-                        //for enemy bounce
-                        /*
-                        this.scene.physics.add.collider(bulletAnims, value,
-                            (bulletAnims, value) => {
-                                value.body.pushable = true;
-                                value.setBounce( 1 / vecx * range * 100,  1 / vecy * range * 100);
+                            if (!(value instanceof RedGate)) {
+                                value.setVelocity(- 1000 * vecx / (1 + vecx * vecx), - 1000 * vecy / (1 + vecy * vecy)).stunTime = 400;
                             }
-                        )
-                        */
+                        }
                     });
                 o1.destroy();
             }
 
             if (!(o2 instanceof Entity)) {
-                const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "sprite.bullet-animation").setScale(2).play("anims.bullet", true).on(
+                const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
                     "animationcomplete", () => {
                         bulletAnims.destroy();
                     }
@@ -105,7 +100,7 @@ export class Rocket extends Gun {
         if (scene instanceof Phaser.Scene) {
             scene.load.image("images.rocket", "./assets/images/weapon/guns/rocket/rocket.png");
             scene.load.image("images.bullet-rocket", "./assets/images/weapon/guns/rocket/rocket-bullet.png");
-            scene.load.spritesheet("sprite.bullet-animation", "./assets/images/weapon/guns/rocket/rocket-bullet-anims.png", {
+            scene.load.spritesheet("spritesheet.bullet-animation", "./assets/images/weapon/guns/rocket/rocket-bullet-anims.png", {
                 frameHeight: 32,
                 frameWidth: 32
             });

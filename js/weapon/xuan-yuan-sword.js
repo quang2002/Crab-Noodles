@@ -15,14 +15,14 @@ export class XuanYuanSword extends Melee {
      * @param {StatsWeapon} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.weapons["xuan-yuan-sword"], stats);
+        stats = Object.assign({}, GameConfig.weapons["xuan_yuan_sword"], stats);
         super(scene, x, y, "images.drone", stats);
 
         //set origin for rotation
         this.setOrigin(0, 0.5);
         this.setBodySize(1, 1);
 
-        this.firesound = this.scene.sound.add("sounds.flameshot");
+        this.fireSound = this.scene.sound.add("sounds.flameshot");
     }
 
 
@@ -44,7 +44,7 @@ export class XuanYuanSword extends Melee {
 
         this.pointer = this.scene.input.activePointer;
         if (this.pointer.isDown && this.isFireable) {
-            this.firesound.play();
+            this.fireSound.play();
             super.fire();
 
             // effect for drone

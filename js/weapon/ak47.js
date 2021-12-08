@@ -12,10 +12,10 @@ export class AK47 extends Gun {
      * @param {StatsWeapon} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.weapons["ak-47"], stats);
+        stats = Object.assign({}, GameConfig.weapons["ak_47"], stats);
         super(scene, x, y, "images.ak47", "images.bullet-01", stats);
 
-        this.firesound = this.scene.sound.add("sounds.blastershot");
+        this.fireSound = this.scene.sound.add("sounds.blastershot");
     }
 
     /**
@@ -32,7 +32,7 @@ export class AK47 extends Gun {
     fire() {
         super.fire();
         if (this.owner instanceof Player) {
-            this.firesound.play();
+            this.fireSound.play();
         }
     }
 }

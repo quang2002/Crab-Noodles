@@ -11,7 +11,7 @@ export class BoyPlayer extends Player {
      * @param {StatsEntity} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.entities["boy-player"], stats);
+        stats = Object.assign({}, GameConfig.entities["boy_player"], stats);
         super(scene, x, y, stats);
         this.setBodySize(75, 90).setOffset(16, 8);
         this.setScale(.32);
@@ -19,8 +19,8 @@ export class BoyPlayer extends Player {
         //animation for show up
         this.create_anims_showup(scene);
 
-        this.hurtsound = this.scene.sound.add("sounds.boyhurt");
-        this.deathsound = this.scene.sound.add("sounds.boydeath");
+        this.hurtSound = this.scene.sound.add("sounds.boyhurt");
+        this.deathSound = this.scene.sound.add("sounds.boydeath");
     }
 
     /**

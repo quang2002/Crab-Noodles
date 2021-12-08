@@ -14,7 +14,7 @@ export class LightSaber extends Melee {
      * @param {StatsWeapon} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.weapons["light-saber"], stats);
+        stats = Object.assign({}, GameConfig.weapons["light_saber"], stats);
         super(scene, x, y, "images.light-saber", stats);
 
         //set origin for rotation

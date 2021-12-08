@@ -6,7 +6,7 @@ import { Pirate } from "./pirate.js";
 
 export class RedGate extends Enemy {
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.entities["red-gate"], stats);
+        stats = Object.assign({}, GameConfig.entities["red_gate"], stats);
         super(scene, x, y, stats);
 
         this.timeout = 0;

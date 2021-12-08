@@ -59,16 +59,16 @@ export class Gun extends Weapon {
         bullet.timeout = 5000;
 
         // set collide with
-        this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
-            if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
-                if (o2 instanceof Entity && o2.isAlive) {
-                    o2.take_damage(this.stats.damage);
+        this.scene.physics.add.overlap(bullet, this.collision, (blt, obj) => {
+            if ((this.owner instanceof Player && obj instanceof Enemy) || (this.owner instanceof Enemy && obj instanceof Player)) {
+                if (obj instanceof Entity && obj.isAlive) {
+                    obj.take_damage(this.stats.damage);
                 }
-                o1.destroy();
+                blt.destroy();
             }
 
-            if (!(o2 instanceof Entity))
-                o1.destroy();
+            if (!(obj instanceof Entity))
+                blt.destroy();
         });
 
         // add to list of bullets

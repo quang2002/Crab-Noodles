@@ -8,13 +8,13 @@ export const GameConfig = {
     "player-type": null,
 
     "entities": {
-        "boy-player": new StatsEntity({
+        "boy_player": new StatsEntity({
             hp: 2000,
             speed: 100,
             runningSpeed: 200,
         }),
 
-        "girl-player": new StatsEntity({
+        "girl_player": new StatsEntity({
             hp: 2000 * 1.25,
             speed: 100,
             runningSpeed: 200,
@@ -37,13 +37,13 @@ export const GameConfig = {
             runningSpeed: 0,
         }),
 
-        "red-gate": new StatsEntity({
+        "red_gate": new StatsEntity({
             hp: 10000
         }),
     },
 
     "weapons": {
-        "ak-47": new StatsWeapon({
+        "ak_47": new StatsWeapon({
             baseDMG: 100,
             critRate: 0.32,
             critDamage: 0.5,
@@ -73,7 +73,7 @@ export const GameConfig = {
             ammo: 20,
         }),
 
-        "light-saber": new StatsWeapon({
+        "light_saber": new StatsWeapon({
             baseDMG: 200,
             critRate: 0.5,
             critDamage: 0.5,
@@ -81,12 +81,12 @@ export const GameConfig = {
             speed: 30,
         }),
 
-        "monster-spawner": new StatsWeapon({
+        "monster_spawner": new StatsWeapon({
             fireTime: 1000,
             ammo: 10,
         }),
 
-        "xuan-yuan-sword": new StatsWeapon({
+        "xuan_yuan_sword": new StatsWeapon({
             baseDMG: 200,
             critRate: 0.5,
             critDamage: 0.5,
