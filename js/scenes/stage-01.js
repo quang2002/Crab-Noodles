@@ -46,7 +46,7 @@ export class Stage01 extends GameScene {
          * @type {Player}
          */
         this.player = new GameConfig["player-type"](this, 0, 0);
-        this.player.setWeapon(new EnergyGun(this));
+        this.player.setWeapon(new Rocket(this));
 
         this.player.setWeapon(new LightSaber(this, 0, 0));
         //this.player.setWeapon(new Drone(this, 0, 0));

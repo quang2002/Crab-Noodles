@@ -28,6 +28,7 @@ export class Rocket extends Gun {
             })
         })
 
+        this.audio_explosion = this.scene.sound.add("audio.explosion");
     }
 
     fire() {
@@ -53,6 +54,11 @@ export class Rocket extends Gun {
         // set collide with
         this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
             if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
+
+                //audio for explosion
+                this.audio_explosion.play();
+
+                //anmation when explosion
                 const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
                     "animationcomplete", () => {
                         bulletAnims.destroy();
@@ -76,6 +82,8 @@ export class Rocket extends Gun {
             }
 
             if (!(o2 instanceof Entity)) {
+                //audio for explosion
+                this.audio_explosion.play();
                 const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
                     "animationcomplete", () => {
                         bulletAnims.destroy();
@@ -104,6 +112,7 @@ export class Rocket extends Gun {
                 frameHeight: 32,
                 frameWidth: 32
             });
+            scene.load.audio("audio.explosion", "./assets/sounds/weapons/rocket/explosion.wav");
         }
     }
 }

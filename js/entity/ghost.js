@@ -17,7 +17,9 @@ export class Ghost extends Enemy {
         stats = Object.assign({}, GameConfig.entities["ghost"], stats);
         super(scene, x, y, stats);
 
-        this.weapon = new Weapon(scene, x, y,"", GameConfig.weapons.punch).setVisible(false);
+        this.weapon = new Weapon(scene, x, y, "", GameConfig.weapons.punch).setVisible(false);
+        this.weapon.owner = this;
+
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
     }
@@ -45,7 +47,7 @@ export class Ghost extends Enemy {
         });
 
         // console.log(this.animations.idle);
-    } 
+    }
 
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
@@ -63,20 +65,24 @@ export class Ghost extends Enemy {
         if (len < 200)
             return { x: vecx / len * this.stats.cur.runningSpeed, y: vecy / len * this.stats.cur.runningSpeed };
 
-        if (500 > len > 200)
+        if (500 > len && len > 200)
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
-        
+
+        if (len > 500) {
+            return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
+        }
+
         return { x: 0, y: 0 };
     }
 
     update() {
         super.update();
-        
+
         // weapon fire
         if (this.isAlive) {
             // this.weapon.setPosition(this.x, this.y);
             // this.weapon.pointTo(this.player);
-            
+
 
             const vecx = this.player.x - this.x;
             const vecy = this.player.y - this.y;
@@ -86,7 +92,7 @@ export class Ghost extends Enemy {
                 this.player.take_damage(this.weapon.stats.damage);
                 this.weapon.fire();
             }
-            
+
         } else {
             // this.weapon.destroy(this.scene);
             this.body.destroy();
