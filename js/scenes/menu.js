@@ -7,7 +7,8 @@ export class MenuScene extends Phaser.Scene {
         scene.load.image("images.bg", "./assets/images/bg.png");
         scene.load.image("ui.btn-newgame", "./assets/ui/btn-newgame.png");
         scene.load.image("ui.btn-lastgame", "./assets/ui/btn-lastgame.png");
-        scene.load.image("ui.btn-setting", "./assets/ui/btn-setting.png");
+        scene.load.image("ui.btn-question", "./assets/ui/btn-question.png");
+        scene.load.image("ui.tutorial", "./assets/ui/tutorial.png");
 
         scene.load.audio("sounds.menu-theme", "./assets/sounds/theme/first-scene.mp3");
         scene.load.audio("sounds.button", "./assets/sounds/UI/click-2.wav");
@@ -25,27 +26,33 @@ export class MenuScene extends Phaser.Scene {
         this.add.image(0, 0, "images.bg").setOrigin(0);
 
         // new game button
-        this.newgameButton = this.add.image(375, 610, "ui.btn-newgame").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
+        const btn_newgame = this.add.image(375, 610, "ui.btn-newgame").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
             .on("pointerdown", () => {
                 this.themeSound.stop();
                 this.buttonSound.play();
                 this.scene.start("StoryScene");
             })
-            .on("pointerout", () => this.newgameButton.setScale(0.8))
-            .on("pointermove", () => this.newgameButton.setScale(1));
+            .on("pointerout", () => btn_newgame.setScale(0.8))
+            .on("pointermove", () => btn_newgame.setScale(1));
 
         // last game from lobby button
-        this.lastgameButton = this.add.image(375, 800, "ui.btn-lastgame").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
+        const btn_lastgame = this.add.image(375, 800, "ui.btn-lastgame").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
             .on("pointerdown", () => {
                 this.themeSound.stop();
                 this.buttonSound.play();
-                this.scene.start("LobbyScene");
+                this.scene.start("ChoosePlayer");
             })
-            .on("pointerout", () => this.lastgameButton.setScale(0.8))
-            .on("pointermove", () => this.lastgameButton.setScale(1));
+            .on("pointerout", () => btn_lastgame.setScale(0.8))
+            .on("pointermove", () => btn_lastgame.setScale(1));
 
 
-        // setting button
-        this.add.image(1780, 940, "ui.btn-setting").setOrigin(0).setScale(0.8);
+        // question button
+        const tutorial = this.add.image(this.scale.width / 2, this.scale.height / 2, "ui.tutorial").setVisible(false);
+        const btn_question = this.add.image(1780, 940, "ui.btn-question").setOrigin(0.5).setScale(0.8).setInteractive()
+            .on("pointerdown", () => {
+                tutorial.setVisible(!tutorial.visible);
+            })
+            .on("pointerout", () => btn_question.setScale(0.8))
+            .on("pointermove", () => btn_question.setScale(1));
     }
 }

@@ -1,19 +1,19 @@
 import { GameConfig } from "../components/game-config.js";
 import { MonsterSpawner } from "../weapon/monster-spawner.js";
 import { Enemy } from "./enemy.js";
-import { Entity } from "./entity.js";
+import { Ghost } from "./ghost.js";
 import { Pirate } from "./pirate.js";
 
 export class RedGate extends Enemy {
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.entities["red-gate"], stats);
+        stats = Object.assign({}, GameConfig.entities["red_gate"], stats);
         super(scene, x, y, stats);
 
         this.timeout = 0;
 
         this.setOffset(32);
 
-        this.weapon = new MonsterSpawner(scene, x, y, [Pirate]);
+        this.weapon = new MonsterSpawner(scene, x, y, [Pirate, Ghost]);
     }
 
     /**

@@ -14,6 +14,8 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                     if (value.timeout > 0) value.timeout -= 100;
                     else value.destroy();
                 }
+
+                if (value.stunTime > 0) value.stunTime -= 100;
             });
         }, 100);
     }
@@ -28,7 +30,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
      */
     constructor(scene, x, y, stats) {
         super(scene, x, y, null);
-        
+
 
         // add this sprite to scene
         this.scene.add.existing(this);
@@ -37,7 +39,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this);
 
         // collide with
-        this.scene.physics.add.collider(this, Entity.collision);
+        this.scene.physics.add.collider(this, Entity.collision.concat(Entity.instances));
+
+        this.setPushable(false);
 
         // create stats of entity
         this.stats = {
@@ -46,9 +50,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         };
 
         // animation
-        this.animations = { idle: null, move: null, die: null};
+        this.animations = { idle: null, move: null, die: null };
         this.create_anims();
-        
+
         // add this object to instances
         Entity.instances.push(this);
 
@@ -57,6 +61,12 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
 
         // is player
         this.isPlayer = false;
+
+        // is die animation played
+        this.isDieAnimationPlayed = false;
+
+        // stun time
+        this.stunTime = 0;
     }
 
     /**
@@ -70,9 +80,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         // damage text
         let txtDMG = null;
         if (dmg.crit) {
-            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 15, color: "crimson", stroke: "snow", strokeThickness: 1 })
+            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 15, color: "gold", stroke: "snow", strokeThickness: 1 })
         } else {
-            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 12, color: "silver", stroke: "snow", strokeThickness: 1 })
+            txtDMG = this.scene.add.text(this.x, this.y, dmg.value, { fontFamily: GameConfig['font-family'], fontSize: 12, color: "crimson", stroke: "snow", strokeThickness: 1 })
         }
 
         this.scene.physics.add.existing(txtDMG);
@@ -84,7 +94,9 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                 txtDMG.destroy(true);
                 this.scene?.time.removeEvent(event);
             }
-        })
+        });
+
+
     }
 
     /**
@@ -119,27 +131,36 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         super.update();
 
         if (this.isAlive) {
-            let vec = this.movement();
+            if (!this.isStunning) {
+                let vec = this.movement();
 
-            this.setVelocity(vec.x, vec.y);
+                this.setVelocity(vec.x, vec.y);
 
-            // flip sprite
-            if (vec.x > 0) {
-                this.setFlipX(false);
-            } else if (vec.x < 0) {
-                this.setFlipX(true);
-            }
+                // flip sprite
+                if (vec.x > 0) {
+                    this.setFlipX(false);
+                } else if (vec.x < 0) {
+                    this.setFlipX(true);
+                }
 
-            // play animation
-            if (vec.x * vec.x + vec.y * vec.y > 0) {
-                this.play(this.animations.move, true);
-            } else {
-                this.play(this.animations.idle, true);
+                // play animation
+                if (vec.x * vec.x + vec.y * vec.y > 0) {
+                    this.play(this.animations.move, true);
+                } else {
+                    this.play(this.animations.idle, true);
+                }
             }
         } else {
-            this.play(this.animations.die, true);
+            if (!this.isDieAnimationPlayed) {
+                this.play(this.animations.die, true);
+                this.isDieAnimationPlayed = true;
+            }
             this.setVelocity(0);
         }
+    }
+
+    get isStunning() {
+        return this.stunTime > 0;
     }
 
     /**

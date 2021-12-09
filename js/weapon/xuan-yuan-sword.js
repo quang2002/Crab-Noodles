@@ -6,7 +6,7 @@ import { StatsWeapon } from "../stats/stats-weapon.js";
 import { Gun } from "./gun.js";
 import { Melee } from "./melee.js";
 
-export class Drone extends Melee {
+export class XuanYuanSword extends Melee {
     /**
      * light-saber.init
      * @param {Phaser.Scene} scene 
@@ -15,12 +15,14 @@ export class Drone extends Melee {
      * @param {StatsWeapon} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.weapons["drone"], stats);
+        stats = Object.assign({}, GameConfig.weapons["xuan_yuan_sword"], stats);
         super(scene, x, y, "images.drone", stats);
 
         //set origin for rotation
         this.setOrigin(0, 0.5);
         this.setBodySize(1, 1);
+
+        this.fireSound = this.scene.sound.add("sounds.flameshot");
     }
 
 
@@ -42,6 +44,7 @@ export class Drone extends Melee {
 
         this.pointer = this.scene.input.activePointer;
         if (this.pointer.isDown && this.isFireable) {
+            this.fireSound.play();
             super.fire();
 
             // effect for drone

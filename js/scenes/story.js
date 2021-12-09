@@ -83,7 +83,7 @@ export class StoryScene extends Phaser.Scene {
                     }
                 } else {
                     this.themeSound.stop();
-                    this.scene.start("LobbyScene");
+                    this.scene.start("ChoosePlayer");
                 }
             }
         });

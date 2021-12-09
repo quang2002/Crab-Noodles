@@ -13,7 +13,7 @@ export class MonsterSpawner extends Weapon {
      * @param {StatsWeapon} stats 
      */
     constructor(scene, x, y, monster_types, stats) {
-        stats = Object.assign({}, GameConfig.weapons["monster-spawner"], stats);
+        stats = Object.assign({}, GameConfig.weapons["monster_spawner"], stats);
         super(scene, x, y, null, stats);
 
         this.setVisible(false);

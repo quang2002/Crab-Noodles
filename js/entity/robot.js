@@ -2,8 +2,9 @@ import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { AK47 } from "../weapon/ak47.js";
 import { Enemy } from "./enemy.js";
+import { Player } from "./player.js";
 
-export class Pirate extends Enemy {
+export class Robot extends Enemy {
 
     /**
      * Pirate.init
@@ -13,12 +14,12 @@ export class Pirate extends Enemy {
      * @param {StatsEntity} stats 
      */
     constructor(scene, x, y, stats) {
-        stats = Object.assign({}, GameConfig.entities["pirate"], stats);
+        stats = Object.assign({}, GameConfig.entities["robot"], stats);
         super(scene, x, y, stats);
 
         this.weapon = new AK47(scene, x, y, {
             fireTime: 1000,
-            speed: 100
+            speed: 150
         });
 
         //owner
@@ -27,34 +28,36 @@ export class Pirate extends Enemy {
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
+
+        this.setBodySize(30,50).setOffset(50,35);
     }
 
     create_anims() {
         this.animations.idle = this.scene.anims.create({
-            key: "anims-enemy-pirate-idle",
+            key: "anims-enemy-robot-idle",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-pirate", { start: 0, end: 3 })
+            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-robot", { start: 13, end: 17 })
         });
 
         this.animations.move = this.scene.anims.create({
-            key: "anims-enemy-pirate-move",
+            key: "anims-enemy-robot-move",
             frameRate: 10,
             repeat: -1,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-pirate", { start: 4, end: 7 })
+            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-robot", { start: 20, end: 24 })
         });
 
         this.animations.die = this.scene.anims.create({
-            key: "anims-enemy-pirate-die",
+            key: "anims-enemy-robot-die",
             frameRate: 10,
-            repeat: -1,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-pirate", { frames: [8] })
+            repeat: 0,
+            frames: this.scene.anims.generateFrameNumbers("spritesheet-enemy-robot", { start: 1, end: 12 })
         });
     }
 
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
-            scene.load.spritesheet("spritesheet-enemy-pirate", "./assets/images/enemy/pirate/enemy-pirate.png", { frameWidth: 40, frameHeight: 40 });
+            scene.load.spritesheet("spritesheet-enemy-robot", "./assets/images/enemy-robot.png", { frameWidth: 128, frameHeight: 128 });
         }
     }
 

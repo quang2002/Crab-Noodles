@@ -68,8 +68,8 @@ export class Weapon extends Phaser.Physics.Arcade.Sprite {
      * @returns {Weapon} this
      */
     pointTo(pointer) {
-        if (pointer.x > this.scene.cameras.main.width / 2) this.setFlipX(false);
-        else if (pointer.x < this.scene.cameras.main.width / 2) this.setFlipX(true);
+        if (pointer.x > this.owner.vpos.x) this.setFlipX(false);
+        else if (pointer.x < this.owner.vpos.x) this.setFlipX(true);
 
         if (this.owner instanceof Enemy) {
             if (pointer.x < this.owner.x) this.setFlipX(true);

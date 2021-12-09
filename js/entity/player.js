@@ -17,7 +17,7 @@ export class Player extends Entity {
         super(scene, x, y, stats);
 
         window.player = this;
-        
+
         scene.scene.launch("PlayerUI").get("PlayerUI")?.setData({
             player: this,
         });
@@ -50,7 +50,8 @@ export class Player extends Entity {
             "right": this.scene.input.keyboard.addKey("D"),
             "left": this.scene.input.keyboard.addKey("A"),
             "run": this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT),
-            "swap-weapon": this.scene.input.keyboard.addKey("Q")
+            "swapWeapon": this.scene.input.keyboard.addKey("Q"),
+            "lootWeapon": this.scene.input.keyboard.addKey("F"),
         }
 
         // weapons
@@ -69,6 +70,20 @@ export class Player extends Entity {
 
         this.COOLDOWN_SWAP_TIME = 600;
         this.nextSwapTime = this.scene.time.now;
+
+        this.COOLDOWN_LOOT_TIME = 600;
+        this.nextLootTime = this.scene.time.now;
+
+        // sounds
+        this.hurtSound = null;
+        this.deathSound = null;
+        this.isDeathSoundPlayed = false;
+        this.changeGunSound = this.scene.sound.add("sounds.changegun");
+    }
+
+    take_damage(dmg) {
+        this.hurtSound?.play();
+        super.take_damage(dmg);
     }
 
     /**
@@ -105,12 +120,19 @@ export class Player extends Entity {
     setWeapon(weapon) {
 
         if (weapon instanceof Gun) {
+            if (this.weapons.pri)
+                this.weapons.pri.owner = null;
             this.weapons.pri = weapon;
             this.weapons.idx = 0;
         } else if (weapon instanceof Melee) {
+            if (this.weapons.sec)
+                this.weapons.sec.owner = null;
             this.weapons.sec = weapon;
             this.weapons.idx = 1;
         }
+
+        weapon.owner = this;
+        this.changeGunSound.play();
         return this;
     }
 
@@ -120,6 +142,7 @@ export class Player extends Entity {
      */
     swapWeapon() {
         this.weapons.idx = (this.weapons.idx == 0 ? 1 : 0);
+        this.changeGunSound.play();
         return this;
     }
 
@@ -131,16 +154,22 @@ export class Player extends Entity {
      */
     lootWeapon(weapon) {
         if (weapon instanceof Gun) {
+            if (this.weapons.pri)
+                this.weapons.pri.owner = null;
             this.weapons.pri.setVisible(true);
 
             this.weapons.pri = weapon;
             this.weapons.idx = 0;
         } else if (weapon instanceof Melee) {
+            if (this.weapons.sec)
+                this.weapons.sec.owner = null;
             this.weapons.sec.setVisible(true);
 
             this.weapons.sec = weapon;
             this.weapons.idx = 1;
         }
+        weapon.owner = this;
+        this.changeGunSound.play();
         return this;
     }
 
@@ -150,9 +179,21 @@ export class Player extends Entity {
 
         if (this.isAlive) {
 
-            if (this.controller["swap-weapon"].isDown && this.nextSwapTime < this.scene.time.now) {
+            if (this.controller["swapWeapon"].isDown && this.nextSwapTime < this.scene.time.now) {
                 this.swapWeapon();
                 this.nextSwapTime = this.scene.time.now + this.COOLDOWN_SWAP_TIME;
+            }
+
+            if (this.controller["lootWeapon"].isDown && this.nextLootTime < this.scene.time.now) {
+                this.scene.sys.displayList.getAll().filter(e => e instanceof Weapon && e.isLootable).forEach(e => {
+                    const vecx = e.x - this.x;
+                    const vecy = e.y - this.y;
+                    const range = 20;
+                    if (vecx * vecx + vecy * vecy <= range * range) {
+                        this.lootWeapon(e);
+                    }
+                });
+                this.nextLootTime = this.scene.time.now + this.COOLDOWN_LOOT_TIME;
             }
 
             // set weapons's visibility
@@ -179,6 +220,12 @@ export class Player extends Entity {
                 } else {
                     this.weapons.active?.pointTo(this.scene.input.activePointer);
                 }
+            }
+
+        } else {
+            if (!this.isDeathSoundPlayed) {
+                this.isDeathSoundPlayed = true;
+                this.deathSound?.play();
             }
 
         }
