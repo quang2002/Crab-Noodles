@@ -23,39 +23,7 @@ export class StoryMode extends GameScene {
         scene.load.tilemapTiledJSON("maps.story-mode", "./assets/maps/story-mode.json");
     }
 
-    create() {
-        // add tilemap
-        this.map = this.add.tilemap("maps.story-mode");
-
-        const tilesets = [
-            this.map.addTilesetImage("tileset_JS", "tilesets.tileset_JS"),
-        ];
-
-        this.layers = {
-            "ground": this.map.createLayer("ground", tilesets).setDepth(-1),
-            "wall": this.map.createLayer("wall", tilesets).setDepth(1),
-        }
-
-        // create collision for each feature in map
-        const wall = this.createCollisionOnLayer(this.layers.wall);
-
-        Entity.collision = [wall];
-
-        /**
-         * @type {Player}
-         */
-        this.player = new GameConfig["player_type"](this, 0, 0);
-        this.player.setWeapon(new Rocket(this));
-        this.player.setWeapon(new LightSaber(this, 0, 0));
-        this.player.setPosition(4768, 832);
-
-        new Boom(this, 480, 600);
-        new Computer(this, 480, 1000).correct(() => {
-            console.log("Hello");
-        }).incorrect(() => {
-            console.log("bye");
-        });
-
+    add_autodoor() {
         new VerticalDoor(this, 1200, 1616, true);
         new VerticalDoor(this, 1872, 1616, true);
         new VerticalDoor(this, 4560, -2188, true);
@@ -93,15 +61,39 @@ export class StoryMode extends GameScene {
         new HorizontalDoor(this, 3808, 1408, true);
         new HorizontalDoor(this, 3808, 992, true);
         new HorizontalDoor(this, 4768, 796, true);
-        
-        
+    }
 
+    create() {
+        // add tilemap
+        this.map = this.add.tilemap("maps.story-mode");
+
+        const tilesets = [
+            this.map.addTilesetImage("tileset_JS", "tilesets.tileset_JS"),
+        ];
+
+        this.layers = {
+            "ground": this.map.createLayer("ground", tilesets).setDepth(-1),
+            "upper-ground": this.map.createLayer("upper-ground", tilesets).setDepth(-1),
+            "wall": this.map.createLayer("wall", tilesets).setDepth(1),
+            "objects": this.map.createLayer("objects", tilesets).setDepth(1),
+        }
+
+        // create collision for each feature in map
+        const wall = this.createCollisionOnLayer(this.layers.wall);
+        const objects = this.createCollisionOnLayer(this.layers.objects);
+
+        Entity.collision = [wall, objects];
+
+        /**
+         * @type {Player}
+         */
+        this.player = new GameConfig["player_type"](this, 0, 0);
+        this.player.setWeapon(new Rocket(this));
+        this.player.setWeapon(new LightSaber(this, 0, 0));
+        this.player.setPosition(4768, 832);
     }
 
     update() {
         super.update();
-
-        // this.door.setPosition(this.player.x, this.player.y);
-        // console.log(this.player.x, this.player.y);
     }
 }
