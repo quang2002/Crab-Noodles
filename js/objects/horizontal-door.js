@@ -15,6 +15,7 @@ export class HorizontalDoor extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, Entity.instances);
 
+        Entity.collision.push(this);
 
         this.setPushable(false).setImmovable(true)
 
