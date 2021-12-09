@@ -2,6 +2,8 @@ import { GameConfig } from "../components/game-config.js";
 import { GameScene } from "../components/game-scene.js";
 import { Entity } from "../entity/entity.js";
 import { Player } from "../entity/player.js";
+import { Boom } from "../objects/boom.js";
+import { Computer } from "../objects/computer.js";
 import { HorizontalDoor } from "../objects/horizontal-door.js";
 import { VerticalDoor } from "../objects/vertical-door.js";
 import { LightSaber } from "../weapon/light-saber.js";
@@ -24,9 +26,11 @@ export class StoryMode extends GameScene {
     create() {
         // add tilemap
         this.map = this.add.tilemap("maps.story-mode");
+
         const tilesets = [
             this.map.addTilesetImage("tileset_JS", "tilesets.tileset_JS"),
         ];
+
         this.layers = {
             "ground": this.map.createLayer("ground", tilesets).setDepth(-1),
             "wall": this.map.createLayer("wall", tilesets).setDepth(1),
@@ -45,6 +49,12 @@ export class StoryMode extends GameScene {
         this.player.setWeapon(new LightSaber(this, 0, 0));
         this.player.setPosition(4768, 832);
 
+        new Boom(this, 480, 600);
+        new Computer(this, 480, 1000).correct(() => {
+            console.log("Hello");
+        }).incorrect(() => {
+            console.log("bye");
+        });
 
         new VerticalDoor(this, 1200, 1616, true);
         new VerticalDoor(this, 1872, 1616, true);

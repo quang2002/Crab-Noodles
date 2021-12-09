@@ -27,6 +27,8 @@ export class QuizUI extends Phaser.Scene {
             color: "snow"
         };
 
+        this.isAnsable = true;
+
         this.add.image(1250, 350, "ui.quiz", 0).setScale(2.5);
 
         const ans1 = this.add.image(975, 750, "ui.quiz-answer").setScale(2.5);
@@ -50,6 +52,9 @@ export class QuizUI extends Phaser.Scene {
     }
 
     ans(trueans, myans) {
+        if (!this.isAnsable) return;
+        this.isAnsable = false;
+
         this.sys.displayList.removeAll();
 
         if (trueans == myans) {
@@ -60,7 +65,7 @@ export class QuizUI extends Phaser.Scene {
                 color: "green"
             }).setMask(new Phaser.Display.Masks.BitmapMask(this, this.mask)).setOrigin(0.5);
 
-            this.game.events.emit("correct");
+            this.events.emit("correct");
         } else {
             this.add.text(1250, 350, "WRONG", {
                 fontFamily: GameConfig["font-family"],
@@ -68,10 +73,9 @@ export class QuizUI extends Phaser.Scene {
                 fontStyle: "bold",
                 color: "crimson"
             }).setMask(new Phaser.Display.Masks.BitmapMask(this, this.mask)).setOrigin(0.5);
-            
-            this.game.events.emit("incorrect");
-        }
 
+            this.events.emit("incorrect");
+        }
 
         this.time.addEvent({
             delay: 1000,

@@ -84,6 +84,7 @@ export class Player extends Entity {
     take_damage(dmg) {
         this.hurtSound?.play();
         super.take_damage(dmg);
+        return this;
     }
 
     /**
