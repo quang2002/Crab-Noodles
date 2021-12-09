@@ -59,7 +59,7 @@ export class Stage01 extends GameScene {
         new RedGate(this, -928, 1300);
         new RedGate(this, 394, 1311);
         new RedGate(this, 195, 1060);
-        // new Ghost(this, 70, 70);
+        new Ghost(this, 70, 70);
 
         // light
         this.lights.enable();
