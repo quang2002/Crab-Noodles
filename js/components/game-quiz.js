@@ -66,9 +66,9 @@ export const QuizBank = [
     {
         question: "Làm sao để có người yêu?",
         answer1: "Tham gia câu lạc bộ JS",
-        answer2: "Tích cực thả thính, đi nhắn tin với người khác",
+        answer2: "Tích cực thả thính",
         answer3: "Làm em anh Khuất",
-        answer4: "Tất cả những phương án trên",
+        answer4: "Tất cả",
         answer: [2],
     },
 
@@ -111,11 +111,11 @@ export const QuizBank = [
 
     {
         question: "Ai là hokage nữ duy nhất của câu lạc bộ?",
-        answer1: "Hoàng Minh Oanh",
-        answer2: "Hoàng Kim Oanh",
-        answer3: "Hoàng Mạnh Khuất",
-        answer4: "Hoàng Thị Oanh",
-        answer: [1],
+        answer1: "Phạm Minh Oanh",
+        answer2: "Phạm Kim Oanh",
+        answer3: "Phạm Mạnh Khuất",
+        answer4: "Phạm Thị Oanh",
+        answer: [4],
     },
 
 
@@ -130,10 +130,10 @@ export const QuizBank = [
 
     {
         question: "Cách để nhanh giàu?",
-        answer1: "Chơi mini game của coding project",
-        answer2: "Seeding thuê cho các nhà tài trợ của coding project",
+        answer1: "Chơi mini game",
+        answer2: "Seeding thuê",
         answer3: "Săn sale shopee",
-        answer4: "Tham gia coding project",
+        answer4: "Coding project",
         answer: [4],
     },
 

@@ -50,7 +50,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         };
 
         // animation
-        this.animations = { idle: null, move: null, die: null };
+        this.animations = { idle: null, move: null, die: null};
         this.create_anims();
 
         // add this object to instances
@@ -142,6 +142,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                 } else if (vec.x < 0) {
                     this.setFlipX(true);
                 }
+                
 
                 // play animation
                 if (vec.x * vec.x + vec.y * vec.y > 0) {

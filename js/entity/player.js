@@ -156,18 +156,24 @@ export class Player extends Entity {
      */
     lootWeapon(weapon) {
         if (weapon instanceof Gun) {
-            if (this.weapons.pri)
+            if (this.weapons.pri) {
                 this.weapons.pri.owner = null;
-            this.weapons.pri.setVisible(true);
+                this.weapons.pri.setPosition(this.x, this.y).setDepth(this.depth - 1);
+                this.weapons.pri.setVisible(true);
+            }
 
             this.weapons.pri = weapon;
+            this.weapons.pri.setDepth(this.depth + 1);
             this.weapons.idx = 0;
         } else if (weapon instanceof Melee) {
-            if (this.weapons.sec)
+            if (this.weapons.sec) {
                 this.weapons.sec.owner = null;
-            this.weapons.sec.setVisible(true);
+                this.weapons.sec.setPosition(this.x, this.y).setDepth(this.depth - 1);
+                this.weapons.sec.setVisible(true);
+            }
 
             this.weapons.sec = weapon;
+            this.weapons.sec.setDepth(this.depth + 1);
             this.weapons.idx = 1;
         }
         weapon.owner = this;

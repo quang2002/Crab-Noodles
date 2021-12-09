@@ -79,15 +79,16 @@ export class StoryMode extends GameScene {
         this.layers = {
             "ground": this.map.createLayer("ground", tilesets).setDepth(-1),
             "upper-ground": this.map.createLayer("upper-ground", tilesets).setDepth(-1),
-            "wall": this.map.createLayer("wall", tilesets).setDepth(1),
+            "wall": this.map.createLayer("wall", tilesets).setDepth(-1),
             "objects": this.map.createLayer("objects", tilesets).setDepth(1),
         }
 
         // create collision for each feature in map
         const wall = this.createCollisionOnLayer(this.layers.wall);
         const objects = this.createCollisionOnLayer(this.layers.objects);
+        const ground = this.createCollisionOnLayer(this.layers.ground);
 
-        Entity.collision = [wall, objects];
+        Entity.collision = [wall, objects, ground];
 
         /**
          * @type {Player}
@@ -121,7 +122,12 @@ export class StoryMode extends GameScene {
             [70, 0],
             [72, -3],
             [70, -6],
-        ].forEach(e => new Boom(this, e[0] * 32, e[1] * 32));
+            [72, -33],
+            [70, -33],
+            [89, -36],
+            [87, -32],
+            [89, -29],
+        ].forEach(e => new Boom(this, e[0] * 32, e[1] * 32).setDepth(-1));
 
     }
 
