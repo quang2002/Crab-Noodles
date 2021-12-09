@@ -43,12 +43,49 @@ export class StoryMode extends GameScene {
         this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setWeapon(new Rocket(this));
         this.player.setWeapon(new LightSaber(this, 0, 0));
-        this.player.setPosition(800, 1000);
+        this.player.setPosition(4768, 832);
 
 
         new VerticalDoor(this, 1200, 1616, true);
+        new VerticalDoor(this, 1872, 1616, true);
+        new VerticalDoor(this, 4560, -2188, true);
+        new VerticalDoor(this, 5296, -2188, true);
+        new VerticalDoor(this, 5264, -1548, true);
+        new VerticalDoor(this, 5616, -1548, true);
+        new VerticalDoor(this, 5616, -1036, true);
+        new VerticalDoor(this, 5264, -1036, true);
+        new VerticalDoor(this, 4432, -108, true);
+        new VerticalDoor(this, 5360, -108, true);
+        new VerticalDoor(this, 5488, 1620, true);
+        new VerticalDoor(this, 4976, 1620, true);
+        new VerticalDoor(this, 4432, 1620, true);
         new HorizontalDoor(this, 480, 1280, true);
         new HorizontalDoor(this, 44 * 32, 30 * 32, true);
+        new HorizontalDoor(this, 44 * 32, 1440, true);
+        new HorizontalDoor(this, 2624, 1280, true);
+        new HorizontalDoor(this, 2272, 256, true);
+        new HorizontalDoor(this, 2272, -256, true);
+        new HorizontalDoor(this, 2272, -832, true);
+        new HorizontalDoor(this, 2272, -1344, true);
+        new HorizontalDoor(this, 2848, -1344, true);
+        new HorizontalDoor(this, 2848, -224, true);
+        new HorizontalDoor(this, 3808, -224, true);
+        new HorizontalDoor(this, 3808, -864, true);
+        new HorizontalDoor(this, 4192, -1184, true);
+        new HorizontalDoor(this, 4192, -1376, true);
+        new HorizontalDoor(this, 3776, -1696, true);
+        new HorizontalDoor(this, 3776, -2080, true);
+        new HorizontalDoor(this, 5760, -2080, true);
+        new HorizontalDoor(this, 6080, -2080, true);
+        new HorizontalDoor(this, 5760, -1728, true);
+        new HorizontalDoor(this, 6080, -1728, true);
+        new HorizontalDoor(this, 5984, 672, true);
+        new HorizontalDoor(this, 3808, 1408, true);
+        new HorizontalDoor(this, 3808, 992, true);
+        new HorizontalDoor(this, 4768, 796, true);
+        
+        
+
     }
 
     update() {
