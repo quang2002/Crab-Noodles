@@ -1,6 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { AK47 } from "../weapon/ak47.js";
+import { EnergyGun } from "../weapon/energy-gun.js";
 import { Enemy } from "./enemy.js";
 import { Player } from "./player.js";
 
@@ -17,9 +18,9 @@ export class Robot extends Enemy {
         stats = Object.assign({}, GameConfig.entities["robot"], stats);
         super(scene, x, y, stats);
 
-        this.weapon = new AK47(scene, x, y, {
-            fireTime: 1000,
-            speed: 150
+        this.weapon = new EnergyGun(scene, x, y, {
+            fireTime: 500,
+            speed: 500
         });
 
         //owner
@@ -80,8 +81,9 @@ export class Robot extends Enemy {
 
         // weapon fire
         if (this.isAlive) {
-            this.weapon.setPosition(this.x, this.y);
+            this.weapon.setPosition(this.x, this.y - 4);
             this.weapon.pointTo(this.player);
+            this.weapon.setScale(1.2);
 
             const vecx = this.player.x - this.x;
             const vecy = this.player.y - this.y;

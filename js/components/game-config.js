@@ -99,6 +99,14 @@ export const GameConfig = {
             critDamage: 0.5,
             fireTime: 350,
             speed: 200
-        })
+        }),
+
+        "energy_gun": new StatsWeapon({
+            baseDMG: 100,
+            critRate: 0.4,
+            critDamage: 0.7,
+            fireTime: 500,
+            speed: 500,
+        }),
     },
 };

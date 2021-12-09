@@ -5,6 +5,7 @@ import { Player } from "../entity/player.js";
 import { QuizUI } from "../ui/quiz-ui.js";
 import { Pistol } from "../weapon/pistol.js";
 import { Rocket } from "../weapon/rocket.js";
+import { EnergyGun } from "../weapon/energy-gun.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -45,13 +46,13 @@ export class LobbyScene extends GameScene {
          */
         this.player = new GameConfig["player-type"](this, 0, 0);
 
-        this.player.setWeapon(new AK47(this, 0, 0, {
-            fireTime: 100,
-            speed: 1000,
+        this.player.setWeapon(new EnergyGun(this, 0, 0, {
+            fireTime: 500,
+            speed: 500,
             reloadTime: 0
         }));
 
-        this.player.setWeapon(new Rocket(this, 0, 0));
+        //this.player.setWeapon(new Rocket(this, 0, 0));
 
         //this.player.setWeapon(new Drone(this, 0, 0));
         // add a new gate1 png
