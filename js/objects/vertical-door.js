@@ -1,4 +1,5 @@
 import { Entity } from "../entity/entity.js";
+import { Player } from "../entity/player.js";
 
 export class VerticalDoor extends Phaser.Physics.Arcade.Sprite {
     /**
@@ -14,7 +15,7 @@ export class VerticalDoor extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, Entity.instances);
-        
+
         Entity.collision.push(this);
 
         this.setPushable(false).setImmovable(true)
@@ -33,19 +34,27 @@ export class VerticalDoor extends Phaser.Physics.Arcade.Sprite {
 
         this.isopen = true;
         this.setBodySize(32, 160).setOffset(0).setDepth(-1).close();
+        this.isAutoDoor = isAutoDoor;
 
-        if (isAutoDoor) {
-            const sensor = scene.physics.add.image(x, y, null).setVisible(false).setBodySize(64, 160);
-            this.scene.time.addEvent({
-                loop: true,
-                delay: 100,
-                callback: () => {
-                    const isoverlap = this.scene.physics.overlap(sensor, Entity.instances);
+        const sensor = scene.physics.add.image(x, y, null).setVisible(false).setBodySize(64, 160);
+        this.scene.time.addEvent({
+            loop: true,
+            delay: 100,
+            callback: () => {
+                let opener = null;
+
+                const isoverlap = this.scene.physics.overlap(sensor, Entity.instances, (o1, o2) => { opener = o2; });
+                if (this.isAutoDoor) {
                     if (isoverlap) this.open();
                     else this.close();
+                } else if (isoverlap && (opener instanceof Player)) {
+                    if (!opener.isStunning && this.computer) {
+                        opener.cameras.follow = this.computer;
+                        opener.setVelocity(0).setPosition(opener.x + (opener.x - x) * 0.2, opener.y + (opener.y - y) * 0.2).stunTime = 2000;
+                    }
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
@@ -68,5 +77,13 @@ export class VerticalDoor extends Phaser.Physics.Arcade.Sprite {
         this.play("anims.vertical-door-close", true).on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => this.body.setEnable(true));
         this.isopen = false;
         return this;
+    }
+
+    /**
+     *  
+     * @param {boolean} value 
+     */
+    setAuto(value) {
+        this.isAutoDoor = value;
     }
 }

@@ -31,6 +31,7 @@ export class Player extends Entity {
             "zoomRange": { min: 2.25, max: 4 },
 
             "dummy": this.scene.physics.add.sprite(x, y, null).setVisible(false).setBodySize(1, 1),
+            "follow": this,
             "followSpeed": 2
         };
 
@@ -232,14 +233,18 @@ export class Player extends Entity {
         }
 
 
+        if (!this.isStunning) {
+            this.cameras.follow = this;
+        }
+
         // set weapon's owner
         if (this.weapons.active != null) {
             this.weapons.active.owner = this.isAlive ? this : null;
         }
 
         // smooth camera for player
-        if (Math.abs(this.cameras.dummy.x - this.x) + Math.abs(this.cameras.dummy.y - this.y) > 0.1) {
-            this.cameras.dummy.setVelocity(-(this.cameras.dummy.x - this.x) * this.cameras.followSpeed, -(this.cameras.dummy.y - this.y) * this.cameras.followSpeed);
+        if (Math.abs(this.cameras.dummy.x - this.cameras.follow.x) + Math.abs(this.cameras.dummy.y - this.cameras.follow.y) > 0.1) {
+            this.cameras.dummy.setVelocity(-(this.cameras.dummy.x - this.cameras.follow.x) * this.cameras.followSpeed, -(this.cameras.dummy.y - this.cameras.follow.y) * this.cameras.followSpeed);
         }
 
         if (Math.abs(this.cameras.currentZoom - this.cameras.zoom) > 0.1)
