@@ -53,7 +53,7 @@ export class Rocket extends Gun {
         // set collide with
         this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
             if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
-                const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
+                const bulletAnims = this.scene?.physics?.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
                     "animationcomplete", () => {
                         bulletAnims.destroy();
                     }
@@ -76,7 +76,7 @@ export class Rocket extends Gun {
             }
 
             if (!(o2 instanceof Entity)) {
-                const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
+                const bulletAnims = this.scene?.physics?.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
                     "animationcomplete", () => {
                         bulletAnims.destroy();
                     }

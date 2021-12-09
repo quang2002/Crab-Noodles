@@ -52,7 +52,7 @@ export class EnergyGun extends Gun {
         // set collide with
         this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
             if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
-                const energyBulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.energy-bullet-animation").play("anims.energy-bullet", true).on(
+                const energyBulletAnims = this.scene?.physics?.add.sprite(o1.x, o1.y, "spritesheet.energy-bullet-animation").play("anims.energy-bullet", true).on(
                     "animationcomplete", () => {
                         energyBulletAnims.destroy();
                     }
@@ -64,7 +64,7 @@ export class EnergyGun extends Gun {
             }
 
             if (!(o2 instanceof Entity)) {
-                const energyBulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.energy-bullet-animation").play("anims.energy-bullet", true).on(
+                const energyBulletAnims = this.scene?.physics?.add.sprite(o1.x, o1.y, "spritesheet.energy-bullet-animation").play("anims.energy-bullet", true).on(
                     "animationcomplete", () => {
                         energyBulletAnims.destroy();
                     }
