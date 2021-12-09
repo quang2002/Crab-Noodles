@@ -1,5 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
+import { StatsWeapon } from "../stats/stats-weapon.js";
+import { Weapon } from "../weapon/weapon.js";
 import { Enemy } from "./enemy.js";
 
 export class Ghost extends Enemy {
@@ -15,7 +17,7 @@ export class Ghost extends Enemy {
         stats = Object.assign({}, GameConfig.entities["ghost"], stats);
         super(scene, x, y, stats);
 
-        this.weapon = null;
+        this.weapon = new Weapon(scene, x, y, GameConfig.weapons.punch).setVisible(false);
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
     }
@@ -80,15 +82,17 @@ export class Ghost extends Enemy {
             const vecy = this.player.y - this.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-            // if (this.weapon.isFireable && len < 300) {
-            //     this.weapon.fire();
-            // }
+            if (this.weapon.isFireable && len < 40 && this.player.isAlive) {
+                this.player.take_damage(this.weapon.stats.damage);
+                this.weapon.fire();
+            }
+            
         } else {
             // this.weapon.destroy(this.scene);
             this.body.destroy();
         }
 
-        if (this.scene.time.now - this.lastTime > 1000) {
+        if (this.scene.time.now - this.lastTime > 500) {
             this.lastTime = this.scene.time.now;
             this.randomVelocity.x = Math.random() * 2 - 1;
             this.randomVelocity.y = Math.random() * 2 - 1;

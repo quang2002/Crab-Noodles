@@ -86,6 +86,13 @@ export const GameConfig = {
             ammo: 10,
         }),
 
+        "punch": new StatsWeapon({
+            baseDMG: 100,
+            critRate: 0.5,
+            critDamage: 0.5,
+            fireTime: 1000,
+        }),
+
         "xuan_yuan_sword": new StatsWeapon({
             baseDMG: 200,
             critRate: 0.5,

@@ -18,6 +18,7 @@ import { Stage01 } from "./stage-01.js";
 import { Stage02 } from "./stage-02.js";
 import { StoryScene } from "./story.js";
 import { QuizUI } from "../ui/quiz-ui.js";
+import { PirateGun } from "../weapon/pirate-gun.js";
 
 export class BootScene extends Phaser.Scene {
     constructor() {
@@ -44,6 +45,7 @@ export class BootScene extends Phaser.Scene {
         XuanYuanSword.preload(this);
         Pistol.preload(this);
         Rocket.preload(this);
+        PirateGun.preload(this);
 
         // entities
         BoyPlayer.preload(this);
