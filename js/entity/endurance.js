@@ -1,9 +1,9 @@
 import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { Weapon } from "../weapon/weapon.js";
-import { Ghost } from "./ghost.js";
+import { Enemy } from "./enemy.js";
 
-export class Endurance extends Ghost {
+export class Endurance extends Enemy {
 
     /**
      * Endurance.init
@@ -84,6 +84,9 @@ export class Endurance extends Ghost {
     }
 
     update() {
+        // super.update();
+
+        // weapon fire
         if (this.isAlive) {
             if (!this.isStunning) {
                 let vec = this.movement();
@@ -97,29 +100,17 @@ export class Endurance extends Ghost {
                     this.setFlipX(true);
                 }
             }
-        } else {
-            if (!this.isDieAnimationPlayed) {
-                this.play(this.animations.die, true);
-                this.isDieAnimationPlayed = true;
-            }
-            this.setVelocity(0);
-        }
-
-        // weapon fire
-        if (this.isAlive) {
             
             const vecx = this.player.x - this.x;
             const vecy = this.player.y - this.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-            if (len > 60) {
+            if (len > 60 && this.isAlive) {
                 this.play(this.animations.move, true);
             }
 
-            if (this.weapon.isFireable && len < 60 && this.player.isAlive) { 
-                this.play(this.animations.attack, true).on("animationcomplete", () => {
-                    this.play(this.animations.move, true);
-                });
+            if (this.weapon.isFireable && len < 60 && this.player.isAlive && this.isAlive) { 
+                this.play(this.animations.attack, true);
                 if (len < 40) {
                     this.player.take_damage(this.weapon.stats.damage);
                     this.weapon.fire();   
@@ -128,6 +119,12 @@ export class Endurance extends Ghost {
 
         } else {
             // this.weapon.destroy(this.scene);
+            if (!this.isDieAnimationPlayed) {
+                this.play(this.animations.die, true);
+                this.isDieAnimationPlayed = true;
+            }
+            // this.setDepth(this.player.setDepth - 1);
+            this.setVelocity(0);
             this.body.destroy();
         }
 

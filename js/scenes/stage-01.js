@@ -64,7 +64,7 @@ export class Stage01 extends GameScene {
         // light
         this.lights.enable();
         this.newlight = this.lights.addLight().setRadius(500);
-        // this.robot = new Robot(this, 410, -400);
+        this.robot = new Robot(this, 410, -400);
     }
 
     update() {
