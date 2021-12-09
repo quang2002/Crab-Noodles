@@ -1,6 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { GameScene } from "../components/game-scene.js";
 import { Entity } from "../entity/entity.js";
+import { Pirate } from "../entity/pirate.js";
 import { Player } from "../entity/player.js";
 import { Boom } from "../objects/boom.js";
 import { Computer } from "../objects/computer.js";
@@ -8,6 +9,7 @@ import { HorizontalDoor } from "../objects/horizontal-door.js";
 import { VerticalDoor } from "../objects/vertical-door.js";
 import { LightSaber } from "../weapon/light-saber.js";
 import { Rocket } from "../weapon/rocket.js";
+import { XuanYuanSword } from "../weapon/xuan-yuan-sword.js";
 
 export class StoryMode extends GameScene {
     constructor() {
@@ -27,17 +29,17 @@ export class StoryMode extends GameScene {
         this.verticalDoors = [
             new VerticalDoor(this, 1200, 1616, true),
             new VerticalDoor(this, 1872, 1616, false),
-            new VerticalDoor(this, 4560, -2188, true),
-            new VerticalDoor(this, 5296, -2188, true),
-            new VerticalDoor(this, 5264, -1548, true),
-            new VerticalDoor(this, 5616, -1548, true),
-            new VerticalDoor(this, 5616, -1036, true),
-            new VerticalDoor(this, 5264, -1036, true),
-            new VerticalDoor(this, 4432, -108, true),
-            new VerticalDoor(this, 5360, -108, true),
-            new VerticalDoor(this, 5488, 1620, false),
-            new VerticalDoor(this, 4976, 1620, true),
-            new VerticalDoor(this, 4432, 1620, true),
+            new VerticalDoor(this, 4560, -2192, true),
+            new VerticalDoor(this, 5296, -2192, true),
+            new VerticalDoor(this, 5264, -1552, true),
+            new VerticalDoor(this, 5616, -1552, true),
+            new VerticalDoor(this, 5616, -1040, true),
+            new VerticalDoor(this, 5264, -1040, true),
+            new VerticalDoor(this, 4432, -112, true),
+            new VerticalDoor(this, 5360, -112, true),
+            new VerticalDoor(this, 5488, 1616, false),
+            new VerticalDoor(this, 4976, 1616, true),
+            new VerticalDoor(this, 4432, 1616, true),
         ]
 
         this.horizontalDoors = [
@@ -105,7 +107,7 @@ export class StoryMode extends GameScene {
         new Computer(this, 53 * 32, 25 * 32, this.verticalDoors[1]);
         new Computer(this, 81 * 32, -65 * 32, this.horizontalDoors[8]);
         new Computer(this, 145 * 32, 30 * 32, this.horizontalDoors[10]);
-        new Computer(this, 190 * 32, 53 * 32, this.verticalDoors[11]);
+        new Computer(this, 190 * 32, 53 * 32, this.verticalDoors[10]);
 
         // booms
         [
@@ -123,12 +125,17 @@ export class StoryMode extends GameScene {
             [72, -3],
             [70, -6],
             [72, -33],
-            [70, -33],
+            [70, -35],
             [89, -36],
-            [87, -32],
             [89, -29],
         ].forEach(e => new Boom(this, e[0] * 32, e[1] * 32).setDepth(-1));
 
+        // enemies
+        new Pirate(this, 44 * 32, 47 * 32);
+        new Pirate(this, 44 * 32, 47 * 32);
+        new Pirate(this, 44 * 32, 47 * 32);
+        new Pirate(this, 44 * 32, 47 * 32);
+        new Pirate(this, 44 * 32, 47 * 32);
     }
 
     update() {

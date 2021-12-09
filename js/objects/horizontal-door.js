@@ -54,10 +54,10 @@ export class HorizontalDoor extends Phaser.Physics.Arcade.Sprite {
                     else this.close();
                 } else if (isoverlap && (opener instanceof Player)) {
                     if (!opener.isStunning && this.computer) {
-                        this.scene.chat("Vui Lòng Trả Lời Câu Hỏi Ở Máy Tính!");
+                        this.scene.chat("Vui Lòng Trả Lời Câu Hỏi Ở Máy Tính! (Đến vị trí máy tính và click chuột trái)");
 
                         opener.cameras.follow = this.computer;
-                        opener.setVelocity(0).setPosition(opener.x + (opener.x - x) * 0.5, opener.y + (opener.y - y) * 0.5).stunTime = 2000;
+                        opener.setVelocity(0).setPosition(opener.x + (opener.x - x) * 0.5, opener.y + (opener.y - y) * 0.5).stunTime = 4000;
                     }
                 }
             }

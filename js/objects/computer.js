@@ -24,21 +24,26 @@ export class Computer extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         scene.physics.add.collider(this, Entity.instances, (o1, o2) => {
-            if (o2 instanceof Player && this.solStep == 0) {
+            if (o2 instanceof Player && this.solStep == 0 && this.scene.input.activePointer.isDown) {
                 this.solStep = 1;
 
                 const ques = Computer.questions[Math.round(Math.random() * (Computer.questions.length - 1))];
-                
+
                 this.scene.scene.launch("QuizUI", ques);
+
+                o2.setVelocity(0).stunTime = 1e9;
 
                 this.scene.scene.get("QuizUI").events.once("correct", () => {
                     this.solStep = 3;
                     this.door.setAuto(true);
                     Computer.questions = Computer.questions.filter(e => e != ques);
+
+                    o2.stunTime = 0;
                 });
 
                 this.scene.scene.get("QuizUI").events.once("incorrect", () => {
                     this.solStep = 0;
+                    o2.stunTime = 0;
                 });
             }
         });

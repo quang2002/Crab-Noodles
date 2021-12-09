@@ -119,6 +119,5 @@ export class LobbyScene extends GameScene {
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, features);
         this.physics.add.collider(this.player, ground);
-
     }
 }

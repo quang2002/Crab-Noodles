@@ -69,6 +69,8 @@ export class Player extends Entity {
         // isplayer = true
         this.isPlayer = true;
 
+        this.timeout = 4000;
+
         this.COOLDOWN_SWAP_TIME = 600;
         this.nextSwapTime = this.scene.time.now;
 
@@ -80,6 +82,8 @@ export class Player extends Entity {
         this.deathSound = null;
         this.isDeathSoundPlayed = false;
         this.changeGunSound = this.scene.sound.add("sounds.changegun");
+
+
     }
 
     take_damage(dmg) {
@@ -257,5 +261,17 @@ export class Player extends Entity {
             this.cameras.currentZoom += (this.cameras.zoom - this.cameras.currentZoom) * this.cameras.smoothSpeed;
 
         this.scene.cameras.main.setZoom(this.cameras.currentZoom);
+    }
+
+    /**
+     * 
+     * @param {number} x 
+     * @param {number
+     * } y 
+     * @param {*} z 
+     * @param {*} w 
+     */
+    setPosition(x, y, z, w) {
+
     }
 }

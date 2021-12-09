@@ -2,10 +2,15 @@ import { GameConfig } from "../components/game-config.js";
 import { Enemy } from "../entity/enemy.js";
 import { Player } from "../entity/player.js";
 import { RedGate } from "../entity/red-gate.js";
+import { Computer } from "../objects/computer.js";
+import { HorizontalDoor } from "../objects/horizontal-door.js";
+import { VerticalDoor } from "../objects/vertical-door.js";
 
 export class PlayerUI extends Phaser.Scene {
     constructor() {
         super("PlayerUI");
+
+        this.zoom = 0.2;
     }
 
     /**
@@ -19,6 +24,15 @@ export class PlayerUI extends Phaser.Scene {
     }
 
     create() {
+        // you die
+        this.udie = this.add.text(this.scale.width / 2, this.scale.height / 2, "YOU DIE !", {
+            fontFamily: GameConfig["font-family"],
+            fontSize: 72,
+            color: "snow",
+            stroke: "crimson",
+            strokeThickness: 2
+        }).setVisible(false).setOrigin(0.5);
+
         // health-bar
         this.add.container(300, 75, [
             this.add.image(0, 0, "ui.health-bar", 0),
@@ -54,7 +68,7 @@ export class PlayerUI extends Phaser.Scene {
         this.minicam = this.player.scene.cameras.add(50, 100, 380, 380)
             .startFollow(this.player)
             .setBackgroundColor(0)
-            .setZoom(0.6)
+            .setZoom(this.zoom)
             .setMask(new Phaser.Display.Masks.BitmapMask(this,
                 this.make.image({
                     x: 250,
@@ -123,22 +137,30 @@ export class PlayerUI extends Phaser.Scene {
     }
 
     minimapIgnore() {
+
         // RADAR TYPE
         this.minimap?.removeAll(true);
         this.minimap?.add(this.add.circle(0, 0, 4, 0x00ff00));
         this.player?.scene?.sys.displayList.each(v => {
-            if (v instanceof Enemy && v.isAlive && !(v instanceof RedGate)) {
-                const vec = {
-                    x: v.x - this.player.x,
-                    y: v.y - this.player.y,
-                };
+            const vec = {
+                x: v.x - this.player.x,
+                y: v.y - this.player.y,
+            };
 
-                this.minimap.add(this.add.circle(vec.x * 0.6, vec.y * 0.6, 4, 0xff0000));
+            if (v instanceof Enemy && v.isAlive && !(v instanceof RedGate)) {
+                this.minimap.add(this.add.circle(vec.x * this.zoom, vec.y * this.zoom, 4, 0xff0000));
+            }
+
+            if (v instanceof Computer) {
+                this.minimap.add(this.add.circle(vec.x * this.zoom, vec.y * this.zoom, 4, 0x0000ff));
             }
 
             if (!(
                 v instanceof Phaser.Tilemaps.TilemapLayer ||
-                v instanceof RedGate))
+                v instanceof RedGate ||
+                v instanceof HorizontalDoor ||
+                v instanceof VerticalDoor
+            ))
                 this.minicam.ignore(v);
         });
     }
@@ -146,6 +168,14 @@ export class PlayerUI extends Phaser.Scene {
     update() {
         if (this.player) {
             this.healthbar.setDisplaySize((this.player.stats.cur.hp / this.player.stats.max.hp) * 488, 70);
+
+            if (!this.player.isAlive && this.udie.scale < 4) {
+                this.udie.setVisible(true).setScale(this.udie.scale + 0.04);
+            } else if (this.udie.scale >= 4) {
+                this.udie.setVisible(false).setScale(1);
+                this.player.scene.cameras.remove(this.minicam);
+                this.scene.sleep();
+            }
         }
     }
 }
