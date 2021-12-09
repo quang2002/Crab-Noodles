@@ -22,6 +22,18 @@ export class Ghost extends Enemy {
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
+
+        this.teleportTime = 0;
+
+        // add event for cooldown system
+        this.cooldownEvent = this.scene.time.addEvent({
+            loop: true,
+            delay: 10,
+            callback: () => {
+                if (this.teleportTime > 0) this.teleportTime -= 10;
+            }
+        });
+
     }
 
     create_anims() {
@@ -46,7 +58,25 @@ export class Ghost extends Enemy {
             frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-die", { frames: [0] })
         });
 
+        this.animations.born = this.scene.anims.create({
+            key: "anims-enemy-ghost-born",
+            frameRate: 10,
+            repeat: 0,
+            frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-born", { start: 0, end: 16 })
+        });
+
+        this.animations.disappear = this.scene.anims.create({
+            key: "anims-enemy-ghost-disappear",
+            frameRate: 10,
+            repeat: 0,
+            frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-disappear", { start: 0, end: 16 })
+        });
+
         // console.log(this.animations.idle);
+    }
+
+    get isTeleportAble() {
+        return this.teleportTime <= 0;
     }
 
     static preload(scene) {
@@ -54,9 +84,12 @@ export class Ghost extends Enemy {
             scene.load.spritesheet("spritesheet-enemy-ghost", "./assets/images/enemy/ghost/ghost-idle.png", { frameWidth: 29, frameHeight: 26 });
             scene.load.spritesheet("spritesheet-enemy-ghost-attack", "./assets/images/enemy/ghost/ghost-attack.png", { frameWidth: 36, frameHeight: 43 });
             scene.load.spritesheet("spritesheet.enemy-ghost-die", "./assets/images/enemy/ghost/ghost-die.png", { frameWidth: 32, frameHeight: 32 });
+            scene.load.spritesheet("spritesheet.enemy-ghost-born", "./assets/images/enemy/ghost/ghost-born.png", { frameWidth: 31, frameHeight: 65 });
+            scene.load.spritesheet("spritesheet.enemy-ghost-disappear", "./assets/images/enemy/ghost/ghost-disappear.png", { frameWidth: 31, frameHeight: 64 });
         }
     }
 
+    /*
     movement() {
         const vecx = this.player.x - this.x;
         const vecy = this.player.y - this.y;
@@ -74,7 +107,8 @@ export class Ghost extends Enemy {
 
         return { x: 0, y: 0 };
     }
-
+    */
+   
     update() {
         super.update();
 
@@ -83,16 +117,36 @@ export class Ghost extends Enemy {
             // this.weapon.setPosition(this.x, this.y);
             // this.weapon.pointTo(this.player);
 
+            if (this.isTeleportAble) {
+                const vecx = this.player.x - this.x;
+                const vecy = this.player.y - this.y;
+                const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-            const vecx = this.player.x - this.x;
-            const vecy = this.player.y - this.y;
-            const len = Math.sqrt(vecx * vecx + vecy * vecy);
+                this.stunTime = 5000;
+                this.play(this.animations.disappear, true).on("animationcomplete", () => {
+                    this.setPosition(this.player.x, this.player.y).playAfterDelay(this.animations.born, 1000).on("animationcomplete", () => {
+                        this.play(this.animations.move, true); 
+                        if (this.weapon.isFireable && len < 30 && this.player.isAlive) {
+                            this.player.take_damage(this.weapon.stats.damage);
+                            this.weapon.fire();
+                        }
+                        this.teleportTime = 10000;
+                    });
+                });
 
-            if (this.weapon.isFireable && len < 30 && this.player.isAlive) {
-                this.player.take_damage(this.weapon.stats.damage);
-                this.weapon.fire();
-            }
+                this.teleportTime = 10000;
 
+                // const vecx = this.player.x - this.x;
+                // const vecy = this.player.y - this.y;
+                // const len = Math.sqrt(vecx * vecx + vecy * vecy);
+    
+                // if (this.weapon.isFireable && len < 30 && this.player.isAlive) {
+                //     this.player.take_damage(this.weapon.stats.damage);
+                //     this.weapon.fire();
+                // }
+            } else {
+                this.stunTime = 5000;
+            }          
         } else {
             // this.weapon.destroy(this.scene);
             this.body.destroy();
@@ -103,5 +157,14 @@ export class Ghost extends Enemy {
             this.randomVelocity.x = Math.random() * 2 - 1;
             this.randomVelocity.y = Math.random() * 2 - 1;
         }
+    }
+
+    /**
+     * override destroy
+     * @param {boolean} fromScene 
+     */
+     destroy(fromScene) {
+        this.cooldownEvent.destroy();
+        super.destroy(fromScene);
     }
 }

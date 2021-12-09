@@ -21,6 +21,26 @@ export class Endurance extends Ghost {
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
+        this.setBodySize(30,37).setOffset(15,15);
+
+    }
+
+    movement() {
+        const vecx = this.player.x - this.x;
+        const vecy = this.player.y - this.y;
+        const len = Math.sqrt(vecx * vecx + vecy * vecy);
+
+        if (len <= 300)
+            return { x: vecx / len * this.stats.cur.runningSpeed, y: vecy / len * this.stats.cur.runningSpeed };
+
+        if (700 >= len && len >= 300)
+            return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
+
+        if (len > 700) {
+            return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
+        }
+
+        return { x: 0, y: 0 };
     }
 
     create_anims() {
@@ -92,15 +112,19 @@ export class Endurance extends Ghost {
             const vecy = this.player.y - this.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-            if (this.weapon.isFireable && len < 100 && this.player.isAlive) { 
-                this.play(this.animations.attack, true);
-                if (len < 40) {
-                    this.player.take_damage(this.weapon.stats.damage);
-                    this.weapon.fire();
-                }               
-            } else {
+            if (len > 60) {
                 this.play(this.animations.move, true);
             }
+
+            if (this.weapon.isFireable && len < 60 && this.player.isAlive) { 
+                this.play(this.animations.attack, true).on("animationcomplete", () => {
+                    this.play(this.animations.move, true);
+                });
+                if (len < 40) {
+                    this.player.take_damage(this.weapon.stats.damage);
+                    this.weapon.fire();   
+                }    
+            } 
 
         } else {
             // this.weapon.destroy(this.scene);

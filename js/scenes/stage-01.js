@@ -2,6 +2,7 @@ import { GameConfig } from "../components/game-config.js";
 import { GameScene } from "../components/game-scene.js";
 import { BoyPlayer } from "../entity/boy-player.js";
 import { Entity } from "../entity/entity.js";
+import { Ghost } from "../entity/ghost.js";
 import { Player } from "../entity/player.js";
 import { RedGate } from "../entity/red-gate.js";
 import { Robot } from "../entity/robot.js";
@@ -58,11 +59,12 @@ export class Stage01 extends GameScene {
         new RedGate(this, -928, 1300);
         new RedGate(this, 394, 1311);
         new RedGate(this, 195, 1060);
+        // new Ghost(this, 70, 70);
 
         // light
         this.lights.enable();
         this.newlight = this.lights.addLight().setRadius(500);
-        this.robot = new Robot(this, 410, -400);
+        // this.robot = new Robot(this, 410, -400);
     }
 
     update() {
