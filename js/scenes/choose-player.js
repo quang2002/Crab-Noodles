@@ -47,7 +47,7 @@ export class ChoosePlayer extends GameScene {
         this.buttonStage1.setInteractive()
             .on("pointerdown", () => {
                 this.buttonSound.play();
-                GameConfig["player-type"] = BoyPlayer;
+                GameConfig["player_type"] = BoyPlayer;
                 this.scene.start("LobbyScene");
             }
             ).on("pointermove", () => {
@@ -61,8 +61,8 @@ export class ChoosePlayer extends GameScene {
         this.buttonStage2.setInteractive()
             .on("pointerdown", () => {
                 this.buttonSound.play();
-                GameConfig["player-type"] = GirlPlayer;
-                this.scene.start("LobbyScene");
+                GameConfig["player_type"] = GirlPlayer;
+                this.scene.start("StoryMode");
             }
             ).on("pointermove", () => {
                 this.buttonStage2.setScale(0.8);

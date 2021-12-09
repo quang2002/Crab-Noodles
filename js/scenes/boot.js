@@ -18,6 +18,9 @@ import { Stage01 } from "./stage-01.js";
 import { Stage02 } from "./stage-02.js";
 import { StoryScene } from "./story.js";
 import { QuizUI } from "../ui/quiz-ui.js";
+import { StoryMode } from "./story-mode.js";
+import { HorizontalDoor } from "../objects/horizontal-door.js";
+import { VerticalDoor } from "../objects/vertical-door.js";
 
 export class BootScene extends Phaser.Scene {
     constructor() {
@@ -31,6 +34,7 @@ export class BootScene extends Phaser.Scene {
         Stage01.preload(this);
         Stage02.preload(this);
         LobbyScene.preload(this);
+        StoryMode.preload(this);
 
         // UI
         ChooseStage.preload(this);
@@ -52,6 +56,10 @@ export class BootScene extends Phaser.Scene {
         Robot.preload(this);
         RedGate.preload(this);
         Ghost.preload(this);
+
+        // objects
+        VerticalDoor.preload(this);
+        HorizontalDoor.preload(this);
 
         // sounds
         this.load.audio("sounds.blastershot", "./assets/sounds/BlasterShot.wav");

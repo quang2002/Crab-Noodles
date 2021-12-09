@@ -49,10 +49,13 @@ export class MenuScene extends Phaser.Scene {
         // question button
         const tutorial = this.add.image(this.scale.width / 2, this.scale.height / 2, "ui.tutorial").setVisible(false);
         const btn_question = this.add.image(1780, 940, "ui.btn-question").setOrigin(0.5).setScale(0.8).setInteractive()
-            .on("pointerdown", () => {
-                tutorial.setVisible(!tutorial.visible);
+            .on("pointerout", () => {
+                btn_question.setScale(0.8);
+                tutorial.setVisible(false);
             })
-            .on("pointerout", () => btn_question.setScale(0.8))
-            .on("pointermove", () => btn_question.setScale(1));
+            .on("pointermove", () => {
+                btn_question.setScale(1);
+                tutorial.setVisible(true);
+            });
     }
 }

@@ -5,7 +5,7 @@ export const GameConfig = {
     "volume": 1,
     "font-size": 32,
     "font-family": "pixelvn",
-    "player-type": null,
+    "player_type": null,
 
     "entities": {
         "boy_player": new StatsEntity({
