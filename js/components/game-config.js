@@ -30,7 +30,7 @@ export const GameConfig = {
             speed: 50,
             runningSpeed: 70
         }),
-
+        
         "endurance": new StatsEntity({
             hp: 800,
             speed: 40,
@@ -108,7 +108,7 @@ export const GameConfig = {
         }),
 
         "energy_gun": new StatsWeapon({
-            baseDMG: 0,
+            baseDMG: 300,
             critRate: 0.4,
             critDamage: 0.7,
             fireTime: 500,

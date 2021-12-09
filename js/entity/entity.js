@@ -50,7 +50,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
         };
 
         // animation
-        this.animations = { idle: null, move: null, die: null, attack: null };
+        this.animations = { idle: null, move: null, die: null};
         this.create_anims();
 
         // add this object to instances
