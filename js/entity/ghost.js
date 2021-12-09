@@ -17,7 +17,7 @@ export class Ghost extends Enemy {
         stats = Object.assign({}, GameConfig.entities["ghost"], stats);
         super(scene, x, y, stats);
 
-        this.weapon = new Weapon(scene, x, y, GameConfig.weapons.punch).setVisible(false);
+        this.weapon = new Weapon(scene, x, y,"", GameConfig.weapons.punch).setVisible(false);
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
     }
@@ -82,7 +82,7 @@ export class Ghost extends Enemy {
             const vecy = this.player.y - this.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-            if (this.weapon.isFireable && len < 40 && this.player.isAlive) {
+            if (this.weapon.isFireable && len < 30 && this.player.isAlive) {
                 this.player.take_damage(this.weapon.stats.damage);
                 this.weapon.fire();
             }
