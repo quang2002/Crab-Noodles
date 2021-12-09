@@ -54,12 +54,16 @@ export class Rocket extends Gun {
         // set collide with
         this.scene.physics.add.overlap(bullet, this.collision, (o1, o2) => {
             if ((this.owner instanceof Player && o2 instanceof Enemy) || (this.owner instanceof Enemy && o2 instanceof Player)) {
+<<<<<<< HEAD
 
                 //audio for explosion
                 this.audio_explosion.play();
 
                 //anmation when explosion
                 const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
+=======
+                const bulletAnims = this.scene?.physics?.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
+>>>>>>> bb76e9404cd656b4d8cc227409d4ce5214a8a348
                     "animationcomplete", () => {
                         bulletAnims.destroy();
                     }
@@ -82,9 +86,13 @@ export class Rocket extends Gun {
             }
 
             if (!(o2 instanceof Entity)) {
+<<<<<<< HEAD
                 //audio for explosion
                 this.audio_explosion.play();
                 const bulletAnims = this.scene.physics.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
+=======
+                const bulletAnims = this.scene?.physics?.add.sprite(o1.x, o1.y, "spritesheet.bullet-animation").setScale(2).play("anims.bullet-rocket", true).on(
+>>>>>>> bb76e9404cd656b4d8cc227409d4ce5214a8a348
                     "animationcomplete", () => {
                         bulletAnims.destroy();
                     }

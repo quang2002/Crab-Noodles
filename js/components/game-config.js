@@ -102,7 +102,7 @@ export const GameConfig = {
         }),
 
         "energy_gun": new StatsWeapon({
-            baseDMG: 100,
+            baseDMG: 300,
             critRate: 0.4,
             critDamage: 0.7,
             fireTime: 500,
