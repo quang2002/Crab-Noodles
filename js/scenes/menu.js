@@ -5,8 +5,8 @@ export class MenuScene extends Phaser.Scene {
 
     static preload(scene) {
         scene.load.image("images.bg", "./assets/images/bg.png");
-        scene.load.image("ui.btn-newgame", "./assets/ui/btn-newgame.png");
-        scene.load.image("ui.btn-lastgame", "./assets/ui/btn-lastgame.png");
+        scene.load.image("ui.btn-storymode", "./assets/ui/btn-storymode.png");
+        scene.load.image("ui.btn-endlessmode", "./assets/ui/btn-endlessmode.png");
         scene.load.image("ui.btn-question", "./assets/ui/btn-question.png");
         scene.load.image("ui.tutorial", "./assets/ui/tutorial.png");
 
@@ -26,7 +26,7 @@ export class MenuScene extends Phaser.Scene {
         this.add.image(0, 0, "images.bg").setOrigin(0);
 
         // new game button
-        const btn_newgame = this.add.image(375, 610, "ui.btn-newgame").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
+        const btn_newgame = this.add.image(375, 610, "ui.btn-storymode").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
             .on("pointerdown", () => {
                 this.themeSound.stop();
                 this.buttonSound.play();
@@ -36,7 +36,7 @@ export class MenuScene extends Phaser.Scene {
             .on("pointermove", () => btn_newgame.setScale(1));
 
         // last game from lobby button
-        const btn_lastgame = this.add.image(375, 800, "ui.btn-lastgame").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
+        const btn_lastgame = this.add.image(375, 800, "ui.btn-endlessmode").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
             .on("pointerdown", () => {
                 this.themeSound.stop();
                 this.buttonSound.play();
