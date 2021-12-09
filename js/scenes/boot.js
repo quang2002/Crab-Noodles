@@ -20,6 +20,7 @@ import { StoryScene } from "./story.js";
 import { QuizUI } from "../ui/quiz-ui.js";
 import { PirateGun } from "../weapon/pirate-gun.js";
 import { EnergyGun } from "../weapon/energy-gun.js";
+import { Endurance } from "../entity/endurance.js";
 
 export class BootScene extends Phaser.Scene {
     constructor() {
@@ -56,6 +57,7 @@ export class BootScene extends Phaser.Scene {
         Robot.preload(this);
         RedGate.preload(this);
         Ghost.preload(this);
+        Endurance.preload(this);
 
         // sounds
         this.load.audio("sounds.blastershot", "./assets/sounds/BlasterShot.wav");

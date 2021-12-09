@@ -21,13 +21,19 @@ export const GameConfig = {
         }),
 
         "pirate": new StatsEntity({
-            hp: 1000,
+            hp: 600,
             speed: 40,
             runningSpeed: 0,
         }),
         "ghost": new StatsEntity({
-            hp: 1500,
+            hp: 900,
             speed: 50,
+            runningSpeed: 70
+        }),
+
+        "endurance": new StatsEntity({
+            hp: 800,
+            speed: 40,
             runningSpeed: 80
         }),
 
@@ -102,7 +108,7 @@ export const GameConfig = {
         }),
 
         "energy_gun": new StatsWeapon({
-            baseDMG: 300,
+            baseDMG: 0,
             critRate: 0.4,
             critDamage: 0.7,
             fireTime: 500,
