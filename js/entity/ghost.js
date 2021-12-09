@@ -61,10 +61,9 @@ export class Ghost extends Enemy {
         if (len < 200)
             return { x: vecx / len * this.stats.cur.runningSpeed, y: vecy / len * this.stats.cur.runningSpeed };
 
-        if (400 > len > 200)
+        if (500 > len > 200)
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
         
-
         return { x: 0, y: 0 };
     }
 
