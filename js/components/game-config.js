@@ -92,6 +92,12 @@ export const GameConfig = {
             critDamage: 0.5,
             fireTime: 350,
             speed: 200
+        }),
+
+        "boom": new StatsWeapon({
+            baseDMG: 500,
+            critRate: 0.01,
+            critDamage: 0.5,
         })
     },
 };

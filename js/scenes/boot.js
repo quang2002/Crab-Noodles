@@ -21,6 +21,8 @@ import { QuizUI } from "../ui/quiz-ui.js";
 import { StoryMode } from "./story-mode.js";
 import { HorizontalDoor } from "../objects/horizontal-door.js";
 import { VerticalDoor } from "../objects/vertical-door.js";
+import { Boom } from "../objects/boom.js";
+import { Computer } from "../objects/computer.js";
 
 export class BootScene extends Phaser.Scene {
     constructor() {
@@ -60,6 +62,8 @@ export class BootScene extends Phaser.Scene {
         // objects
         VerticalDoor.preload(this);
         HorizontalDoor.preload(this);
+        Boom.preload(this);
+        Computer.preload(this);
 
         // sounds
         this.load.audio("sounds.blastershot", "./assets/sounds/BlasterShot.wav");
