@@ -262,8 +262,6 @@ export class Player extends Entity {
 
         this.scene.cameras.main.setZoom(this.cameras.currentZoom);
     }
-<<<<<<< HEAD
-=======
 
     // /**
     //  * 
@@ -276,5 +274,4 @@ export class Player extends Entity {
     // setPosition(x, y, z, w) {
 
     // }
->>>>>>> 03f88e3f815e80eb51ecfbfd77c883a25c3e9962
 }
