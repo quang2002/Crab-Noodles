@@ -76,6 +76,8 @@ export class BootScene extends Phaser.Scene {
         // sounds
         this.load.audio("sounds.blastershot", "./assets/sounds/BlasterShot.wav");
         this.load.audio("sounds.flameshot", "./assets/sounds/FlameShot.wav");
+        this.load.audio("sounds.energyshot", "./assets/sounds/weapons/EnergyShot.wav");
+        this.load.audio("sounds.rocketshot", "./assets/sounds/weapons/RocketShot.wav");
         this.load.audio("sounds.girlhurt", "./assets/sounds/GirlHurt.wav");
         this.load.audio("sounds.boyhurt", "./assets/sounds/BoyHurt.wav");
         this.load.audio("sounds.boydeath", "./assets/sounds/BoyDeath.wav");

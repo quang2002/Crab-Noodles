@@ -28,6 +28,7 @@ export class PirateGun extends Gun {
     fire() {
         const bullet = this.scene.physics.add.sprite(this.x, this.y, "spritesheet.bullet").play("anims.bullet", true).setScale(2);
         super.fire(bullet);
+        bullet.setCircle(4, 0, 0)
     }
 
     /**

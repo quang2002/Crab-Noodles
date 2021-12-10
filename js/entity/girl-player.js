@@ -13,7 +13,7 @@ export class GirlPlayer extends Player {
     constructor(scene, x, y, stats) {
         stats = Object.assign({}, GameConfig.entities["girl_player"], stats);
         super(scene, x, y, stats);
-        this.setBodySize(75, 90).setOffset(16, 8);
+        this.setBodySize(85, 110).setOffset(16, 8);
         this.setScale(.32);
 
         //animation for show up

@@ -29,9 +29,13 @@ export class Rocket extends Gun {
         })
 
         this.audio_explosion = this.scene.sound.add("audio.explosion");
+        this.fireSound = this.scene.sound.add("sounds.rocketshot");
     }
 
     fire() {
+        if (this.owner instanceof Player) {
+            this.fireSound.play();
+        }
         this.cooldown.fire = this.stats.fireTime;
 
         // add a new bullet
@@ -43,7 +47,7 @@ export class Rocket extends Gun {
         const vecy = Math.sin(angle / 180 * Math.PI);
         const vecx = Math.cos(angle / 180 * Math.PI);
 
-        bullet.setCircle(6, 2, 2);
+        bullet.setCircle(4, 0, 0);
         bullet.setAngle(angle);
         bullet.setVelocity(vecx * this.stats.speed, vecy * this.stats.speed);
         bullet.setDepth(this.depth - 1);

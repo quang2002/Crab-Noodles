@@ -1,6 +1,7 @@
 import { GameConfig } from '../components/game-config.js';
 import { StatsWeapon } from '../stats/stats-weapon.js';
 import { Gun } from './gun.js';
+import { Player } from '../entity/player.js';
 
 export class Pistol extends Gun {
     /**
@@ -13,11 +14,16 @@ export class Pistol extends Gun {
     constructor(scene, x, y, stats) {
         stats = Object.assign({}, GameConfig.weapons["pistol"], stats);
         super(scene, x, y, "images.Pistol", "images.bullet", stats);
+        this.fireSound = scene.sound.add("sounds.energyshot");
     }
 
     fire() {
         const bullet = this.scene.physics.add.sprite(this.x, this.y, "images.bullet").setScale(2);
         super.fire(bullet);
+        bullet.setCircle(4, 0, 0);
+        if (this.owner instanceof Player) {
+            this.fireSound.play();
+        }
     }
 
     /**
