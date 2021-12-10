@@ -24,6 +24,14 @@ export class PlayerUI extends Phaser.Scene {
     }
 
     create() {
+
+        //score
+        this.scoreText = this.add.text(this.scale.width - 400, 100, "Score: ", {
+            fontFamily: GameConfig["font-family"],
+            fontSize: 50,
+            color: "snow",
+        }).setVisible(true).setOrigin(0.5);
+
         // you die
         this.udie = this.add.text(this.scale.width / 2, this.scale.height / 2, "YOU DIE !", {
             fontFamily: GameConfig["font-family"],
