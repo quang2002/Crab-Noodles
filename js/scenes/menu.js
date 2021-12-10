@@ -1,3 +1,6 @@
+import { GameConfig } from "../components/game-config.js";
+import { StoryScene } from "./story.js";
+
 export class MenuScene extends Phaser.Scene {
     constructor() {
         super("MenuScene");
@@ -38,6 +41,7 @@ export class MenuScene extends Phaser.Scene {
         // last game from lobby button
         const btn_endlessmode = this.add.image(375, 800, "ui.btn-endlessmode").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
             .on("pointerdown", () => {
+                GameConfig.scene_before_chooseplayer = StoryScene;
                 this.themeSound.stop();
                 this.buttonSound.play();
                 this.scene.start("ChoosePlayer");
