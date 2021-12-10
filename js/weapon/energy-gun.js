@@ -18,6 +18,8 @@ export class EnergyGun extends Gun {
         stats = Object.assign({}, GameConfig.weapons.energy_gun, stats);
         super(scene, x, y, "images.energy-gun", "images.energy-bullet", stats);
 
+        this.fireSound = scene.sound.add("sounds.energyshot");
+
         this.scene.anims.create({
             key: "anims.energy-bullet",
             frameRate: 10,
@@ -30,6 +32,10 @@ export class EnergyGun extends Gun {
     }
 
     fire() {
+        if (this.owner instanceof Player) {
+            this.fireSound.play();
+        }
+        
         this.cooldown.fire = this.stats.fireTime;
 
         // add a new bullet
@@ -41,7 +47,7 @@ export class EnergyGun extends Gun {
         const vecy = Math.sin(angle / 180 * Math.PI);
         const vecx = Math.cos(angle / 180 * Math.PI);
 
-        bullet.setCircle(6, 2, 2);
+        bullet.setCircle(4, 3, 3);
         bullet.setAngle(angle);
         bullet.setVelocity(vecx * this.stats.speed, vecy * this.stats.speed);
         bullet.setDepth(this.depth - 1);
