@@ -129,6 +129,21 @@ export class StoryMode extends GameScene {
             [70, -35],
             [89, -36],
             [89, -29],
+            [73, 31],
+            [74, 31],
+            [73, 32],
+            [74, 32],
+            [68, 31],
+            [68, 32],
+            [68, 30],
+            [69, 30],
+            [70, 30],
+            [71, 30],
+            [72, 30],
+            [73, 30],
+            [74, 30],
+            [68, 34],
+            
         ].forEach(e => new Boom(this, e[0] * 32, e[1] * 32).setDepth(-1));
 
         /**
@@ -137,30 +152,48 @@ export class StoryMode extends GameScene {
         this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setWeapon(new LightSaber(this));
         //this.player.setWeapon(new Pistol(this, 0, 0));
-        this.player.setPosition(15 * 32, 27 * 32);
+        this.player.setPosition(119 * 32, -33 * 32);
 
         // enemies
         //room 1
-        new Pirate(this, 44 * 32, 47 * 32);
-        new Pirate(this, 44 * 32, 47 * 32);
-        new Pirate(this, 44 * 32, 47 * 32);
-        new Pirate(this, 44 * 32, 47 * 32);
-        new Pirate(this, 44 * 32, 47 * 32);
+        new Pirate(this, 44 * 32, 52 * 32);
+        new Pirate(this, 44 * 32, 50 * 32);
+        new Pirate(this, 44 * 32, 48 * 32);
+        new Pirate(this, 42 * 32, 50 * 32);
+        new Pirate(this, 39 * 32, 50 * 32);
         //room 2
         new Endurance(this, 42 * 32, 24 * 32);
         new Endurance(this, 48 * 32, 24 * 32);
         new Endurance(this, 42 * 32, 23 * 32);
         new Endurance(this, 48 * 32, 23 * 32);
         new Endurance(this, 40 * 32, 24 * 32);
+        //room3
+        // new Ghost(this, 69 * 32, 11 * 32);
+        // new Ghost(this, 69 * 32, 10 * 32);
+        // new Ghost(this, 73 * 32, 11 * 32);
+        // new Ghost(this, 73 * 32, 10 * 32);
+        new Endurance(this, 88 * 32, 25 * 32);
+        new Endurance(this, 88 * 32, 22 * 32);
+        new Endurance(this, 88 * 32, 28 * 32);
+        //room4
+        new Robot(this, 78 * 32, -67 * 32, {hp: 1000});
+        new Endurance(this, 78 * 32, -58 * 32);
+        new Endurance(this, 76 * 32, -58 * 32);
+        new Endurance(this, 74 * 32, -58 * 32);
+        //room5
+        new Pirate(this, 119 * 32, -33 * 32, { hp: 1000, speed: 300, runningSpeed: 300 });
+        new Pirate(this, 121 * 32, -33 * 32, { hp: 1000, speed: 300, runningSpeed: 300 });
+        new Pirate(this, 123 * 32, -33 * 32, { hp: 1000, speed: 300, runningSpeed: 300 });
+        new Pirate(this, 125 * 32, -30 * 32, { hp: 1000, speed: 300, runningSpeed: 300 });
         //room boss
         new Pirate(this, 178 * 32, -47 * 32, { hp: 1000 });
         new Pirate(this, 181 * 32, -47 * 32, { hp: 1000 });
         new Pirate(this, 184 * 32, -47 * 32, { hp: 1000 });
         new Pirate(this, 187 * 32, -47 * 32, { hp: 1000 });
-        // new Ghost(this, 178 * 32, -39 * 32, { hp: 1200 });
-        // new Ghost(this, 183 * 32, -39 * 32, { hp: 1200 });
-        // new Ghost(this, 188 * 32, -39 * 32, { hp: 1200 });
-        // new Ghost(this, 191 * 32, -39 * 32, { hp: 1200 });
+        new Ghost(this, 178 * 32, -39 * 32, { hp: 1200 });
+        new Ghost(this, 183 * 32, -39 * 32, { hp: 1200 });
+        new Ghost(this, 188 * 32, -39 * 32, { hp: 1200 });
+        new Ghost(this, 191 * 32, -39 * 32, { hp: 1200 });
         new Endurance(this, 178 * 32, -31 * 32, { hp: 1200 });
         new Endurance(this, 181 * 32, -31 * 32, { hp: 1200 });
         new Endurance(this, 184 * 32, -31 * 32, { hp: 1200 });

@@ -26,6 +26,8 @@ export class Ghost extends Enemy {
         // add event for cooldown system
         this.COOLDOWNTELEPORT = 5000;
         this.nextTeleportTime = this.scene.time.now;
+
+        this.isSeeingPlayer = false;
     }
 
     create_anims() {
@@ -87,8 +89,13 @@ export class Ghost extends Enemy {
         if (len < 200)
             return { x: vecx / len * this.stats.cur.runningSpeed, y: vecy / len * this.stats.cur.runningSpeed };
 
-        if (500 > len && len > 200)
+        if (500 > len && len > 200){
+            this.isSeeingPlayer = true;
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
+        }
+    
+        if(!this.isSeeingPlayer)
+            return { x: 0, y: 0 };
 
         if (len > 500) {
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };

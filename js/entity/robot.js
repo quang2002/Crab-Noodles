@@ -18,7 +18,7 @@ export class Robot extends Enemy {
 
         this.weapon = new EnergyGun(scene, x, y, {
             baseDMG: 250,
-            fireTime: 400,
+            fireTime: 500,
             speed: 500
         });
 
@@ -29,6 +29,8 @@ export class Robot extends Enemy {
         this.lastTime = 0;
 
         this.setBodySize(30,50).setOffset(50,35);
+
+        this.isSeeingPlayer = false;
     }
 
     create_anims() {
@@ -65,10 +67,15 @@ export class Robot extends Enemy {
         const vecy = this.player.y - this.y;
         const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-        if (200 < len && len < 400)
+        if (200 < len && len < 500){
+            this.isSeeingPlayer = true;
             return { x: vecx / len * this.stats.cur.speed, y: vecy / len * this.stats.cur.speed };
+        }
 
-        if (len > 400)
+        if(!this.isSeeingPlayer)
+            return { x: 0, y: 0 };
+
+        if (len > 500)
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
 
         return { x: 0, y: 0 };

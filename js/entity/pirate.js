@@ -27,6 +27,8 @@ export class Pirate extends Enemy {
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
+
+        this.isSeeingPlayer = false;
     }
 
     create_anims() {
@@ -65,6 +67,9 @@ export class Pirate extends Enemy {
 
         if (200 < len && len < 400)
             return { x: vecx / len * this.stats.cur.speed, y: vecy / len * this.stats.cur.speed };
+        
+        if (!this.isSeeingPlayer)
+            return { x: 0, y: 0 };
 
         if (len > 400)
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };

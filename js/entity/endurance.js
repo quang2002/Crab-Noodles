@@ -23,6 +23,7 @@ export class Endurance extends Enemy {
         this.lastTime = 0;
         this.setBodySize(30,37).setOffset(15,15);
 
+        this.isSeeingPlayer = false;
     }
 
     movement() {
@@ -33,10 +34,15 @@ export class Endurance extends Enemy {
         if (len <= 300)
             return { x: vecx / len * this.stats.cur.runningSpeed, y: vecy / len * this.stats.cur.runningSpeed };
 
-        if (700 >= len && len >= 300)
+        if (450 >= len && len >= 300){
+            this.isSeeingPlayer = true;
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
+        }
 
-        if (len > 700) {
+        if(!this.isSeeingPlayer)
+            return { x: 0, y: 0 };
+
+        if (len > 450) {
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
         }
 
