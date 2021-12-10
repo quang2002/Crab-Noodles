@@ -14,7 +14,7 @@ export class RedGate extends Enemy {
 
         this.setOffset(32);
 
-        this.weapon = new MonsterSpawner(scene, x, y, [Endurance]);
+        this.weapon = new MonsterSpawner(scene, x, y, [Ghost, Pirate, Endurance]);
     }
 
     /**

@@ -1,9 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
-import { AK47 } from "../weapon/ak47.js";
 import { EnergyGun } from "../weapon/energy-gun.js";
 import { Enemy } from "./enemy.js";
-import { Player } from "./player.js";
 
 export class Robot extends Enemy {
 
@@ -19,14 +17,12 @@ export class Robot extends Enemy {
         super(scene, x, y, stats);
 
         this.weapon = new EnergyGun(scene, x, y, {
-            baseDMG: 0,
             fireTime: 500,
             speed: 500
         });
 
         //owner
         this.weapon.owner = this;
-
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;

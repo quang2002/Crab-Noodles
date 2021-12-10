@@ -133,7 +133,7 @@ export const QuizBank = [
         answer1: "Chơi mini game",
         answer2: "Seeding thuê",
         answer3: "Săn sale shopee",
-        answer4: "Coding project",
+        answer4: "Tham gia Coding project",
         answer: [4],
     },
 
