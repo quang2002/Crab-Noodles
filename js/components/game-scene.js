@@ -9,6 +9,8 @@ export class GameScene extends Phaser.Scene {
     create() {
         Entity.instances = [];
         Entity.collision = [];
+        Entity.enemyDie = 0;
+        this.scene.get("PlayerUI")?.scene.stop();
     }
 
     chat(msg) {

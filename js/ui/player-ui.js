@@ -32,11 +32,12 @@ export class PlayerUI extends Phaser.Scene {
      * }} data 
      */
     create(data) {
+
         if (data.player) {
             this.player = data.player;
         }
 
-        //score
+        // score
         this.scoreText = this.add.text(this.scale.width - 400, 100, "Score: 0", {
             fontFamily: GameConfig["font-family"],
             fontSize: 50,
@@ -117,14 +118,13 @@ export class PlayerUI extends Phaser.Scene {
             }).setOrigin(0)
         ]).setScale(2).setVisible(false);
 
-
         this.events.on("chat",
             /**
              * @param {string} msg
              */
             (msg) => {
                 let timeDelay = 1000;
-                chatbox.getAt(1).text = "";
+                chatbox.getAt(1)?.setText("");
                 chatbox.setVisible(true);
 
                 let idx = 0;
@@ -140,7 +140,7 @@ export class PlayerUI extends Phaser.Scene {
                                 this.time.removeEvent(event);
                             }
                         } else {
-                            chatbox.getAt(1).text += msg[idx];
+                            chatbox.getAt(1)?.setText(chatbox.getAt(1)?.text + msg[idx]);
                             idx++;
                         }
                     }
@@ -154,7 +154,7 @@ export class PlayerUI extends Phaser.Scene {
             if (!this.isPlayUWin) {
                 this.isPlayUWin = true;
 
-                this.add.text(this.scale.width / 2, this.scale.height / 2 + 400, "Chúc mừng bạn đã được nhận OJT Vũ Hải Lâm!", { fontFamily: GameConfig["font-family"], fontSize: 48, color: "orange" }).setOrigin(0.5)
+                this.add.text(this.scale.width / 2, this.scale.height / 2 + 400, "Chúc mừng bạn đã được \ngia nhập OJT Vũ Hải Lâm!", { fontFamily: GameConfig["font-family"], fontSize: 48, color: "orange" }).setOrigin(0.5)
 
                 this.uwin.setVisible(true).play().on("complete", () => {
                     this.scene.get("StoryMode").scene.start("MenuScene");
@@ -200,13 +200,12 @@ export class PlayerUI extends Phaser.Scene {
             if (!this.player.isAlive && this.udie.scale < 4) {
                 this.udie.setVisible(true).setScale(this.udie.scale + 0.04);
             } else if (this.udie.scale >= 4) {
-                this.udie.setVisible(false).setScale(1);
                 this.scene.stop();
             }
         }
 
         this.score = Entity.enemyDie * 100;
-        this.scoreText.setText("Score :" + this.score);
+        this.scoreText.setText("Score: " + this.score);
     }
 
 
