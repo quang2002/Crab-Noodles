@@ -158,14 +158,6 @@ export class StoryMode extends GameScene {
             
         ].forEach(e => new Boom(this, e[0] * 32, e[1] * 32).setDepth(-1));
 
-        /**
-         * @type {Player}
-         */
-        this.player = new GameConfig["player_type"](this, 0, 0);
-        this.player.setWeapon(new LightSaber(this));
-        //this.player.setWeapon(new Pistol(this, 0, 0));
-        this.player.setPosition(160 * 32, -30 * 32);
-
         // enemies
         //room 1
         new Pirate(this, 44 * 32, 52 * 32);

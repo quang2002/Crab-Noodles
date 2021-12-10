@@ -27,6 +27,8 @@ export class Computer extends Phaser.Physics.Arcade.Sprite {
             if (o2 instanceof Player && this.solStep == 0 && this.scene.input.activePointer.isDown) {
                 this.solStep = 1;
 
+                this.setDepth(10);
+
                 const ques = Computer.questions[Math.round(Math.random() * (Computer.questions.length - 1))];
 
                 this.scene.scene.launch("QuizUI", ques);
