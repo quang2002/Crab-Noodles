@@ -16,7 +16,7 @@ export class BossLam extends Enemy {
 
         this.weapon = new AK47(scene, x, y, {
             baseDMG: 200,
-            fireTime: 200,
+            fireTime: 350,
         }).setVisible(false);
         this.weapon.owner = this;
 
