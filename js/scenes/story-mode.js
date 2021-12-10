@@ -143,6 +143,10 @@ export class StoryMode extends GameScene {
             [73, 30],
             [74, 30],
             [68, 34],
+            [117, -55],
+            [119, -58],
+            [117, -61],
+            [119, -63],
             
         ].forEach(e => new Boom(this, e[0] * 32, e[1] * 32).setDepth(-1));
 
@@ -152,7 +156,7 @@ export class StoryMode extends GameScene {
         this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setWeapon(new LightSaber(this));
         //this.player.setWeapon(new Pistol(this, 0, 0));
-        this.player.setPosition(119 * 32, -33 * 32);
+        this.player.setPosition(146 * 32, -7 * 32);
 
         // enemies
         //room 1
@@ -185,6 +189,21 @@ export class StoryMode extends GameScene {
         new Pirate(this, 121 * 32, -33 * 32, { hp: 1000, speed: 300, runningSpeed: 300 });
         new Pirate(this, 123 * 32, -33 * 32, { hp: 1000, speed: 300, runningSpeed: 300 });
         new Pirate(this, 125 * 32, -30 * 32, { hp: 1000, speed: 300, runningSpeed: 300 });
+        //room6
+        for(let i=0;i<10;i++){
+            new Endurance(this, (146+i) * 32, -67 * 32);
+        }
+        //room7
+        new XuanYuanSword(this, 142 * 32, -9 * 32);
+        for(let i=0;i<10;i++){
+            new Pirate(this, 149 * 32, (-9+i) * 32);
+        }
+        //room8
+        new Robot(this, 186 * 32, 43 * 32, {hp: 2000});
+        new Endurance(this, 186 * 32, 30 * 32);
+        new Endurance(this, 184 * 32, 30 * 32);
+        new Endurance(this, 188 * 32, 30 * 32);
+        new Endurance(this, 182 * 32, 30 * 32);
         //room boss
         new Pirate(this, 178 * 32, -47 * 32, { hp: 1000 });
         new Pirate(this, 181 * 32, -47 * 32, { hp: 1000 });
