@@ -1,3 +1,4 @@
+import { MenuScene } from "../scenes/menu.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { StatsWeapon } from "../stats/stats-weapon.js";
 
@@ -5,17 +6,18 @@ export const GameConfig = {
     "volume": 1,
     "font-size": 32,
     "font-family": "pixelvn",
-    "player-type": null,
+    "player_type": null,
+    "scene_before_chooseplayer": MenuScene,
 
     "entities": {
         "boy_player": new StatsEntity({
-            hp: 2000,
+            hp: 3000,
             speed: 100,
             runningSpeed: 200,
         }),
 
         "girl_player": new StatsEntity({
-            hp: 2000 * 1.25,
+            hp: 3000,
             speed: 100,
             runningSpeed: 200,
         }),
@@ -30,7 +32,7 @@ export const GameConfig = {
             speed: 50,
             runningSpeed: 70
         }),
-        
+
         "endurance": new StatsEntity({
             hp: 800,
             speed: 40,
@@ -105,6 +107,12 @@ export const GameConfig = {
             critDamage: 0.5,
             fireTime: 350,
             speed: 200
+        }),
+
+        "boom": new StatsWeapon({
+            baseDMG: 500,
+            critRate: 0.01,
+            critDamage: 0.5,
         }),
 
         "energy_gun": new StatsWeapon({

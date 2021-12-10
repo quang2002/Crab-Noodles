@@ -45,7 +45,7 @@ export class Stage02 extends GameScene {
         /**
          * @type {Player}
          */
-        this.player = new GameConfig["player-type"](this, 0, 0);
+        this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setPosition(-946, -438);
         this.player.setWeapon(new AK47(this, 0, 0));
         this.player.setWeapon(new XuanYuanSword(this, 0, 0));

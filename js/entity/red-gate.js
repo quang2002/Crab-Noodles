@@ -49,4 +49,8 @@ export class RedGate extends Enemy {
 
         if (this.isAlive) this.weapon.fire();
     }
+
+    take_damage(dmg) {
+        return this;
+    }
 }

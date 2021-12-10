@@ -44,7 +44,7 @@ export class LobbyScene extends GameScene {
         /**
          * @type {Player}
          */
-        this.player = new GameConfig["player-type"](this, 0, 0);
+        this.player = new GameConfig["player_type"](this, 0, 0);
 
         this.player.setWeapon(new EnergyGun(this, 0, 0, {
             fireTime: 500,
@@ -52,7 +52,7 @@ export class LobbyScene extends GameScene {
             reloadTime: 0
         }));
 
-        //this.player.setWeapon(new Rocket(this, 0, 0));
+        this.player.setWeapon(new Rocket(this, 0, 0));
 
         //this.player.setWeapon(new Drone(this, 0, 0));
         // add a new gate1 png
@@ -119,6 +119,5 @@ export class LobbyScene extends GameScene {
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, features);
         this.physics.add.collider(this.player, ground);
-
     }
 }

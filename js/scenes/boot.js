@@ -18,6 +18,11 @@ import { Stage01 } from "./stage-01.js";
 import { Stage02 } from "./stage-02.js";
 import { StoryScene } from "./story.js";
 import { QuizUI } from "../ui/quiz-ui.js";
+import { StoryMode } from "./story-mode.js";
+import { HorizontalDoor } from "../objects/horizontal-door.js";
+import { VerticalDoor } from "../objects/vertical-door.js";
+import { Boom } from "../objects/boom.js";
+import { Computer } from "../objects/computer.js";
 import { PirateGun } from "../weapon/pirate-gun.js";
 import { EnergyGun } from "../weapon/energy-gun.js";
 import { Endurance } from "../entity/endurance.js";
@@ -34,6 +39,7 @@ export class BootScene extends Phaser.Scene {
         Stage01.preload(this);
         Stage02.preload(this);
         LobbyScene.preload(this);
+        StoryMode.preload(this);
 
         // UI
         ChooseStage.preload(this);
@@ -58,6 +64,12 @@ export class BootScene extends Phaser.Scene {
         RedGate.preload(this);
         Ghost.preload(this);
         Endurance.preload(this);
+
+        // objects
+        VerticalDoor.preload(this);
+        HorizontalDoor.preload(this);
+        Boom.preload(this);
+        Computer.preload(this);
 
         // sounds
         this.load.audio("sounds.blastershot", "./assets/sounds/BlasterShot.wav");

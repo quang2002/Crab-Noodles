@@ -31,6 +31,7 @@ export class Player extends Entity {
             "zoomRange": { min: 2.25, max: 4 },
 
             "dummy": this.scene.physics.add.sprite(x, y, null).setVisible(false).setBodySize(1, 1),
+            "follow": this,
             "followSpeed": 2
         };
 
@@ -68,6 +69,8 @@ export class Player extends Entity {
         // isplayer = true
         this.isPlayer = true;
 
+        this.timeout = 4000;
+
         this.COOLDOWN_SWAP_TIME = 600;
         this.nextSwapTime = this.scene.time.now;
 
@@ -79,11 +82,14 @@ export class Player extends Entity {
         this.deathSound = null;
         this.isDeathSoundPlayed = false;
         this.changeGunSound = this.scene.sound.add("sounds.changegun");
+
+
     }
 
     take_damage(dmg) {
         this.hurtSound?.play();
         super.take_damage(dmg);
+        return this;
     }
 
     /**
@@ -154,18 +160,24 @@ export class Player extends Entity {
      */
     lootWeapon(weapon) {
         if (weapon instanceof Gun) {
-            if (this.weapons.pri)
+            if (this.weapons.pri) {
                 this.weapons.pri.owner = null;
-            this.weapons.pri.setVisible(true);
+                this.weapons.pri.setPosition(this.x, this.y).setDepth(this.depth - 1);
+                this.weapons.pri.setVisible(true);
+            }
 
             this.weapons.pri = weapon;
+            this.weapons.pri.setDepth(this.depth + 1);
             this.weapons.idx = 0;
         } else if (weapon instanceof Melee) {
-            if (this.weapons.sec)
+            if (this.weapons.sec) {
                 this.weapons.sec.owner = null;
-            this.weapons.sec.setVisible(true);
+                this.weapons.sec.setPosition(this.x, this.y).setDepth(this.depth - 1);
+                this.weapons.sec.setVisible(true);
+            }
 
             this.weapons.sec = weapon;
+            this.weapons.sec.setDepth(this.depth + 1);
             this.weapons.idx = 1;
         }
         weapon.owner = this;
@@ -231,14 +243,18 @@ export class Player extends Entity {
         }
 
 
+        if (!this.isStunning) {
+            this.cameras.follow = this;
+        }
+
         // set weapon's owner
         if (this.weapons.active != null) {
             this.weapons.active.owner = this.isAlive ? this : null;
         }
 
         // smooth camera for player
-        if (Math.abs(this.cameras.dummy.x - this.x) + Math.abs(this.cameras.dummy.y - this.y) > 0.1) {
-            this.cameras.dummy.setVelocity(-(this.cameras.dummy.x - this.x) * this.cameras.followSpeed, -(this.cameras.dummy.y - this.y) * this.cameras.followSpeed);
+        if (Math.abs(this.cameras.dummy.x - this.cameras.follow.x) + Math.abs(this.cameras.dummy.y - this.cameras.follow.y) > 0.1) {
+            this.cameras.dummy.setVelocity(-(this.cameras.dummy.x - this.cameras.follow.x) * this.cameras.followSpeed, -(this.cameras.dummy.y - this.cameras.follow.y) * this.cameras.followSpeed);
         }
 
         if (Math.abs(this.cameras.currentZoom - this.cameras.zoom) > 0.1)
@@ -246,4 +262,16 @@ export class Player extends Entity {
 
         this.scene.cameras.main.setZoom(this.cameras.currentZoom);
     }
+
+    // /**
+    //  * 
+    //  * @param {number} x 
+    //  * @param {number
+    //  * } y 
+    //  * @param {*} z 
+    //  * @param {*} w 
+    //  */
+    // setPosition(x, y, z, w) {
+
+    // }
 }

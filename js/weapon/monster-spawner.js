@@ -29,6 +29,8 @@ export class MonsterSpawner extends Weapon {
 
             const monster = new this.monster_types[random](this.scene, this.x, this.y);
             this.monsters.push(monster);
+
+            this.monsters = this.monsters.filter(e => e.isAlive);
         }
         return this;
     }
