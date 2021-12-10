@@ -51,13 +51,19 @@ export class QuizUI extends Phaser.Scene {
         ans4.setInteractive().on("pointerout", () => ans4.setScale(2.5)).on("pointermove", () => ans4.setScale(2.6)).on("pointerdown", () => this.ans(data.answer, 4));
     }
 
+    /**
+     * 
+     * @param {Array} trueans 
+     * @param {number} myans 
+     * @returns 
+     */
     ans(trueans, myans) {
         if (!this.isAnsable) return;
         this.isAnsable = false;
 
         this.sys.displayList.removeAll();
 
-        if (trueans == myans) {
+        if (trueans.indexOf(myans) >= 0) {
             this.add.text(1250, 350, "CORRECT", {
                 fontFamily: GameConfig["font-family"],
                 fontSize: 96,

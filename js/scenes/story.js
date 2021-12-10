@@ -38,7 +38,7 @@ export class StoryScene extends Phaser.Scene {
 
     create() {
         //add theme sound
-        this.themeSound = this.sound.add("sounds.story-theme", {volume: 0.5});
+        this.themeSound = this.sound.add("sounds.story-theme", { volume: 0.5 });
         this.themeSound.play();
 
         this.image = this.add.image(this.scale.width / 2, this.scale.height / 2 - 200, "").setScale(1.5);
@@ -74,6 +74,7 @@ export class StoryScene extends Phaser.Scene {
                         this.state++;
                     }
                 } else {
+                    GameConfig.scene_before_chooseplayer = StoryScene;
                     this.themeSound.stop();
                     this.scene.start("ChoosePlayer");
                 }

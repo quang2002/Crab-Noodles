@@ -26,24 +26,24 @@ export class MenuScene extends Phaser.Scene {
         this.add.image(0, 0, "images.bg").setOrigin(0);
 
         // new game button
-        const btn_newgame = this.add.image(375, 610, "ui.btn-storymode").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
+        const btn_storymode = this.add.image(375, 610, "ui.btn-storymode").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
             .on("pointerdown", () => {
                 this.themeSound.stop();
                 this.buttonSound.play();
                 this.scene.start("StoryScene");
             })
-            .on("pointerout", () => btn_newgame.setScale(0.8))
-            .on("pointermove", () => btn_newgame.setScale(1));
+            .on("pointerout", () => btn_storymode.setScale(0.8))
+            .on("pointermove", () => btn_storymode.setScale(1));
 
         // last game from lobby button
-        const btn_lastgame = this.add.image(375, 800, "ui.btn-endlessmode").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
+        const btn_endlessmode = this.add.image(375, 800, "ui.btn-endlessmode").setOrigin(0.5, 0.5).setScale(0.8).setInteractive()
             .on("pointerdown", () => {
                 this.themeSound.stop();
                 this.buttonSound.play();
                 this.scene.start("ChoosePlayer");
             })
-            .on("pointerout", () => btn_lastgame.setScale(0.8))
-            .on("pointermove", () => btn_lastgame.setScale(1));
+            .on("pointerout", () => btn_endlessmode.setScale(0.8))
+            .on("pointermove", () => btn_endlessmode.setScale(1));
 
 
         // question button

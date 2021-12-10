@@ -1,5 +1,6 @@
 import { GameConfig } from "../components/game-config.js";
 import { MonsterSpawner } from "../weapon/monster-spawner.js";
+import { Endurance } from "./endurance.js";
 import { Enemy } from "./enemy.js";
 import { Ghost } from "./ghost.js";
 import { Pirate } from "./pirate.js";
@@ -13,7 +14,7 @@ export class RedGate extends Enemy {
 
         this.setOffset(32);
 
-        this.weapon = new MonsterSpawner(scene, x, y, [Pirate, Ghost]);
+        this.weapon = new MonsterSpawner(scene, x, y, [Endurance]);
     }
 
     /**
@@ -47,5 +48,9 @@ export class RedGate extends Enemy {
         super.update();
 
         if (this.isAlive) this.weapon.fire();
+    }
+
+    take_damage(dmg) {
+        return this;
     }
 }

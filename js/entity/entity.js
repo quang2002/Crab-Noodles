@@ -9,10 +9,16 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
 
     static {
         setInterval(() => {
-            Entity.instances.forEach((value) => {
-                if (!value.isAlive && !value.isPlayer) {
+            Entity.instances.forEach(
+                (value) => {
+                if (!value.isAlive) {
                     if (value.timeout > 0) value.timeout -= 100;
-                    else value.destroy();
+                    else if (!value.isPlayer) {
+                        value.destroy();
+                    }
+                    else {
+                        value.scene.scene.start("MenuScene");
+                    }
                 }
 
                 if (value.stunTime > 0) value.stunTime -= 100;
@@ -142,6 +148,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                 } else if (vec.x < 0) {
                     this.setFlipX(true);
                 }
+
 
                 // play animation
                 if (vec.x * vec.x + vec.y * vec.y > 0) {

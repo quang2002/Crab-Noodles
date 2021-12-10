@@ -1,3 +1,4 @@
+import { MenuScene } from "../scenes/menu.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { StatsWeapon } from "../stats/stats-weapon.js";
 
@@ -6,6 +7,7 @@ export const GameConfig = {
     "font-size": 32,
     "font-family": "pixelvn",
     "player_type": null,
+    "scene_before_chooseplayer": MenuScene,
 
     "entities": {
         "boy_player": new StatsEntity({
@@ -21,13 +23,19 @@ export const GameConfig = {
         }),
 
         "pirate": new StatsEntity({
-            hp: 1000,
+            hp: 600,
             speed: 40,
             runningSpeed: 0,
         }),
         "ghost": new StatsEntity({
-            hp: 1500,
+            hp: 900,
             speed: 50,
+            runningSpeed: 70
+        }),
+
+        "endurance": new StatsEntity({
+            hp: 800,
+            speed: 40,
             runningSpeed: 80
         }),
 
@@ -86,6 +94,13 @@ export const GameConfig = {
             ammo: 10,
         }),
 
+        "punch": new StatsWeapon({
+            baseDMG: 0,
+            critRate: 0.5,
+            critDamage: 0.5,
+            fireTime: 300,
+        }),
+
         "xuan_yuan_sword": new StatsWeapon({
             baseDMG: 200,
             critRate: 0.5,
@@ -98,6 +113,14 @@ export const GameConfig = {
             baseDMG: 500,
             critRate: 0.01,
             critDamage: 0.5,
-        })
+        }),
+
+        "energy_gun": new StatsWeapon({
+            baseDMG: 300,
+            critRate: 0.4,
+            critDamage: 0.7,
+            fireTime: 500,
+            speed: 500,
+        }),
     },
 };
