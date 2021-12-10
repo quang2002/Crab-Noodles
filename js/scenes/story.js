@@ -3,27 +3,19 @@ import { GameConfig } from "../components/game-config.js";
 export class StoryScene extends Phaser.Scene {
     static data = [{
         image: "images.story-01",
-        text: "Năm 2041, thế giới ngày càng phát triển, con người đã tạo ra những công nghệ có thể du hành đến bất kỳ đâu trong vũ trụ."
+        text: "Năm 1971, nhà tiên tri của gia tộc JS đã phát hiện hành tinh Edgo có tồn tại sự sống."
     },
     {
         image: "images.story-02",
-        text: "Ngày 11/3/2042, cuộc thử nghiệm đầu tiên diễn ra, các nhà phát minh đến hành tinh Edgo nơi có tồn tại các sinh vật gọi là titan, nhưng sau đó không nhận lại được tín hiệu báo về."
-    },
-    {
-        image: "images.story-02",
-        text: "Người đồng phát triển dự án đã yêu cầu đóng cánh cổng lại để tránh nguy hiểm cho mọi người."
+        text: "Những người sáng lập ra JS đã tạo ra AI mang tên Vũ Hải Lâm, sau đó gửi nó lên Edgo để xây dựng thế giới mới trên đó."
     },
     {
         image: "images.story-03",
-        text: "Nhưng đã quá muộn khi một sinh vật đã chui qua cánh cổng đến trái đất và phá hủy chiếc máy khiến cho không thể đóng được cổng."
-    },
-    {
-        image: "images.story-03",
-        text: "Mười năm sau sự kiện đó, lũ titan đã thống trị toàn cầu, lúc này con người đã phát minh ra máy thời gian và huyết thanh tăng cường."
+        text: "50 năm sau, gia tộc JS đổi tên thành JS-Club, nhận được tín hiệu từ hành tinh Edgo và biết được về kế hoạch khi xưa."
     },
     {
         image: "images.story-04",
-        text: "Họ đã chọn ra bạn là người phù hợp với huyết thanh, do đó nhiệm vụ của bạn là quay trở về quá khứ và dừng hoạt động của cổng không gian."
+        text: "Ngay sau đó, thế hệ trẻ của JS-Club đã bắt đầu chiến dịch J-Chosen với mục đích khám phá thế giới mới trên Edgo."
     },
     {
         image: "images.story-04",
@@ -46,7 +38,7 @@ export class StoryScene extends Phaser.Scene {
 
     create() {
         //add theme sound
-        this.themeSound = this.sound.add("sounds.story-theme", {volume: 0.5});
+        this.themeSound = this.sound.add("sounds.story-theme", { volume: 0.5 });
         this.themeSound.play();
 
         this.image = this.add.image(this.scale.width / 2, this.scale.height / 2 - 200, "").setScale(1.5);
@@ -62,12 +54,19 @@ export class StoryScene extends Phaser.Scene {
         }
         ).setOrigin(0.5, 0);
 
+
         //print story 
         var idx = 0;
         this.time.addEvent({
             delay: 50,
             loop: true,
             callback: () => {
+                if (this.input.keyboard.addKey(this.input.keyboard.addKey("H")).isDown) {
+                    GameConfig.scene_before_chooseplayer = StoryScene;
+                    this.themeSound.stop();
+                    this.scene.start("ChoosePlayer");
+                }
+
                 if (this.state < StoryScene.data.length) {
                     if (idx < StoryScene.data[this.state].text.length) {
                         this.image.setTexture(StoryScene.data[this.state].image);
@@ -82,6 +81,7 @@ export class StoryScene extends Phaser.Scene {
                         this.state++;
                     }
                 } else {
+                    GameConfig.scene_before_chooseplayer = StoryScene;
                     this.themeSound.stop();
                     this.scene.start("ChoosePlayer");
                 }

@@ -2,6 +2,8 @@ import { GameConfig } from "../components/game-config.js";
 import { GameScene } from "../components/game-scene.js";
 import { BoyPlayer } from "../entity/boy-player.js";
 import { GirlPlayer } from "../entity/girl-player.js";
+import { MenuScene } from "./menu.js";
+import { StoryScene } from "./story.js";
 
 export class ChoosePlayer extends GameScene {
     constructor() {
@@ -19,6 +21,7 @@ export class ChoosePlayer extends GameScene {
     }
 
     create() {
+        super.create();
 
         this.buttonSound = this.sound.add("sounds.button");
 
@@ -43,31 +46,38 @@ export class ChoosePlayer extends GameScene {
         this.add.sprite(1383, 500, null).play("anims.choose-girl").setScale(3);
 
         //button to stage 1
-        this.buttonStage1 = this.add.image(555, 805, "images.choose-boy-player").setOrigin(0.5, 0.5).setScale(0.7);
-        this.buttonStage1.setInteractive()
+        this.buttonJSBoy = this.add.image(555, 805, "images.choose-boy-player").setOrigin(0.5, 0.5).setScale(0.7);
+        this.buttonJSBoy.setInteractive()
             .on("pointerdown", () => {
                 this.buttonSound.play();
-                GameConfig["player-type"] = BoyPlayer;
-                this.scene.start("LobbyScene");
+                GameConfig["player_type"] = BoyPlayer;
+                if(GameConfig.scene_before_chooseplayer == MenuScene)
+                    this.scene.start("LobbyScene");
+                else 
+                    this.scene.start("StoryMode");
+
             }
             ).on("pointermove", () => {
-                this.buttonStage1.setScale(0.8);
+                this.buttonJSBoy.setScale(0.8);
             }).on("pointerout", () => {
-                this.buttonStage1.setScale(0.7);
+                this.buttonJSBoy.setScale(0.7);
             })
 
         //button to stage 2
-        this.buttonStage2 = this.add.image(1383, 805, "images.choose-girl-player").setOrigin(0.5, 0.5).setScale(0.7);
-        this.buttonStage2.setInteractive()
+        this.buttonJSGirl = this.add.image(1383, 805, "images.choose-girl-player").setOrigin(0.5, 0.5).setScale(0.7);
+        this.buttonJSGirl.setInteractive()
             .on("pointerdown", () => {
                 this.buttonSound.play();
-                GameConfig["player-type"] = GirlPlayer;
-                this.scene.start("LobbyScene");
+                GameConfig["player_type"] = GirlPlayer;
+                if (GameConfig.scene_before_chooseplayer == MenuScene)
+                    this.scene.start("LobbyScene");
+                else
+                    this.scene.start("StoryMode");
             }
             ).on("pointermove", () => {
-                this.buttonStage2.setScale(0.8);
+                this.buttonJSGirl.setScale(0.8);
             }).on("pointerout", () => {
-                this.buttonStage2.setScale(0.7);
+                this.buttonJSGirl.setScale(0.7);
             })
     }
 }

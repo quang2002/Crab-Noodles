@@ -1,22 +1,30 @@
 import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
+import { Enemy } from "./enemy.js";
 
 export class Entity extends Phaser.Physics.Arcade.Sprite {
 
     //instance of all entity in scene
     static instances = [];
     static collision = [];
-
+    static enemyDie = 0;
     static {
         setInterval(() => {
-            Entity.instances.forEach((value) => {
-                if (!value.isAlive && !value.isPlayer) {
-                    if (value.timeout > 0) value.timeout -= 100;
-                    else value.destroy();
-                }
+            Entity.instances.forEach(
+                (value) => {
+                    if (!value.isAlive) {
+                        if (value.timeout > 0) value.timeout -= 100;
+                        else if (!value.isPlayer) {
+                            this.enemyDie += 1;
+                            value.destroy();
+                        }
+                        else {
+                            value.scene.scene.start("MenuScene");
+                        }
+                    }
 
-                if (value.stunTime > 0) value.stunTime -= 100;
-            });
+                    if (value.stunTime > 0) value.stunTime -= 100;
+                });
         }, 100);
     }
 
@@ -142,6 +150,7 @@ export class Entity extends Phaser.Physics.Arcade.Sprite {
                 } else if (vec.x < 0) {
                     this.setFlipX(true);
                 }
+
 
                 // play animation
                 if (vec.x * vec.x + vec.y * vec.y > 0) {

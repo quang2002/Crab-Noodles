@@ -1,6 +1,6 @@
 import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
-import { AK47 } from "../weapon/ak47.js";
+import { PirateGun } from "../weapon/pirate-gun.js";
 import { Enemy } from "./enemy.js";
 
 export class Pirate extends Enemy {
@@ -16,7 +16,7 @@ export class Pirate extends Enemy {
         stats = Object.assign({}, GameConfig.entities["pirate"], stats);
         super(scene, x, y, stats);
 
-        this.weapon = new AK47(scene, x, y, {
+        this.weapon = new PirateGun(scene, x, y, {
             fireTime: 1000,
             speed: 100
         });
@@ -27,6 +27,8 @@ export class Pirate extends Enemy {
 
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
+
+        this.isSeeingPlayer = false;
     }
 
     create_anims() {
@@ -65,6 +67,9 @@ export class Pirate extends Enemy {
 
         if (200 < len && len < 400)
             return { x: vecx / len * this.stats.cur.speed, y: vecy / len * this.stats.cur.speed };
+        
+        if (!this.isSeeingPlayer)
+            return { x: 0, y: 0 };
 
         if (len > 400)
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };

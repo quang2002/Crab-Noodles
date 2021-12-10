@@ -5,6 +5,7 @@ import { Player } from "../entity/player.js";
 import { QuizUI } from "../ui/quiz-ui.js";
 import { Pistol } from "../weapon/pistol.js";
 import { Rocket } from "../weapon/rocket.js";
+import { EnergyGun } from "../weapon/energy-gun.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -30,37 +31,40 @@ export class LobbyScene extends GameScene {
         });
 
         scene.load.spritesheet("spritesheet-gate", "./assets/images/lobby/gate.png", {
-            frameWidth: 85,
-            frameHeight: 81
+            frameWidth: 96,
+            frameHeight: 96
         });
     }
 
     create() {
+        super.create();
         //add theme sound
+
+
         this.themeSound = this.sound.add("sounds.lobby-theme", { loop: true });
         this.themeSound.play();
 
         /**
          * @type {Player}
          */
-        this.player = new GameConfig["player-type"](this, 0, 0);
+        this.player = new GameConfig["player_type"](this, 0, 0);
 
-        this.player.setWeapon(new AK47(this, 0, 0, {
-            fireTime: 100,
-            speed: 1000,
+        this.player.setWeapon(new EnergyGun(this, 0, 0, {
+            fireTime: 500,
+            speed: 500,
             reloadTime: 0
         }));
 
         this.player.setWeapon(new Rocket(this, 0, 0));
 
         //this.player.setWeapon(new Drone(this, 0, 0));
-        // add a new gate1 png
+        
         // add gate animation
         this.anims.create({
             key: "anims-gate",
             frameRate: 7,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers("spritesheet-gate", { start: 1, end: 6 })
+            frames: this.anims.generateFrameNumbers("spritesheet-gate", { start: 0, end: 7 })
         });
 
         // add a new teleport-animation png
@@ -85,7 +89,7 @@ export class LobbyScene extends GameScene {
             // fade to black
             this.cameras.main.fadeOut(1000, 0, 0, 0).once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.themeSound.stop();
-                this.scene.stop("PlayerUI");
+                this.scene.stop("PlayerUI"); 
                 this.scene.start("ChooseStage");
             });
 
@@ -118,6 +122,5 @@ export class LobbyScene extends GameScene {
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, features);
         this.physics.add.collider(this.player, ground);
-
     }
 }

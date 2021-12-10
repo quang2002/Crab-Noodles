@@ -1,8 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { StatsEntity } from "../stats/stats-entity.js";
-import { AK47 } from "../weapon/ak47.js";
+import { EnergyGun } from "../weapon/energy-gun.js";
 import { Enemy } from "./enemy.js";
-import { Player } from "./player.js";
 
 export class Robot extends Enemy {
 
@@ -17,19 +16,21 @@ export class Robot extends Enemy {
         stats = Object.assign({}, GameConfig.entities["robot"], stats);
         super(scene, x, y, stats);
 
-        this.weapon = new AK47(scene, x, y, {
-            fireTime: 1000,
-            speed: 150
+        this.weapon = new EnergyGun(scene, x, y, {
+            baseDMG: 250,
+            fireTime: 500,
+            speed: 500
         });
 
         //owner
         this.weapon.owner = this;
 
-
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
 
         this.setBodySize(30,50).setOffset(50,35);
+
+        this.isSeeingPlayer = false;
     }
 
     create_anims() {
@@ -66,10 +67,15 @@ export class Robot extends Enemy {
         const vecy = this.player.y - this.y;
         const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-        if (200 < len && len < 400)
+        if (200 < len && len < 500){
+            this.isSeeingPlayer = true;
             return { x: vecx / len * this.stats.cur.speed, y: vecy / len * this.stats.cur.speed };
+        }
 
-        if (len > 400)
+        if(!this.isSeeingPlayer)
+            return { x: 0, y: 0 };
+
+        if (len > 500)
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
 
         return { x: 0, y: 0 };
@@ -80,8 +86,9 @@ export class Robot extends Enemy {
 
         // weapon fire
         if (this.isAlive) {
-            this.weapon.setPosition(this.x, this.y);
+            this.weapon.setPosition(this.x, this.y - 4);
             this.weapon.pointTo(this.player);
+            this.weapon.setScale(1.2);
 
             const vecx = this.player.x - this.x;
             const vecy = this.player.y - this.y;

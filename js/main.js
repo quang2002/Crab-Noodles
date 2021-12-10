@@ -5,6 +5,7 @@ import { LobbyScene } from "./scenes/lobby.js";
 import { MenuScene } from "./scenes/menu.js";
 import { Stage01 } from "./scenes/stage-01.js";
 import { Stage02 } from "./scenes/stage-02.js";
+import { StoryMode } from "./scenes/story-mode.js";
 import { StoryScene } from "./scenes/story.js";
 import { PlayerUI } from "./ui/player-ui.js";
 import { QuizUI } from "./ui/quiz-ui.js";
@@ -25,7 +26,6 @@ window.addEventListener("load", () => {
         physics: {
             default: "arcade",
             arcade: {
-                fps: 60,
                 gravity: {},
                 debug: false
             }
@@ -36,7 +36,7 @@ window.addEventListener("load", () => {
             MenuScene,
             StoryScene,
             LobbyScene,
-            Stage01, Stage02,
+            Stage01, Stage02, StoryMode,
             PlayerUI, ChooseStage, ChoosePlayer, QuizUI
         ]
     });
