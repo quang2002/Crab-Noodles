@@ -74,6 +74,7 @@ export class StoryScene extends Phaser.Scene {
                         this.state++;
                     }
                 } else {
+                    GameConfig.scene_before_chooseplayer = StoryScene;
                     this.themeSound.stop();
                     this.scene.start("ChoosePlayer");
                 }

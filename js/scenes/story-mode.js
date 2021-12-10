@@ -8,6 +8,7 @@ import { Computer } from "../objects/computer.js";
 import { HorizontalDoor } from "../objects/horizontal-door.js";
 import { VerticalDoor } from "../objects/vertical-door.js";
 import { LightSaber } from "../weapon/light-saber.js";
+import { Pistol } from "../weapon/pistol.js";
 import { Rocket } from "../weapon/rocket.js";
 import { XuanYuanSword } from "../weapon/xuan-yuan-sword.js";
 
@@ -92,14 +93,8 @@ export class StoryMode extends GameScene {
 
         Entity.collision = [wall, objects, ground];
 
-        /**
-         * @type {Player}
-         */
-        this.player = new GameConfig["player_type"](this, 0, 0);
-        this.player.setWeapon(new Rocket(this));
-        this.player.setWeapon(new LightSaber(this, 0, 0));
-        this.player.setPosition(18 * 32, 36 * 32);
 
+        
         this.addAutoDoor();
 
         // computers
@@ -129,6 +124,14 @@ export class StoryMode extends GameScene {
             [89, -36],
             [89, -29],
         ].forEach(e => new Boom(this, e[0] * 32, e[1] * 32).setDepth(-1));
+
+        /**
+         * @type {Player}
+         */
+        this.player = new GameConfig["player_type"](this, 0, 0);
+        this.player.setWeapon(new LightSaber(this));
+        this.player.setWeapon(new Pistol(this, 0, 0));
+        this.player.setPosition(20 * 32, 36 * 32);
 
         // enemies
         new Pirate(this, 44 * 32, 47 * 32);

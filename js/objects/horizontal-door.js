@@ -32,6 +32,7 @@ export class HorizontalDoor extends Phaser.Physics.Arcade.Sprite {
             frames: this.anims.generateFrameNumbers("spritesheet.horizontal-door", { frames: [4, 3, 2, 1, 0] }),
         });
 
+        this.doorSound = scene.sound.add("door-sound");
 
         this.computer = null;
         this.isopen = true;
@@ -70,10 +71,12 @@ export class HorizontalDoor extends Phaser.Physics.Arcade.Sprite {
      */
     static preload(scene) {
         scene.load.spritesheet("spritesheet.horizontal-door", "./assets/images/horizontal-door.png", { frameWidth: 128, frameHeight: 64 });
+        scene.load.audio("door-sound", "./assets/sounds/object/door.wav");
     }
 
     open() {
         if (this.isopen) return this;
+        this.doorSound.play();
         this.play("anims.horizontal-door-open", true).on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => this.body.setEnable(false));
         this.isopen = true;
         return this;
@@ -81,6 +84,7 @@ export class HorizontalDoor extends Phaser.Physics.Arcade.Sprite {
 
     close() {
         if (!this.isopen) return this;
+        this.doorSound.play();
         this.play("anims.horizontal-door-close", true).on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => this.body.setEnable(true));
         this.isopen = false;
         return this;

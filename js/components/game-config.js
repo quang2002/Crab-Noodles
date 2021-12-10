@@ -1,3 +1,4 @@
+import { MenuScene } from "../scenes/menu.js";
 import { StatsEntity } from "../stats/stats-entity.js";
 import { StatsWeapon } from "../stats/stats-weapon.js";
 
@@ -6,6 +7,7 @@ export const GameConfig = {
     "font-size": 32,
     "font-family": "pixelvn",
     "player_type": null,
+    "scene_before_chooseplayer": MenuScene,
 
     "entities": {
         "boy_player": new StatsEntity({
