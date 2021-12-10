@@ -32,6 +32,8 @@ export class VerticalDoor extends Phaser.Physics.Arcade.Sprite {
             frames: this.anims.generateFrameNumbers("spritesheet.vertical-door", { frames: [4, 3, 2, 1, 0] }),
         });
 
+        this.doorSound = scene.sound.add("door-sound");
+
         this.isopen = true;
         this.setBodySize(32, 160).setOffset(0).setDepth(-1).close();
         this.isAutoDoor = isAutoDoor;
@@ -69,6 +71,7 @@ export class VerticalDoor extends Phaser.Physics.Arcade.Sprite {
 
     open() {
         if (this.isopen) return this;
+        this.doorSound.play();
         this.play("anims.vertical-door-open", true).on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => this.body.setEnable(false));
         this.isopen = true;
         return this;
@@ -76,6 +79,7 @@ export class VerticalDoor extends Phaser.Physics.Arcade.Sprite {
 
     close() {
         if (!this.isopen) return this;
+        this.doorSound.play();
         this.play("anims.vertical-door-close", true).on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => this.body.setEnable(true));
         this.isopen = false;
         return this;
