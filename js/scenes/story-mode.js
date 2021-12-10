@@ -131,7 +131,7 @@ export class StoryMode extends GameScene {
         this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setWeapon(new LightSaber(this));
         this.player.setWeapon(new Pistol(this, 0, 0));
-        this.player.setPosition(20 * 32, 36 * 32);
+        this.player.setPosition(15 * 32, 28 * 32);
 
         // enemies
         new Pirate(this, 44 * 32, 47 * 32);
