@@ -1,6 +1,7 @@
 import { GameConfig } from "../components/game-config.js";
 import { GameScene } from "../components/game-scene.js";
 import { Endurance } from "../entity/endurance.js";
+import { BossLam } from "../entity/boss-lam.js";
 import { Entity } from "../entity/entity.js";
 import { Ghost } from "../entity/ghost.js";
 import { Pirate } from "../entity/pirate.js";
@@ -99,7 +100,14 @@ export class StoryMode extends GameScene {
         Entity.collision = [wall, objects, ground];
 
 
-        
+        /**
+         * @type {Player}
+         */
+        this.player = new GameConfig["player_type"](this, 0, 0);
+        this.player.setWeapon(new LightSaber(this));
+        this.player.setWeapon(new Pistol(this, 0, 0));
+        this.player.setPosition(15 * 32, 27 * 32);
+
         this.addAutoDoor();
 
         // computers
@@ -156,7 +164,7 @@ export class StoryMode extends GameScene {
         this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setWeapon(new LightSaber(this));
         //this.player.setWeapon(new Pistol(this, 0, 0));
-        this.player.setPosition(146 * 32, -7 * 32);
+        this.player.setPosition(160 * 32, -30 * 32);
 
         // enemies
         //room 1
@@ -219,6 +227,7 @@ export class StoryMode extends GameScene {
         new Endurance(this, 187 * 32, -31 * 32, { hp: 1200 });
         new Robot(this, 157 * 32, -47 * 32);
         new Robot(this, 157 * 32, -50 * 32);
+        new BossLam(this, 160 * 32, -31 * 32).setScale(0.3);
       
 
         //weapons

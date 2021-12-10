@@ -26,6 +26,7 @@ import { Computer } from "../objects/computer.js";
 import { PirateGun } from "../weapon/pirate-gun.js";
 import { EnergyGun } from "../weapon/energy-gun.js";
 import { Endurance } from "../entity/endurance.js";
+import { BossLam } from "../entity/boss-lam.js";
 
 export class BootScene extends Phaser.Scene {
     constructor() {
@@ -64,6 +65,7 @@ export class BootScene extends Phaser.Scene {
         RedGate.preload(this);
         Ghost.preload(this);
         Endurance.preload(this);
+        BossLam.preload(this);
 
         // objects
         VerticalDoor.preload(this);
