@@ -106,7 +106,7 @@ export class StoryMode extends GameScene {
         this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setWeapon(new LightSaber(this));
         //this.player.setWeapon(new Pistol(this, 0, 0));
-        this.player.setPosition(168 * 32, -33 * 32);
+        this.player.setPosition(189 * 32, -50 * 32);
 
         this.addAutoDoor();
 
@@ -205,10 +205,10 @@ export class StoryMode extends GameScene {
         new Endurance(this, 188 * 32, 30 * 32);
         new Endurance(this, 182 * 32, 30 * 32);
         //room boss
-        new Pirate(this, 178 * 32, -47 * 32, { hp: 1000 });
-        new Pirate(this, 181 * 32, -47 * 32, { hp: 1000 });
-        new Pirate(this, 184 * 32, -47 * 32, { hp: 1000 });
-        new Pirate(this, 187 * 32, -47 * 32, { hp: 1000 });
+        // new Pirate(this, 178 * 32, -47 * 32, { hp: 1000 });
+        // new Pirate(this, 181 * 32, -47 * 32, { hp: 1000 });
+        // new Pirate(this, 184 * 32, -47 * 32, { hp: 1000 });
+        // new Pirate(this, 187 * 32, -47 * 32, { hp: 1000 });
         // new Ghost(this, 178 * 32, -39 * 32, { hp: 1200 });
         // new Ghost(this, 183 * 32, -39 * 32, { hp: 1200 });
         // new Ghost(this, 188 * 32, -39 * 32, { hp: 1200 });
@@ -217,9 +217,9 @@ export class StoryMode extends GameScene {
         new Endurance(this, 181 * 32, -31 * 32, { hp: 1200 });
         new Endurance(this, 184 * 32, -31 * 32, { hp: 1200 });
         new Endurance(this, 187 * 32, -31 * 32, { hp: 1200 });
-        new Robot(this, 157 * 32, -47 * 32);
-        new Robot(this, 157 * 32, -50 * 32);
-        new BossLam(this, 160 * 32, -31 * 32).setScale(0.3);
+        //new Robot(this, 168 * 32, -49 * 32, { hp: 2000 });
+        new Robot(this, 172 * 32, -51 * 32, { hp: 2000 });
+        new BossLam(this, 186 * 32, -35 * 32).setScale(0.4);
 
 
         //weapons

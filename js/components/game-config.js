@@ -11,7 +11,7 @@ export const GameConfig = {
 
     "entities": {
         "boy_player": new StatsEntity({
-            hp: 3000,
+            hp: 3500,
             speed: 130,
             runningSpeed: 240,
         }),
@@ -78,7 +78,7 @@ export const GameConfig = {
         }),
 
         "rocket": new StatsWeapon({
-            baseDMG: 300,
+            baseDMG: 350,
             critRate: 0.5,
             critDamage: 0.5,
             fireTime: 250,
