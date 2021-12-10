@@ -32,7 +32,7 @@ export class BossLam extends Enemy {
             }
         });
 
-        this.setTexture("images.enemy.boss-lam").setScale(0.6).setBodySize(150, -10, 10);
+        this.setTexture("images.enemy.boss-lam").setScale(0.6).setCircle(100, 35, 90);
 
         this.healthbar = this.scene.add.container(0, 0, [
             this.scene.add.rectangle(0, 0, 1, 1, 0xff0000).setOrigin(0, 0.5),
@@ -48,6 +48,7 @@ export class BossLam extends Enemy {
 
     update() {
         if (this.isAlive) {
+
             this.setAngle(30 * Math.sin(this.scene.time.now / 50));
             this.weapon.setPosition(this.x, this.y);
             if (this.phase < 5000) {
@@ -62,11 +63,15 @@ export class BossLam extends Enemy {
                 // stun phase
             }
 
+            this.setVelocity(0);
+
             this.healthbar.setPosition(this.x - this.width / 2, this.y - 16);
             this.healthbar.getAt(0).setDisplaySize(this.width, 4);
             this.healthbar.getAt(1).setDisplaySize(this.width * (this.stats.cur.hp / this.stats.max.hp), 4);
         } else {
-            this.body.destroy();
+            this.scene.game.events.emit("youwin");
+            this.scene.scene.pause();
+            this.destroy();
             this.weapon.destroy();
             this.healthbar.destroy();
         }

@@ -26,9 +26,8 @@ window.addEventListener("load", () => {
         physics: {
             default: "arcade",
             arcade: {
-                fps: 60,
                 gravity: {},
-                debug: true
+                debug: false
             }
         },
 

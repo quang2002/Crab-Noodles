@@ -67,7 +67,7 @@ export class Rocket extends Gun {
                 Entity.instances
                     .filter(value => value.isAlive && (value instanceof Enemy))
                     .forEach((value) => {
-                        const range = 48;
+                        const range = 64;
                         const vecx = o1.x - value.x;
                         const vecy = o1.y - value.y;
                         if (vecx * vecx + vecy * vecy < range * range) {

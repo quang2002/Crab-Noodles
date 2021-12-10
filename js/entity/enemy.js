@@ -13,10 +13,4 @@ export class Enemy extends Entity {
 
         this.weapon = null;
     }
-
-    // update() {
-    //     super.update();
-    //     // health bar
-    //     
-    // }
 }

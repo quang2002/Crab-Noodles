@@ -50,7 +50,7 @@ export const GameConfig = {
         }),
 
         "boss_lam": new StatsEntity({
-            hp: 50000,
+            hp: 30000,
         }),
 
 
@@ -71,7 +71,7 @@ export const GameConfig = {
             baseDMG: 80,
             critRate: 0.32,
             critDamage: 0.5,
-            fireTime: 200,
+            fireTime: 150,
             speed: 500,
             reloadTime: 2000,
             ammo: 20,
@@ -111,7 +111,7 @@ export const GameConfig = {
             baseDMG: 70,
             critRate: 0.5,
             critDamage: 0.5,
-            fireTime: 350,
+            fireTime: 250,
             speed: 250
         }),
 

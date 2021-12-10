@@ -21,6 +21,7 @@ export class PlayerUI extends Phaser.Scene {
         scene.load.spritesheet("ui.health-bar", "./assets/ui/health-bar.png", { frameWidth: 243, frameHeight: 35 });
         scene.load.spritesheet("ui.minimap", "./assets/ui/minimap.png", { frameWidth: 200, frameHeight: 200 });
         scene.load.image("ui.chat", "./assets/ui/chat.png");
+        scene.load.video("video.winner", "./assets/winner.mp4");
     }
 
     /**
@@ -42,6 +43,9 @@ export class PlayerUI extends Phaser.Scene {
             stroke: "crimson",
             strokeThickness: 2
         }).setVisible(false).setOrigin(0.5);
+
+        // you win
+        this.uwin = this.add.video(this.scale.width / 2, this.scale.height / 2, "video.winner").setVisible(false).setScale(4);
 
         // health-bar
         this.add.container(300, 75, [
@@ -132,6 +136,22 @@ export class PlayerUI extends Phaser.Scene {
                     }
                 });
             });
+
+        this.isPlayUWin = false;
+        // event
+        this.game.events.on("youwin", () => {
+            console.log("emitted");
+            if (!this.isPlayUWin) {
+                this.isPlayUWin = true;
+
+                this.add.text(this.scale.width / 2, this.scale.height / 2 + 400, "Chúc mừng bạn đã được nhận OJT Vũ Hải Lâm!", { fontFamily: GameConfig["font-family"], fontSize: 48, color: "orange" }).setOrigin(0.5)
+
+                this.uwin.setVisible(true).play().on("complete", () => {
+                    this.scene.get("StoryMode").scene.start("MenuScene");
+                    this.scene.stop();
+                });
+            }
+        });
     }
 
     minimapIgnore() {
@@ -171,8 +191,7 @@ export class PlayerUI extends Phaser.Scene {
                 this.udie.setVisible(true).setScale(this.udie.scale + 0.04);
             } else if (this.udie.scale >= 4) {
                 this.udie.setVisible(false).setScale(1);
-                this.player.scene.cameras.remove(this.minicam);
-                this.scene.sleep();
+                this.scene.stop();
             }
         }
     }

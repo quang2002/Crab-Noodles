@@ -188,7 +188,6 @@ export class Player extends Entity {
         super.update();
 
         if (this.isAlive) {
-
             if (this.controller["swapWeapon"].isDown && this.nextSwapTime < this.scene.time.now) {
                 this.swapWeapon();
                 this.nextSwapTime = this.scene.time.now + this.COOLDOWN_SWAP_TIME;
