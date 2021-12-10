@@ -6,6 +6,8 @@ import { QuizUI } from "../ui/quiz-ui.js";
 import { Pistol } from "../weapon/pistol.js";
 import { Rocket } from "../weapon/rocket.js";
 import { EnergyGun } from "../weapon/energy-gun.js";
+import { XuanYuanSword } from "../weapon/xuan-yuan-sword.js";
+import { LightSaber } from "../weapon/light-saber.js";
 
 export class LobbyScene extends GameScene {
     constructor() {
@@ -55,8 +57,11 @@ export class LobbyScene extends GameScene {
             reloadTime: 0
         }));
 
-        this.player.setWeapon(new Rocket(this, 0, 0));
-
+        new Rocket(this, this.player.x + 32, this.player.y);
+        new Pistol(this, this.player.x + 64, this.player.y);
+        new AK47(this, this.player.x + 96, this.player.y);
+        new XuanYuanSword(this, this.player.x + 128, this.player.y);
+        new LightSaber(this, this.player.x + 170, this.player.y);
         //this.player.setWeapon(new Drone(this, 0, 0));
         
         // add gate animation
