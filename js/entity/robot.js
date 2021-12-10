@@ -19,8 +19,8 @@ export class Robot extends Enemy {
         super(scene, x, y, stats);
 
         this.weapon = new EnergyGun(scene, x, y, {
-            baseDMG: 0,
-            fireTime: 500,
+            baseDMG: 250,
+            fireTime: 400,
             speed: 500
         });
 

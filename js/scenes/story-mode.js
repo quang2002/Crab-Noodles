@@ -1,12 +1,17 @@
 import { GameConfig } from "../components/game-config.js";
 import { GameScene } from "../components/game-scene.js";
+import { Endurance } from "../entity/endurance.js";
 import { Entity } from "../entity/entity.js";
+import { Ghost } from "../entity/ghost.js";
 import { Pirate } from "../entity/pirate.js";
 import { Player } from "../entity/player.js";
+import { Robot } from "../entity/robot.js";
 import { Boom } from "../objects/boom.js";
 import { Computer } from "../objects/computer.js";
 import { HorizontalDoor } from "../objects/horizontal-door.js";
 import { VerticalDoor } from "../objects/vertical-door.js";
+import { AK47 } from "../weapon/ak47.js";
+import { EnergyGun } from "../weapon/energy-gun.js";
 import { LightSaber } from "../weapon/light-saber.js";
 import { Pistol } from "../weapon/pistol.js";
 import { Rocket } from "../weapon/rocket.js";
@@ -108,10 +113,11 @@ export class StoryMode extends GameScene {
         [
             [25, 51],
             [41, 49],
-            [41, 54],
+            [42, 54],
             [50, 49],
             [50, 54],
             [74, 36],
+            [87, 36],
             [71, 14],
             [88, 13],
             [70, 6],
@@ -130,19 +136,51 @@ export class StoryMode extends GameScene {
          */
         this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setWeapon(new LightSaber(this));
-        this.player.setWeapon(new Pistol(this, 0, 0));
-<<<<<<< HEAD
-        this.player.setPosition(15 * 32, 28 * 32);
-=======
+        //this.player.setWeapon(new Pistol(this, 0, 0));
         this.player.setPosition(15 * 32, 27 * 32);
->>>>>>> remake-ui
 
         // enemies
+        //room 1
         new Pirate(this, 44 * 32, 47 * 32);
         new Pirate(this, 44 * 32, 47 * 32);
         new Pirate(this, 44 * 32, 47 * 32);
         new Pirate(this, 44 * 32, 47 * 32);
         new Pirate(this, 44 * 32, 47 * 32);
+        //room 2
+        new Endurance(this, 42 * 32, 24 * 32);
+        new Endurance(this, 48 * 32, 24 * 32);
+        new Endurance(this, 42 * 32, 23 * 32);
+        new Endurance(this, 48 * 32, 23 * 32);
+        new Endurance(this, 40 * 32, 24 * 32);
+        //room boss
+        new Pirate(this, 178 * 32, -47 * 32, { hp: 1000 });
+        new Pirate(this, 181 * 32, -47 * 32, { hp: 1000 });
+        new Pirate(this, 184 * 32, -47 * 32, { hp: 1000 });
+        new Pirate(this, 187 * 32, -47 * 32, { hp: 1000 });
+        // new Ghost(this, 178 * 32, -39 * 32, { hp: 1200 });
+        // new Ghost(this, 183 * 32, -39 * 32, { hp: 1200 });
+        // new Ghost(this, 188 * 32, -39 * 32, { hp: 1200 });
+        // new Ghost(this, 191 * 32, -39 * 32, { hp: 1200 });
+        new Endurance(this, 178 * 32, -31 * 32, { hp: 1200 });
+        new Endurance(this, 181 * 32, -31 * 32, { hp: 1200 });
+        new Endurance(this, 184 * 32, -31 * 32, { hp: 1200 });
+        new Endurance(this, 187 * 32, -31 * 32, { hp: 1200 });
+        new Robot(this, 157 * 32, -47 * 32);
+        new Robot(this, 157 * 32, -50 * 32);
+      
+
+        //weapons
+        new Pistol(this, 12*32, 27*32);
+        new AK47(this, 56*32, 25*32);
+        new XuanYuanSword(this, 73 * 32, 11 * 32);
+        new XuanYuanSword(this, 186 * 32, -51 * 32);
+        new LightSaber(this, 134 * 32, -35 * 32);
+        new LightSaber(this, 183 * 32, 24 * 32);
+        new EnergyGun(this, 78 * 32, -66 * 32);
+        new EnergyGun(this, 114 * 32, -51 * 32);
+        new Rocket(this, 186 * 32, 54 * 32);
+        new Rocket(this, 183 * 32, -29 * 32);
+
     }
 
     update() {

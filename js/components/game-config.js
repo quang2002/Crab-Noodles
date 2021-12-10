@@ -28,21 +28,21 @@ export const GameConfig = {
             runningSpeed: 0,
         }),
         "ghost": new StatsEntity({
-            hp: 900,
-            speed: 50,
-            runningSpeed: 70
+            hp: 1000,
+            speed: 60,
+            runningSpeed: 80
         }),
 
         "endurance": new StatsEntity({
             hp: 800,
-            speed: 40,
-            runningSpeed: 80
+            speed: 100,
+            runningSpeed: 100
         }),
 
         "robot": new StatsEntity({
             hp: 5000,
-            speed: 80,
-            runningSpeed: 0,
+            speed: 120,
+            runningSpeed: 120,
         }),
 
         "red_gate": new StatsEntity({
@@ -95,18 +95,18 @@ export const GameConfig = {
         }),
 
         "punch": new StatsWeapon({
-            baseDMG: 0,
+            baseDMG: 50,
             critRate: 0.5,
             critDamage: 0.5,
             fireTime: 300,
         }),
 
         "xuan_yuan_sword": new StatsWeapon({
-            baseDMG: 200,
+            baseDMG: 70,
             critRate: 0.5,
             critDamage: 0.5,
             fireTime: 350,
-            speed: 200
+            speed: 250
         }),
 
         "boom": new StatsWeapon({
@@ -116,10 +116,10 @@ export const GameConfig = {
         }),
 
         "energy_gun": new StatsWeapon({
-            baseDMG: 300,
+            baseDMG: 250,
             critRate: 0.4,
             critDamage: 0.7,
-            fireTime: 500,
+            fireTime: 200,
             speed: 500,
         }),
     },
