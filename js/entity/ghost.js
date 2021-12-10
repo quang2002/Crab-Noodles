@@ -124,7 +124,7 @@ export class Ghost extends Enemy {
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
             // console.log(len);
             
-            if (this.nextTeleportTime <= this.scene.time.now && len < 400) {
+            if (this.nextTeleportTime <= this.scene.time.now && len < 500) {
                 // this.stunTime = 50000;
                 this.play(this.animations.disappear, true).on("animationcomplete", () => {
                     // this.setVisible(false);
@@ -151,8 +151,8 @@ export class Ghost extends Enemy {
                     })
                 });
                 this.nextTeleportTime = this.scene.time.now + this.COOLDOWNTELEPORT;
-            } else {
-                // this.play(this.animations.idle);
+            } else if(this.nextTeleportTime <= this.scene.time.now && len > 500) {
+                this.play(this.animations.idle);
             }
         } else {
             // this.weapon.destroy(this.scene);
