@@ -12,12 +12,12 @@ export const GameConfig = {
     "entities": {
         "boy_player": new StatsEntity({
             hp: 3000,
-            speed: 100,
-            runningSpeed: 200,
+            speed: 130,
+            runningSpeed: 240,
         }),
 
         "girl_player": new StatsEntity({
-            hp: 3000,
+            hp: 4000,
             speed: 100,
             runningSpeed: 200,
         }),
@@ -53,7 +53,7 @@ export const GameConfig = {
             hp: 50000,
         }),
 
-        
+
     },
 
     "weapons": {
