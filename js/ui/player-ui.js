@@ -93,33 +93,31 @@ export class PlayerUI extends Phaser.Scene {
             }).setOrigin(0)
         ]).setScale(2).setVisible(false);
 
-        chatbox.skipable = false;
-
-        chatbox.getAt(0).setInteractive().on("pointerdown", () => {
-            if (chatbox.skipable) {
-                chatbox.skipable = false;
-                chatbox.setVisible(false);
-            }
-        });
-
 
         this.events.on("chat",
             /**
              * @param {string} msg
              */
             (msg) => {
+                let timeDelay = 1000;
                 chatbox.getAt(1).text = "";
                 chatbox.setVisible(true);
+                
                 let idx = 0;
                 const event = this.time.addEvent({
                     delay: 50,
                     loop: true,
                     callback: () => {
-                        chatbox.getAt(1).text += msg[idx];
-                        idx++;
                         if (idx >= msg.length) {
-                            chatbox.skipable = true;
-                            this.time.removeEvent(event);
+                            if (timeDelay > 0) {
+                                timeDelay -= 50;
+                            } else {
+                                chatbox.setVisible(false);
+                                this.time.removeEvent(event);
+                            }
+                        } else {
+                            chatbox.getAt(1).text += msg[idx];
+                            idx++;
                         }
                     }
                 });
