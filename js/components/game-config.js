@@ -95,7 +95,7 @@ export const GameConfig = {
         }),
 
         "punch": new StatsWeapon({
-            baseDMG: 50,
+            baseDMG: 100,
             critRate: 0.5,
             critDamage: 0.5,
             fireTime: 300,

@@ -119,17 +119,19 @@ export class Ghost extends Enemy {
             } else if (vec.y < 0) {
                 this.setFlipY(true);
             }
-
-            if (this.nextTeleportTime <= this.scene.time.now) {
+            const vecx = this.player.vpos.x - this.vpos.x;
+            const vecy = this.player.vpos.y - this.vpos.y;
+            const len = Math.sqrt(vecx * vecx + vecy * vecy);
+            // console.log(len);
+            
+            if (this.nextTeleportTime <= this.scene.time.now && len < 400) {
                 // this.stunTime = 50000;
-                console.log(0);
                 this.play(this.animations.disappear, true).on("animationcomplete", () => {
-                    console.log("1");
                     // this.setVisible(false);
                     this.scene.time.addEvent({
                         delay: 500,
                         callback: () => {
-                            console.log("2");
+                            // console.log("2");
                             this.setPosition(this.player.x, this.player.y).play(this.animations.born, true).setVisible(true)
                                 .on("animationcomplete", () => {
 
@@ -137,11 +139,11 @@ export class Ghost extends Enemy {
                                     const vecy = this.player.y - this.y;
                                     const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-                                    if (len < 50 && this.weapon.isFireable) {
+                                    if (len < 50 && this.weapon.isFireable && this.player.isAlive) {
                                         this.player.take_damage(this.weapon.stats.damage);
                                         this.weapon.fire();
                                     }
-                                    
+
                                     this.play(this.animations.move, true).setVisible(true).on("animationcomplete", () => {
                                     });
                                 });
@@ -150,6 +152,7 @@ export class Ghost extends Enemy {
                 });
                 this.nextTeleportTime = this.scene.time.now + this.COOLDOWNTELEPORT;
             } else {
+                // this.play(this.animations.idle);
             }
         } else {
             // this.weapon.destroy(this.scene);
