@@ -5,6 +5,7 @@ import { RedGate } from "../entity/red-gate.js";
 import { Computer } from "../objects/computer.js";
 import { HorizontalDoor } from "../objects/horizontal-door.js";
 import { VerticalDoor } from "../objects/vertical-door.js";
+import { Entity } from "../entity/entity.js";
 
 export class PlayerUI extends Phaser.Scene {
     constructor() {
@@ -34,6 +35,15 @@ export class PlayerUI extends Phaser.Scene {
         if (data.player) {
             this.player = data.player;
         }
+
+        //score
+        this.scoreText = this.add.text(this.scale.width - 400, 100, "Score: 0", {
+            fontFamily: GameConfig["font-family"],
+            fontSize: 50,
+            color: "snow",
+        }).setVisible(true).setOrigin(0.5);
+
+        this.score = 0;
 
         // you die
         this.udie = this.add.text(this.scale.width / 2, this.scale.height / 2, "YOU DIE !", {
@@ -194,5 +204,10 @@ export class PlayerUI extends Phaser.Scene {
                 this.scene.stop();
             }
         }
+
+        this.score = Entity.enemyDie * 100;
+        this.scoreText.setText("Score :" + this.score);
     }
+
+
 }

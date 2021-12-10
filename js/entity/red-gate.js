@@ -33,7 +33,7 @@ export class RedGate extends Enemy {
             key: "anims.red-gate",
             frameRate: 10,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers("spritesheet.gate", { start: 8 })
+            frames: this.anims.generateFrameNumbers("spritesheet.gate", { start: 8, end: 15 })
         })
 
         this.animations.die = this.animations.idle;

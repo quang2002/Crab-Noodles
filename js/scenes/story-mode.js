@@ -108,16 +108,9 @@ export class StoryMode extends GameScene {
         this.player = new GameConfig["player_type"](this, 0, 0);
         this.player.setWeapon(new LightSaber(this));
         //this.player.setWeapon(new Pistol(this, 0, 0));
-        this.player.setPosition(189 * 32, -50 * 32);
+        this.player.setPosition(15 * 32, 27 * 32);
 
         this.addAutoDoor();
-
-        // computers
-        new Computer(this, 22 * 32, 36 * 32, this.horizontalDoors[0]);
-        new Computer(this, 53 * 32, 25 * 32, this.verticalDoors[1]);
-        new Computer(this, 81 * 32, -65 * 32, this.horizontalDoors[8]);
-        new Computer(this, 145 * 32, 30 * 32, this.horizontalDoors[10]);
-        new Computer(this, 190 * 32, 53 * 32, this.verticalDoors[10]);
 
         // booms
         [
@@ -174,10 +167,10 @@ export class StoryMode extends GameScene {
         new Endurance(this, 48 * 32, 23 * 32);
         new Endurance(this, 40 * 32, 24 * 32);
         //room3
-        // new Ghost(this, 69 * 32, 11 * 32);
-        // new Ghost(this, 69 * 32, 10 * 32);
-        // new Ghost(this, 73 * 32, 11 * 32);
-        // new Ghost(this, 73 * 32, 10 * 32);
+        new Ghost(this, 69 * 32, 11 * 32);
+        new Ghost(this, 69 * 32, 10 * 32);
+        new Ghost(this, 73 * 32, 11 * 32);
+        new Ghost(this, 73 * 32, 10 * 32);
         new Endurance(this, 88 * 32, 25 * 32);
         new Endurance(this, 88 * 32, 22 * 32);
         new Endurance(this, 88 * 32, 28 * 32);
@@ -207,14 +200,14 @@ export class StoryMode extends GameScene {
         new Endurance(this, 188 * 32, 30 * 32);
         new Endurance(this, 182 * 32, 30 * 32);
         //room boss
-        // new Pirate(this, 178 * 32, -47 * 32, { hp: 1000 });
-        // new Pirate(this, 181 * 32, -47 * 32, { hp: 1000 });
-        // new Pirate(this, 184 * 32, -47 * 32, { hp: 1000 });
-        // new Pirate(this, 187 * 32, -47 * 32, { hp: 1000 });
-        // new Ghost(this, 178 * 32, -39 * 32, { hp: 1200 });
-        // new Ghost(this, 183 * 32, -39 * 32, { hp: 1200 });
-        // new Ghost(this, 188 * 32, -39 * 32, { hp: 1200 });
-        // new Ghost(this, 191 * 32, -39 * 32, { hp: 1200 });
+        new Pirate(this, 178 * 32, -47 * 32, { hp: 1000 });
+        new Pirate(this, 181 * 32, -47 * 32, { hp: 1000 });
+        new Pirate(this, 184 * 32, -47 * 32, { hp: 1000 });
+        new Pirate(this, 187 * 32, -47 * 32, { hp: 1000 });
+        new Ghost(this, 178 * 32, -39 * 32, { hp: 1200 });
+        new Ghost(this, 183 * 32, -39 * 32, { hp: 1200 });
+        new Ghost(this, 188 * 32, -39 * 32, { hp: 1200 });
+        new Ghost(this, 191 * 32, -39 * 32, { hp: 1200 });
         new Endurance(this, 178 * 32, -31 * 32, { hp: 1200 });
         new Endurance(this, 181 * 32, -31 * 32, { hp: 1200 });
         new Endurance(this, 184 * 32, -31 * 32, { hp: 1200 });
@@ -236,5 +229,11 @@ export class StoryMode extends GameScene {
         new Rocket(this, 186 * 32, 54 * 32);
         new Rocket(this, 183 * 32, -29 * 32);
 
+        // computers
+        new Computer(this, 22 * 32, 36 * 32, this.horizontalDoors[0]);
+        new Computer(this, 53 * 32, 25 * 32, this.verticalDoors[1]);
+        new Computer(this, 81 * 32, -65 * 32, this.horizontalDoors[8]);
+        new Computer(this, 145 * 32, 30 * 32, this.horizontalDoors[10]);
+        new Computer(this, 190 * 32, 53 * 32, this.verticalDoors[10]);
     }
 }

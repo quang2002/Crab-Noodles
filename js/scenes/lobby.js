@@ -31,8 +31,8 @@ export class LobbyScene extends GameScene {
         });
 
         scene.load.spritesheet("spritesheet-gate", "./assets/images/lobby/gate.png", {
-            frameWidth: 85,
-            frameHeight: 81
+            frameWidth: 96,
+            frameHeight: 96
         });
     }
 
@@ -58,13 +58,13 @@ export class LobbyScene extends GameScene {
         this.player.setWeapon(new Rocket(this, 0, 0));
 
         //this.player.setWeapon(new Drone(this, 0, 0));
-        // add a new gate1 png
+        
         // add gate animation
         this.anims.create({
             key: "anims-gate",
             frameRate: 7,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers("spritesheet-gate", { start: 1, end: 6 })
+            frames: this.anims.generateFrameNumbers("spritesheet-gate", { start: 0, end: 7 })
         });
 
         // add a new teleport-animation png
@@ -89,7 +89,7 @@ export class LobbyScene extends GameScene {
             // fade to black
             this.cameras.main.fadeOut(1000, 0, 0, 0).once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.themeSound.stop();
-                this.scene.stop("PlayerUI");
+                this.scene.stop("PlayerUI"); 
                 this.scene.start("ChooseStage");
             });
 

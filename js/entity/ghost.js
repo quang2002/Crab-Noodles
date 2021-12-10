@@ -82,22 +82,21 @@ export class Ghost extends Enemy {
     }
 
     movement() {
-        const vecx = this.player.x - this.x;
-        const vecy = this.player.y - this.y;
+        const vecx = this.player.vpos.x - this.vpos.x;
+        const vecy = this.player.vpos.y - this.vpos.y;
         const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
         if (len < 200)
             return { x: vecx / len * this.stats.cur.runningSpeed, y: vecy / len * this.stats.cur.runningSpeed };
 
-        if (500 > len && len > 200){
-            this.isSeeingPlayer = true;
+        if (600 > len && len > 200) {
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
         }
-    
-        if(!this.isSeeingPlayer)
+
+        if (!this.isSeeingPlayer)
             return { x: 0, y: 0 };
 
-        if (len > 500) {
+        if (len > 600) {
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
         }
 
@@ -106,7 +105,7 @@ export class Ghost extends Enemy {
 
 
     update() {
-
+        super.update();
         // weapon fire
         if (this.isAlive) {
             // this.weapon.setPosition(this.x, this.y);
@@ -114,51 +113,38 @@ export class Ghost extends Enemy {
 
             let vec = this.movement();
             // flip sprite
-            if (vec.x > 0) {
-                this.setFlipX(false);
-            } else if (vec.x < 0) {
-                this.setFlipX(true);
-            }
-
-            // flip sprite
             if (vec.y > 0) {
                 this.setFlipY(false);
             } else if (vec.y < 0) {
                 this.setFlipY(true);
             }
+
             const vecx = this.player.vpos.x - this.vpos.x;
             const vecy = this.player.vpos.y - this.vpos.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
-            // console.log(len);
-            
-            if (this.nextTeleportTime <= this.scene.time.now && len < 400) {
-                // this.stunTime = 50000;
+
+            if (this.nextTeleportTime <= this.scene.time.now && len < 500) {
+                this.stunTime = 50000;
                 this.play(this.animations.disappear, true).on("animationcomplete", () => {
-                    // this.setVisible(false);
-                    this.scene.time.addEvent({
-                        delay: 500,
-                        callback: () => {
-                            // console.log("2");
-                            this.setPosition(this.player.x, this.player.y).play(this.animations.born, true).setVisible(true)
-                                .on("animationcomplete", () => {
+                    this.setPosition(this.player.x, this.player.y).play(this.animations.born, true).setVisible(true)
+                        .on("animationcomplete", () => {
 
-                                    const vecx = this.player.x - this.x;
-                                    const vecy = this.player.y - this.y;
-                                    const len = Math.sqrt(vecx * vecx + vecy * vecy);
+                            const vecx = this.player.x - this.x;
+                            const vecy = this.player.y - this.y;
+                            const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
-                                    if (len < 50 && this.weapon.isFireable && this.player.isAlive) {
-                                        this.player.take_damage(this.weapon.stats.damage);
-                                        this.weapon.fire();
-                                    }
+                            if (len < 50 && this.weapon.isFireable && this.player.isAlive) {
+                                this.player.take_damage(this.weapon.stats.damage);
+                                this.weapon.fire();
+                            }
 
-                                    this.play(this.animations.move, true).setVisible(true).on("animationcomplete", () => {
-                                    });
-                                });
-                        }
-                    })
-                });
-                this.nextTeleportTime = this.scene.time.now + this.COOLDOWNTELEPORT;
+                            this.play(this.animations.move, true).setVisible(true).on("animationcomplete", () => {
+                            });
+                        });
+                    this.nextTeleportTime = this.scene.time.now + this.COOLDOWNTELEPORT;
+                })
             } else {
+                this.stunTime = 0;
                 // this.play(this.animations.idle);
             }
         } else {

@@ -54,12 +54,19 @@ export class StoryScene extends Phaser.Scene {
         }
         ).setOrigin(0.5, 0);
 
+
         //print story 
         var idx = 0;
         this.time.addEvent({
             delay: 50,
             loop: true,
             callback: () => {
+                if (this.input.keyboard.addKey(this.input.keyboard.addKey("H")).isDown) {
+                    GameConfig.scene_before_chooseplayer = StoryScene;
+                    this.themeSound.stop();
+                    this.scene.start("ChoosePlayer");
+                }
+
                 if (this.state < StoryScene.data.length) {
                     if (idx < StoryScene.data[this.state].text.length) {
                         this.image.setTexture(StoryScene.data[this.state].image);
