@@ -23,17 +23,9 @@ export class Ghost extends Enemy {
         this.randomVelocity = { x: 0, y: 0 };
         this.lastTime = 0;
 
-        this.teleportTime = 0;
-
         // add event for cooldown system
-        this.cooldownEvent = this.scene.time.addEvent({
-            loop: true,
-            delay: 10,
-            callback: () => {
-                if (this.teleportTime > 0) this.teleportTime -= 10;
-            }
-        });
-
+        this.COOLDOWNTELEPORT = 5000;
+        this.nextTeleportTime = this.scene.time.now;
     }
 
     create_anims() {
@@ -62,21 +54,19 @@ export class Ghost extends Enemy {
             key: "anims-enemy-ghost-born",
             frameRate: 10,
             repeat: 0,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-born", { start: 0, end: 16 })
+            frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-born", { start: 0, end: 11 }),
+            hideOnComplete: true
         });
 
         this.animations.disappear = this.scene.anims.create({
             key: "anims-enemy-ghost-disappear",
             frameRate: 10,
             repeat: 0,
-            frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-disappear", { start: 0, end: 16 })
+            frames: this.scene.anims.generateFrameNumbers("spritesheet.enemy-ghost-disappear", { start: 7, end: 16 }),
+            hideOnComplete: true
         });
 
         // console.log(this.animations.idle);
-    }
-
-    get isTeleportAble() {
-        return this.teleportTime <= 0;
     }
 
     static preload(scene) {
@@ -89,7 +79,6 @@ export class Ghost extends Enemy {
         }
     }
 
-    /*
     movement() {
         const vecx = this.player.x - this.x;
         const vecy = this.player.y - this.y;
@@ -107,48 +96,68 @@ export class Ghost extends Enemy {
 
         return { x: 0, y: 0 };
     }
-    */
-   
+
+
     update() {
-        super.update();
 
         // weapon fire
         if (this.isAlive) {
             // this.weapon.setPosition(this.x, this.y);
             // this.weapon.pointTo(this.player);
 
-            if (this.isTeleportAble) {
-                const vecx = this.player.x - this.x;
-                const vecy = this.player.y - this.y;
-                const len = Math.sqrt(vecx * vecx + vecy * vecy);
+            let vec = this.movement();
+            // flip sprite
+            if (vec.x > 0) {
+                this.setFlipX(false);
+            } else if (vec.x < 0) {
+                this.setFlipX(true);
+            }
 
-                this.stunTime = 5000;
+            // flip sprite
+            if (vec.y > 0) {
+                this.setFlipY(false);
+            } else if (vec.y < 0) {
+                this.setFlipY(true);
+            }
+
+            if (this.nextTeleportTime <= this.scene.time.now) {
+                // this.stunTime = 50000;
+                console.log(0);
                 this.play(this.animations.disappear, true).on("animationcomplete", () => {
-                    this.setPosition(this.player.x, this.player.y).playAfterDelay(this.animations.born, 1000).on("animationcomplete", () => {
-                        this.play(this.animations.move, true); 
-                        if (this.weapon.isFireable && len < 30 && this.player.isAlive) {
-                            this.player.take_damage(this.weapon.stats.damage);
-                            this.weapon.fire();
+                    console.log("1");
+                    // this.setVisible(false);
+                    this.scene.time.addEvent({
+                        delay: 500,
+                        callback: () => {
+                            console.log("2");
+                            this.setPosition(this.player.x, this.player.y).play(this.animations.born, true).setVisible(true)
+                                .on("animationcomplete", () => {
+
+                                    const vecx = this.player.x - this.x;
+                                    const vecy = this.player.y - this.y;
+                                    const len = Math.sqrt(vecx * vecx + vecy * vecy);
+
+                                    if (len < 50 && this.weapon.isFireable) {
+                                        this.player.take_damage(this.weapon.stats.damage);
+                                        this.weapon.fire();
+                                    }
+                                    
+                                    this.play(this.animations.move, true).setVisible(true).on("animationcomplete", () => {
+                                    });
+                                });
                         }
-                        this.teleportTime = 10000;
-                    });
+                    })
                 });
-
-                this.teleportTime = 10000;
-
-                // const vecx = this.player.x - this.x;
-                // const vecy = this.player.y - this.y;
-                // const len = Math.sqrt(vecx * vecx + vecy * vecy);
-    
-                // if (this.weapon.isFireable && len < 30 && this.player.isAlive) {
-                //     this.player.take_damage(this.weapon.stats.damage);
-                //     this.weapon.fire();
-                // }
+                this.nextTeleportTime = this.scene.time.now + this.COOLDOWNTELEPORT;
             } else {
-                this.stunTime = 5000;
-            }          
+            }
         } else {
             // this.weapon.destroy(this.scene);
+            if (!this.isDieAnimationPlayed) {
+                this.play(this.animations.die, true);
+                this.isDieAnimationPlayed = true;
+            }
+            this.setVelocity(0);
             this.body.destroy();
         }
 
@@ -159,12 +168,4 @@ export class Ghost extends Enemy {
         }
     }
 
-    /**
-     * override destroy
-     * @param {boolean} fromScene 
-     */
-     destroy(fromScene) {
-        this.cooldownEvent.destroy();
-        super.destroy(fromScene);
-    }
 }
