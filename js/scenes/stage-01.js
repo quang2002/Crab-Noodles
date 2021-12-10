@@ -61,9 +61,10 @@ export class Stage01 extends GameScene {
         new RedGate(this, 195, 1060);
         new Ghost(this, 70, 70);
 
-        // light
-        this.lights.enable();
-        this.newlight = this.lights.addLight().setRadius(500);
+        // // light
+        // this.lights.enable();
+        // this.newlight = this.lights.addLight().setRadius(500);
+
         this.robot = new Robot(this, 410, -400);
     }
 
@@ -71,9 +72,9 @@ export class Stage01 extends GameScene {
         super.update();
 
         // light
-        this.newlight.setPosition(this.player.x, this.player.y);
+        // this.newlight.setPosition(this.player.x, this.player.y);
 
-        this.sys.displayList.each(e => e.setPipeline("Light2D"));
+        //this.sys.displayList.each(e => e.setPipeline("Light2D"));
 
         if (Entity.instances.length == 1 && this.player.isAlive) {
             this.scene.start("Stage02");

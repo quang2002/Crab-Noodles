@@ -80,17 +80,17 @@ export class Ghost extends Enemy {
     }
 
     movement() {
-        const vecx = this.player.x - this.x;
-        const vecy = this.player.y - this.y;
+        const vecx = this.player.vpos.x - this.vpos.x;
+        const vecy = this.player.vpos.y - this.vpos.y;
         const len = Math.sqrt(vecx * vecx + vecy * vecy);
 
         if (len < 200)
             return { x: vecx / len * this.stats.cur.runningSpeed, y: vecy / len * this.stats.cur.runningSpeed };
 
-        if (500 > len && len > 200)
+        if (600 > len && len > 200)
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
 
-        if (len > 500) {
+        if (len > 600) {
             return { x: this.randomVelocity.x * this.stats.cur.speed, y: this.randomVelocity.y * this.stats.cur.speed };
         }
 
@@ -112,7 +112,7 @@ export class Ghost extends Enemy {
             } else if (vec.y < 0) {
                 this.setFlipY(true);
             }
-            
+
             const vecx = this.player.vpos.x - this.vpos.x;
             const vecy = this.player.vpos.y - this.vpos.y;
             const len = Math.sqrt(vecx * vecx + vecy * vecy);
@@ -140,7 +140,7 @@ export class Ghost extends Enemy {
             } else {
                 this.stunTime = 0;
                 // this.play(this.animations.idle);
-            } 
+            }
         } else {
             // this.weapon.destroy(this.scene);
             if (!this.isDieAnimationPlayed) {
