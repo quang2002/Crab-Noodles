@@ -21,6 +21,7 @@ export class ChoosePlayer extends GameScene {
     }
 
     create() {
+        super.create();
 
         this.buttonSound = this.sound.add("sounds.button");
 

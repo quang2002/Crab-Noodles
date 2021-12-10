@@ -17,10 +17,8 @@ export class Player extends Entity {
         super(scene, x, y, stats);
 
         window.player = this;
-        
-        scene.scene.launch("PlayerUI").get("PlayerUI")?.setData({
-            player: this,
-        });
+
+        scene.scene.launch("PlayerUI", { player: this });
 
         // camera config
         this.cameras = {

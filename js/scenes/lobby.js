@@ -37,6 +37,7 @@ export class LobbyScene extends GameScene {
     }
 
     create() {
+        super.create();
         //add theme sound
         this.themeSound = this.sound.add("sounds.lobby-theme", { loop: true });
         this.themeSound.play();

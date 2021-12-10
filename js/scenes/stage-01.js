@@ -26,6 +26,7 @@ export class Stage01 extends GameScene {
     }
 
     create() {
+        super.create();
         // add tilemap
         this.map = this.add.tilemap("maps.stage-01");
         const tilesets = [

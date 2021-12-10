@@ -23,7 +23,17 @@ export class PlayerUI extends Phaser.Scene {
         scene.load.image("ui.chat", "./assets/ui/chat.png");
     }
 
-    create() {
+    /**
+     * 
+     * @param {{
+     * player: Player
+     * }} data 
+     */
+    create(data) {
+        if (data.player) {
+            this.player = data.player;
+        }
+
         // you die
         this.udie = this.add.text(this.scale.width / 2, this.scale.height / 2, "YOU DIE !", {
             fontFamily: GameConfig["font-family"],
@@ -102,7 +112,7 @@ export class PlayerUI extends Phaser.Scene {
                 let timeDelay = 1000;
                 chatbox.getAt(1).text = "";
                 chatbox.setVisible(true);
-                
+
                 let idx = 0;
                 const event = this.time.addEvent({
                     delay: 50,
@@ -122,16 +132,6 @@ export class PlayerUI extends Phaser.Scene {
                     }
                 });
             });
-    }
-
-    /**
-     * setData
-     * @param {{player: Player}} data 
-     */
-    setData(data) {
-        if (data.player) {
-            this.player = data.player;
-        }
     }
 
     minimapIgnore() {

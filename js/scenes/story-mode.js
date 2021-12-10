@@ -78,6 +78,8 @@ export class StoryMode extends GameScene {
     }
 
     create() {
+        super.create();
+
         // add tilemap
         this.map = this.add.tilemap("maps.story-mode");
 

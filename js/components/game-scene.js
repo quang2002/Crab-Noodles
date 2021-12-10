@@ -4,6 +4,9 @@ export class GameScene extends Phaser.Scene {
 
     constructor(params) {
         super(params);
+    }
+
+    create() {
         Entity.instances = [];
         Entity.collision = [];
     }
