@@ -1,5 +1,6 @@
 import { GameConfig } from "../components/game-config.js";
 import { GameScene } from "../components/game-scene.js";
+import { BossLam } from "../entity/boss-lam.js";
 import { Entity } from "../entity/entity.js";
 import { Pirate } from "../entity/pirate.js";
 import { Player } from "../entity/player.js";
@@ -94,7 +95,14 @@ export class StoryMode extends GameScene {
         Entity.collision = [wall, objects, ground];
 
 
-        
+        /**
+         * @type {Player}
+         */
+        this.player = new GameConfig["player_type"](this, 0, 0);
+        this.player.setWeapon(new LightSaber(this));
+        this.player.setWeapon(new Pistol(this, 0, 0));
+        this.player.setPosition(15 * 32, 27 * 32);
+
         this.addAutoDoor();
 
         // computers
@@ -124,14 +132,6 @@ export class StoryMode extends GameScene {
             [89, -36],
             [89, -29],
         ].forEach(e => new Boom(this, e[0] * 32, e[1] * 32).setDepth(-1));
-
-        /**
-         * @type {Player}
-         */
-        this.player = new GameConfig["player_type"](this, 0, 0);
-        this.player.setWeapon(new LightSaber(this));
-        this.player.setWeapon(new Pistol(this, 0, 0));
-        this.player.setPosition(15 * 32, 27 * 32);
 
         // enemies
         new Pirate(this, 44 * 32, 47 * 32);

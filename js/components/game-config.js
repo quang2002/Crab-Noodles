@@ -48,6 +48,12 @@ export const GameConfig = {
         "red_gate": new StatsEntity({
             hp: 10000
         }),
+
+        "boss_lam": new StatsEntity({
+            hp: 50000,
+        }),
+
+        
     },
 
     "weapons": {
